@@ -5,6 +5,8 @@ import common.DBUtil;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +27,7 @@ public class Server {
     public Server() throws IOException {
         this.socket = new ServerSocket(SPORT);
         // set the production db
-        DBUtil.setConnectionString("jdbc:mysql://localhost:3306/sailing-club");
+        DBUtil.initDB("jdbc:mysql://localhost:3306/sailing-club", "sailing-club");
     }
 
     private void run() {
@@ -68,6 +70,14 @@ public class Server {
     }
 
     public static void main(final String[] v) throws IOException {
-        new Server().run();
+        DBUtil.initDB("jdbc:mariadb://localhost:3307/sailing-club", "sailing-club");
+
+        try {
+            DBUtil.dbConnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //new Server().run();
     }
 }

@@ -1,13 +1,17 @@
 package common;
 
+import ch.vorburger.mariadb4j.DB;
+import ch.vorburger.mariadb4j.DBConfigurationBuilder;
+
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 
 
-
 public class DBUtil {
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
 
     private static Connection conn = null;
 
@@ -16,9 +20,22 @@ public class DBUtil {
     /**
      * Setter for connection string. This enables the use of
      * a test db
-     * @param cStr
+     * @param cStr Connection String
+     * @param dbName Name of Database
      */
-    public static void setConnectionString(String cStr) {
+    public static void initDB(String cStr, String dbName) {
+        try {
+            DBConfigurationBuilder configBuilder = DBConfigurationBuilder.newBuilder();
+            configBuilder.setPort(3307);
+            String pathToDB = "backend/src/main/resources/" + dbName;
+            configBuilder.setDataDir(pathToDB);
+
+            DB db = DB.newEmbeddedDB(configBuilder.build());
+            db.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // Make it thread safe
         synchronized (DBUtil.class){
             connStr = cStr;
@@ -31,20 +48,9 @@ public class DBUtil {
      * @throws ClassNotFoundException
      */
     public static void dbConnect() throws SQLException, ClassNotFoundException {
-        //Setting MySql JDBC Driver
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySql JDBC Driver not found");
-            e.printStackTrace();
-            throw e;
-        }
-
-        System.out.println("MySql JDBC Driver Registered!");
-
         //Establish the MySql Connection using Connection String
         try {
-            conn = DriverManager.getConnection(connStr, "root", "pass");
+            conn = DriverManager.getConnection(connStr, "root", "");
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console" + e);
             e.printStackTrace();
