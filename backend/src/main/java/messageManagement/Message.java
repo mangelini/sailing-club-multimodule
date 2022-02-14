@@ -2,7 +2,7 @@ package messageManagement;
 
 import java.io.Serializable;
 
-// TODO Better genrics by restricting T only to Employee and Member
+// TODO Better generics by restricting T only to Employee and Member
 
 public class Message<T> implements Serializable {
   private static final long serialVersionUID = 1L;
