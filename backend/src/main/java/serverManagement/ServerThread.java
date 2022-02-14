@@ -43,6 +43,10 @@ public class ServerThread implements Runnable {
 
     while (true) {
       try {
+        if (os == null) {
+          os = new ObjectOutputStream(new BufferedOutputStream(this.socket.getOutputStream()));
+        }
+
         Object i = is.readObject();
 
         if (i instanceof Message) {
@@ -50,10 +54,6 @@ public class ServerThread implements Runnable {
 
           System.out.println("Thread receives message with id " + message.getSerialversionuid() + " from its client%n");
           Thread.sleep(SLEEPTIME);
-
-          if (os == null) {
-            os = new ObjectOutputStream(new BufferedOutputStream(this.socket.getOutputStream()));
-          }
 
           Reply replyMessage = message.getRequestType().execute(message);
 

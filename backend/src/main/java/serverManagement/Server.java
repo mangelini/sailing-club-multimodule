@@ -29,7 +29,7 @@ public class Server {
     public Server() throws IOException {
         this.socket = new ServerSocket(SPORT);
         // set the production db
-        DBUtil.initDB("jdbc:mysql://localhost:3306/sailing-club", "sailing-club");
+        DBUtil.initDB("jdbc:mysql://localhost:3307/sailing-club", "sailing-club");
     }
 
     private void run() {
@@ -39,6 +39,7 @@ public class Server {
             try {
                 // blocking code that waits for a request of connection by a client
                 Socket client = this.socket.accept();
+                System.out.println("connected");
 
                 // Add a new thread to the queue for the newly created
                 // connection of client
@@ -72,16 +73,6 @@ public class Server {
     }
 
     public static void main(final String[] v) throws IOException {
-        DBUtil.initDB("jdbc:mariadb://localhost:3307/sailing-club-test", "sailing-club-test");
-        Path currentRelativePath = Paths.get("");
-        String s = currentRelativePath.toAbsolutePath().toString();
-        System.out.println("Current absolute path is: " + s);
-
-        try {
-            DBUtil.dbConnect();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        //new Server().run();
+        new Server().run();
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0"
+      prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.AuthHomePageController">
+
+    <Label layoutX="320.0" layoutY="14.0" text="AUTH HOME PAGE">
+        <font>
+            <Font name="System Bold" size="18.0" />
+        </font>
+    </Label>
+    <Button layoutX="312.0" layoutY="148.0" mnemonicParsing="false" onAction="#onMemberClick" prefHeight="45.0" prefWidth="176.0" text="MEMBER" />
+    <Button layoutX="312.0" layoutY="227.0" mnemonicParsing="false" onAction="#onEmployeeClick" prefHeight="45.0" prefWidth="176.0" text="EMPLOYEE" />
+</Pane>

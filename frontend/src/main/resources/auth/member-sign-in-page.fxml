@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"
+      xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.sailingclub.frontend.controllers.member.MemberSignInPageController">
+    <children>
+        <Label layoutX="316.0" layoutY="7.0" text="MEMBER SIGN IN PAGE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="78.0" layoutY="117.0" text="Username">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="78.0" layoutY="199.0" text="Password">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+        <TextField fx:id="username" layoutX="194.0" layoutY="115.0" promptText="Enter Username" />
+        <PasswordField fx:id="password" layoutX="194.0" layoutY="197.0" promptText="Enter Password" />
+        <Button layoutX="332.0" layoutY="394.0" mnemonicParsing="false" onAction="#onSignInClick" prefHeight="44.0" prefWidth="137.0" text="SIGN IN" />
+        <Button onAction="#onGoBackClick" fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>

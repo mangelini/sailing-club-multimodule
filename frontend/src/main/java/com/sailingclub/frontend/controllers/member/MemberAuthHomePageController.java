@@ -1,6 +1,8 @@
 package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.authPages.AuthHomePage;
+import com.sailingclub.frontend.authPages.member.MemberSignInPage;
+import com.sailingclub.frontend.authPages.member.MemberSignUpPage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -22,7 +24,7 @@ public class MemberAuthHomePageController {
      * creates a new UserSignIn page
      */
     public void onMemberSignInClick(){
-        //new UserSignIn().render();
+        new MemberSignInPage().render();
     }
 
     /**
@@ -30,7 +32,7 @@ public class MemberAuthHomePageController {
      * creates a new UserSignUp page
      */
     public void onMemberSignUpClick(){
-        //new UserSignUp().render();
+        new MemberSignUpPage().render();
     }
 
     /**

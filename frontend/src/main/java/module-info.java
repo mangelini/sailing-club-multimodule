@@ -1,6 +1,7 @@
 module com.sailingclub.frontend {
     requires javafx.controls;
     requires javafx.fxml;
+    requires backend;
 
 
     opens com.sailingclub.frontend to javafx.fxml;
