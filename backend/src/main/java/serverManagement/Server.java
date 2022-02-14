@@ -1,5 +1,7 @@
 package serverManagement;
 
+import ch.vorburger.mariadb4j.DB;
+import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import common.DBUtil;
 
 import java.io.IOException;
@@ -70,14 +72,16 @@ public class Server {
     }
 
     public static void main(final String[] v) throws IOException {
-        DBUtil.initDB("jdbc:mariadb://localhost:3307/sailing-club", "sailing-club");
+        DBUtil.initDB("jdbc:mariadb://localhost:3307/sailing-club-test", "sailing-club-test");
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        System.out.println("Current absolute path is: " + s);
 
         try {
             DBUtil.dbConnect();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
-
         //new Server().run();
     }
 }

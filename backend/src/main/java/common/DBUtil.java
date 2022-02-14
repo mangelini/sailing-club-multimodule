@@ -5,6 +5,7 @@ import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -27,7 +28,8 @@ public class DBUtil {
         try {
             DBConfigurationBuilder configBuilder = DBConfigurationBuilder.newBuilder();
             configBuilder.setPort(3307);
-            String pathToDB = "backend/src/main/resources/" + dbName;
+            //String pathToDB = "backend/src/main/resources/" + dbName;
+            String pathToDB = new File("src/main/resources/"+dbName).getAbsolutePath();
             configBuilder.setDataDir(pathToDB);
 
             DB db = DB.newEmbeddedDB(configBuilder.build());
@@ -149,5 +151,13 @@ public class DBUtil {
             //Close connection
             dbDisconnect();
         }
+    }
+
+    /**
+     * Getter for connection object
+     * @return Connection
+     */
+    public static Connection getConn() {
+        return conn;
     }
 }
