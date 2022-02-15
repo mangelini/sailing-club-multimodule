@@ -1,7 +1,7 @@
 package messageManagement.member;
 
-import memberManagement.Member;
-import memberManagement.MemberDAO;
+import entities.Member;
+import dao.MemberDAO;
 import messageManagement.Command;
 import messageManagement.Message;
 import messageManagement.Reply;

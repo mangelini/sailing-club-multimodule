@@ -1,16 +1,25 @@
 package com.sailingclub.frontend.controllers.member;
 
+import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
+import entities.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import messageManagement.Message;
+import messageManagement.MessageType;
+import messageManagement.Reply;
+import messageManagement.ReplyType;
 
 import java.io.IOException;
 
 public class MemberSignUpPageController {
-    @FXML
-    private TextField username;
+    @FXML private TextField username;
+    @FXML private TextField name;
+    @FXML private TextField surname;
+    @FXML private TextField address;
+    @FXML private TextField fiscalCode;
     @FXML private PasswordField password1;
     @FXML private PasswordField password2;
     @FXML private Button backButton;
@@ -33,15 +42,27 @@ public class MemberSignUpPageController {
      * showing the error message
      */
     public void onSignUpClick(){
-        /*UserRepository userRepository = new UserRepository();
-
         if(password1.getText().equals(password2.getText())) {
-            if (userRepository.signUp(username.getText(), password1.getText(), errorString)) {
-                new UserAuthHomePage().render();
-            } else {
-                new Helpers().showStage(errorString[0]);
+            Member member = new Member(name.getText(), surname.getText(),
+                    address.getText(), fiscalCode.getText(), username.getText(), password1.getText());
+            Message<Member> message = new Message<Member>(member, MessageType.ADD_MEMBER, "");
+
+            try {
+                Helpers.getOutputStream().writeObject(message);
+
+                Object o = Helpers.getInputStream().readObject();
+                if (o instanceof  Reply){
+                    Reply reply = (Reply) o;
+                    if(reply.getResponseCode() == ReplyType.OK){
+                        new MemberAuthHomePage().render();
+                    } else {
+                        Helpers.showStage("Some error occurred in the Sign Up process");
+                    }
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        }*/
+        }
     }
 
     /**

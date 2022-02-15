@@ -3,8 +3,8 @@ package messageManagement.employee;
 
 // TODO This class still needs to be implemented
 
-import employeeManagement.Employee;
-import employeeManagement.EmployeeDAO;
+import entities.Employee;
+import dao.EmployeeDAO;
 import messageManagement.Command;
 import messageManagement.Message;
 import messageManagement.Reply;

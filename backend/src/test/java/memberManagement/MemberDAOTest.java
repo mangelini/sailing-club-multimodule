@@ -1,6 +1,8 @@
 package memberManagement;
 
 import common.DBUtil;
+import dao.MemberDAO;
+import entities.Member;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

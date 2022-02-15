@@ -4,9 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"
-      xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.sailingclub.frontend.controllers.member.MemberSignUpPageController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.member.MemberSignUpPageController">
     <children>
         <Label layoutX="316.0" layoutY="7.0" text="MEMBER SIGN UP PAGE">
             <font>
@@ -30,12 +28,16 @@
         </Label>
 
         <TextField fx:id="username" layoutX="194.0" layoutY="115.0" promptText="Enter Username" />
+        <TextField fx:id="name" layoutX="194.0" layoutY="115.0" promptText="Enter Name" />
+        <TextField fx:id="surnname" layoutX="194.0" layoutY="115.0" promptText="Enter Name" />
+        <TextField fx:id="address" layoutX="194.0" layoutY="115.0" promptText="Enter Address" />
+        <TextField fx:id="fiscalCode" layoutX="194.0" layoutY="115.0" promptText="Enter Fiscal Code" />
         <PasswordField fx:id="password1" layoutX="194.0" layoutY="197.0" promptText="Enter Password" />
         <PasswordField fx:id="password2" layoutX="225.0" layoutY="280.0" promptText="Re Enter Password" />
 
 
         <Button layoutX="332.0" layoutY="394.0" mnemonicParsing="false" onAction="#onSignUpClick" prefHeight="44.0" prefWidth="137.0" text="SIGN IN" />
-        <Button onAction="#onGoBackClick" fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>

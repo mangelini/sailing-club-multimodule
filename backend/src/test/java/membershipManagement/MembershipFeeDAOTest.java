@@ -1,10 +1,9 @@
 package membershipManagement;
 
-import boatManagement.Boat;
 import common.DBUtil;
-import feesManagement.MembershipFee;
-import feesManagement.MembershipFeeDAO;
-import memberManagement.Member;
+import entities.MembershipFee;
+import dao.MembershipFeeDAO;
+import entities.Member;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

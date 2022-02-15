@@ -1,8 +1,8 @@
 
 package messageManagement.employee;
 
-import employeeManagement.Employee;
-import employeeManagement.EmployeeDAO;
+import entities.Employee;
+import dao.EmployeeDAO;
 import messageManagement.Command;
 import messageManagement.Message;
 import messageManagement.Reply;

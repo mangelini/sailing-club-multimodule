@@ -30,6 +30,10 @@ public class Message<T> implements Serializable {
     this.query = query;
   }
 
+  public Message(MessageType requestType){
+    this.requestType = requestType;
+  }
+
   public static long getSerialversionuid() {
     return serialVersionUID;
   }

@@ -1,6 +1,8 @@
 package raceManagement;
 
 import common.DBUtil;
+import dao.RaceDAO;
+import entities.Race;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

@@ -1,15 +1,15 @@
 package membershipManagement;
 
-import boatManagement.Boat;
-import boatManagement.BoatDAO;
+import entities.Boat;
+import dao.BoatDAO;
 import common.DBUtil;
-import feesManagement.RegistrationFee;
-import feesManagement.RegistrationFeeDAO;
-import memberManagement.Member;
+import entities.RegistrationFee;
+import dao.RegistrationFeeDAO;
+import entities.Member;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import raceManagement.Race;
-import raceManagement.RaceDAO;
+import entities.Race;
+import dao.RaceDAO;
 
 import java.sql.Connection;
 import java.util.ArrayList;

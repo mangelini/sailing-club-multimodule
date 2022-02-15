@@ -3,4 +3,5 @@ module backend {
     requires mariaDB4j.core;
     requires java.sql.rowset;
     exports messageManagement to com.sailingclub.frontend;
+    exports entities to com.sailingclub.frontend;
 }

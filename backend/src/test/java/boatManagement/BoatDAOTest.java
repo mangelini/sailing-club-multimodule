@@ -1,8 +1,10 @@
 package boatManagement;
 
 import common.DBUtil;
-import memberManagement.Member;
-import memberManagement.MemberDAO;
+import dao.BoatDAO;
+import entities.Boat;
+import entities.Member;
+import dao.MemberDAO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

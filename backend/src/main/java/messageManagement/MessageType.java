@@ -9,7 +9,7 @@ import messageManagement.member.LoginMemberCommand;
 public enum MessageType {
   LOGIN_EMPLOYEE(new LoginEmployeeCommand()), ADD_EMPLOYEE(new AddEmployeeCommand()),
   GET_EMPLOYEE(new GetEmployeeCommand()), LOGIN_MEMBER(new LoginMemberCommand()),
-  ADD_MEMBER(new AddMemberCommand());
+  ADD_MEMBER(new AddMemberCommand()), CONNECTION_ESTABLISHED(new ConnectionEstablishedCommand());
 
   // GET_MEMBER
 

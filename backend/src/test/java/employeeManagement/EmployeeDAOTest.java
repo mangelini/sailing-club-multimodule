@@ -1,14 +1,11 @@
 package employeeManagement;
 
 import common.DBUtil;
-import org.junit.jupiter.api.AfterEach;
+import dao.EmployeeDAO;
+import entities.Employee;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
