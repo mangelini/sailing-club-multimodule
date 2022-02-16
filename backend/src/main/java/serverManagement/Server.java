@@ -1,14 +1,10 @@
 package serverManagement;
 
-import ch.vorburger.mariadb4j.DB;
-import ch.vorburger.mariadb4j.DBConfigurationBuilder;
 import common.DBUtil;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +25,7 @@ public class Server {
     public Server() throws IOException {
         this.socket = new ServerSocket(SPORT);
         // set the production db
-        DBUtil.initDB("jdbc:mysql://localhost:3307/sailing-club", "sailing-club");
+        DBUtil.initDB("jdbc:mysql://localhost:3306/sailing-club", "com.mysql.cj.jdbc.Driver");
     }
 
     private void run() {
@@ -39,17 +35,14 @@ public class Server {
             try {
                 // blocking code that waits for a request of connection by a client
                 Socket client = this.socket.accept();
-                System.out.println("connected");
 
                 // Add a new thread to the queue for the newly created
                 // connection of client
                 this.threadPool.execute(new ServerThread(this, client));
             } catch (Exception e){
-                e.printStackTrace();
-                break;
-            } finally {
+            } /*finally {
               this.threadPool.shutdown();
-            }
+            }*/
         }
     }
 

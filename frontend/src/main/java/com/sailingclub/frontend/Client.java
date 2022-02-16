@@ -2,6 +2,7 @@ package com.sailingclub.frontend;
 
 import messageManagement.Message;
 import messageManagement.MessageType;
+import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 import java.io.BufferedInputStream;
@@ -37,6 +38,13 @@ public class Client {
 
             if (Helpers.getInputStream() == null){
                 Helpers.setInputStream(new ObjectInputStream(new BufferedInputStream(client.getInputStream())));
+            }
+
+            Object o = Helpers.getInputStream().readObject();
+
+            if(o instanceof Reply){
+                Reply reply = (Reply) o;
+                System.out.println(reply.getResponseCode());
             }
 
             App.startFrontend();

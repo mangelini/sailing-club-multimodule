@@ -1,6 +1,8 @@
 package serverManagement;
 
+import entities.Member;
 import messageManagement.Message;
+import messageManagement.MessageType;
 import messageManagement.Reply;
 
 import java.io.BufferedInputStream;
@@ -49,9 +51,16 @@ public class ServerThread implements Runnable {
           if (os == null) {
             os = new ObjectOutputStream(new BufferedOutputStream(this.socket.getOutputStream()));
           }
+
           Message message = (Message) i;
 
-          Thread.sleep(SLEEPTIME);
+          Object o = message.getUser();
+          if (o instanceof Member){
+            Member member = (Member) o;
+            System.out.println(member.getID());
+          }
+
+          //if(message.getRequestType() == MessageType.CONNECTION_ESTABLISHED) continue;
 
           Reply replyMessage = message.getRequestType().execute(message);
 
@@ -59,8 +68,7 @@ public class ServerThread implements Runnable {
           os.flush();
         }
       } catch (Exception e) {
-        e.printStackTrace();
-        System.exit(0);
+        break;
       }
     }
   }

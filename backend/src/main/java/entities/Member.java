@@ -1,13 +1,10 @@
 package entities;
 
 
-import entities.Boat;
-import common.User;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Member extends User implements Serializable {
+public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String surname;
@@ -15,14 +12,21 @@ public class Member extends User implements Serializable {
     private String fiscalCode;
     private ArrayList<Boat> boats;
     private Integer ID;
+    private String username;
+    private String password;
 
     public Member(String name, String surname, String address, String fiscalCode, String Username, String Password){
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.fiscalCode = fiscalCode;
-        super.setPassword(Password);
-        super.setUsername(Username);
+        this.username = Username;
+        this.password = Password;
+    }
+
+    public Member(String username, String password){
+        this.username = username;
+        this.password = password;
     }
 
     /**
@@ -83,5 +87,36 @@ public class Member extends User implements Serializable {
      */
     public void setID(Integer ID){
         this.ID = ID;
+    }
+
+    /**
+     * Getter for username
+     * @return Username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Getter for password
+     * @return Password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Setter for password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Setter for username
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

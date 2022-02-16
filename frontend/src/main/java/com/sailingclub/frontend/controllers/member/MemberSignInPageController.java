@@ -1,10 +1,17 @@
 package com.sailingclub.frontend.controllers.member;
 
+import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
+import com.sailingclub.frontend.memberPages.MemberHomePage;
+import entities.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import messageManagement.Message;
+import messageManagement.MessageType;
+import messageManagement.Reply;
+import messageManagement.ReplyType;
 
 import java.io.IOException;
 
@@ -29,13 +36,25 @@ public class MemberSignInPageController {
      * showing the error message
      */
     public void onSignInClick(){
-        /*UserRepository userRepository = new UserRepository();
+        Member member = new Member(username.getText(), password.getText());
+        member.setID(1);
+        Message<Member> message = new Message<Member>(member, MessageType.LOGIN_MEMBER, "");
 
-        if(userRepository.signIn(username.getText(), password.getText())){
-            new UserHomePage().render();
-        } else {
-            new Helpers().showStage("Some error occurred in the Sign In process");
-        }*/
+        try {
+            Helpers.getOutputStream().writeObject(message);
+
+            Object o = Helpers.getInputStream().readObject();
+            if (o instanceof Reply){
+                Reply reply = (Reply) o;
+                if(reply.getResponseCode() == ReplyType.OK){
+                    new MemberHomePage().render();
+                } else {
+                    Helpers.showStage("Some error occurred in the Sign Up process");
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
