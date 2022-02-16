@@ -72,6 +72,32 @@ public class MemberDAO {
   }
 
   /**
+   * Search for specified member in db
+   * @param clientMember Member that we want to authenticate
+   * @return Member with all fields initialized
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static Member logIn(Member clientMember) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM member WHERE Username='" + clientMember.getUsername() +
+            "' AND Password='" + clientMember.getPassword() + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getMemberFromResultSet method and get member object
+      Member actualMember = getMemberFromResultSet(rsMem);
+
+      return actualMember;
+    } catch (SQLException e) {
+      System.out.println("While searching a member with " + clientMember.getUsername() + " username, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
+  /**
    * Search for a specific member inside Member's DB table
    * 
    * @param Username Surname of target member

@@ -14,17 +14,20 @@ public class LoginEmployeeCommand implements Command {
   @Override
   public Reply execute(Message message) {
     Reply replyMessage = null;
+    Employee employee = null;
 
     try {
       // TODO better way to handle generics
       Employee clientEmployee = (Employee) message.getUser();
-      Employee employee = EmployeeDAO.searchEmployee(clientEmployee.getUsername());
-
-      if (employee != null) {
-        replyMessage = new Reply(ReplyType.OK, employee);
-      }
+      employee = EmployeeDAO.logIn(clientEmployee);
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      if (employee != null) {
+        replyMessage = new Reply(ReplyType.OK, employee);
+      } else {
+        replyMessage = new Reply(ReplyType.NOT_FOUND);
+      }
     }
 
     return replyMessage;

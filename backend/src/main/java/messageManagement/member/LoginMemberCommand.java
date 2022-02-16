@@ -19,12 +19,14 @@ public class LoginMemberCommand implements Command {
     try {
       Member clientMember = (Member) message.getUser();
 
-      member = MemberDAO.searchMember(clientMember.getUsername());
+      member = MemberDAO.logIn(clientMember);
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
       if (member != null)
         replyMessage = new Reply(ReplyType.OK, member);
+      else
+        replyMessage = new Reply(ReplyType.NOT_FOUND);
     }
 
     return replyMessage;

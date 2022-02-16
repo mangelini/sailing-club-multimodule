@@ -144,12 +144,30 @@ public class EmployeeDAO {
     }
   }
 
+  public static Employee logIn(Employee clientEmployee) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM employee WHERE Username='" + clientEmployee.getUsername() +
+            "' AND Password='" + clientEmployee.getPassword() + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsEmp = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
+      Employee employee = getEmployeeFromResultSet(rsEmp);
+
+      return employee;
+    } catch (SQLException e) {
+      System.out.println("While searching an employee with " + clientEmployee.getUsername() + " username, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
   private static Employee getEmployeeFromResultSet(ResultSet rsEmp) throws SQLException {
-    Employee employee = new Employee();
+    Employee employee = null;
 
     if (rsEmp.next()) {
-      employee.setUsername(rsEmp.getString("Username"));
-      employee.setPassword(rsEmp.getString("Password"));
+      employee = new Employee(rsEmp.getString("Username"), rsEmp.getString("Password"));
       employee.setID(rsEmp.getInt("ID"));
     }
 

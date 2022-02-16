@@ -36,9 +36,8 @@ public class MemberSignInPageController {
      * showing the error message
      */
     public void onSignInClick(){
-        Member member = new Member(username.getText(), password.getText());
-        member.setID(1);
-        Message<Member> message = new Message<Member>(member, MessageType.LOGIN_MEMBER, "");
+        Member insertedMember = new Member(username.getText(), password.getText());
+        Message<Member> message = new Message<Member>(insertedMember, MessageType.LOGIN_MEMBER, "");
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -48,6 +47,8 @@ public class MemberSignInPageController {
                 Reply reply = (Reply) o;
                 if(reply.getResponseCode() == ReplyType.OK){
                     new MemberHomePage().render();
+                } else if (reply.getResponseCode() == ReplyType.NOT_FOUND) {
+                    Helpers.showStage("Credentials are not right");
                 } else {
                     Helpers.showStage("Some error occurred in the Sign Up process");
                 }
