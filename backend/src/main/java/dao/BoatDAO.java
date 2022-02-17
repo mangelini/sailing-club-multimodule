@@ -16,7 +16,9 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
+  public static boolean insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
+    boolean boatAdded = false;
+
     String updateStmt = "INSERT INTO boat (Name, Owner, Length) "
         + "VALUES ('" + boat.getName() + "', '" + boat.getOwner().getID() + "', '" + boat.getLength() + "')";
 
@@ -25,7 +27,11 @@ public class BoatDAO {
     } catch (SQLException e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
+    } finally {
+      boatAdded = true;
     }
+
+    return boatAdded;
   }
 
   /**

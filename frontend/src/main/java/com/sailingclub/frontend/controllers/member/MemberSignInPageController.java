@@ -46,7 +46,7 @@ public class MemberSignInPageController {
             if (o instanceof Reply){
                 Reply reply = (Reply) o;
                 if(reply.getResponseCode() == ReplyType.OK){
-                    new MemberHomePage().render();
+                    new MemberHomePage((Member) reply.getResults().get(0)).render();
                 } else if (reply.getResponseCode() == ReplyType.NOT_FOUND) {
                     Helpers.showStage("Credentials are not right");
                 } else {

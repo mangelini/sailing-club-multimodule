@@ -23,7 +23,6 @@ public class MemberSignUpPageController {
     @FXML private PasswordField password1;
     @FXML private PasswordField password2;
     @FXML private Button backButton;
-    String errorString[] = {""};
 
 
     /**
@@ -32,6 +31,14 @@ public class MemberSignUpPageController {
     @FXML
     public void initialize(){
         this.backButton.setStyle("-fx-background-radius: 5em; ");
+
+        // Restrict fiscal code textfield to 16 characters
+        this.fiscalCode.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 16) {
+                String s = fiscalCode.getText().substring(0, 16);
+                fiscalCode.setText(s);
+            }
+        });
     }
 
     /**

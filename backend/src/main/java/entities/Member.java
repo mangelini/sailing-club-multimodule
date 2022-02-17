@@ -69,8 +69,20 @@ public class Member implements Serializable {
         this.boats.add(boat);
     }
 
+    /**
+     * Removes the specified boat
+     * @param boat Given boat
+     */
     public void removeBoat(Boat boat){
         this.boats.remove(boat);
+    }
+
+    /**
+     * Returns the boat to add to db
+     * @return Boat
+     */
+    public Boat getBoatToAdd() {
+        return this.boats.get(0);
     }
 
     /**
