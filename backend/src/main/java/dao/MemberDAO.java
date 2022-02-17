@@ -15,7 +15,9 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertMember(Member member) throws SQLException, ClassNotFoundException {
+  public static boolean insertMember(Member member) throws SQLException, ClassNotFoundException {
+    boolean memAdded = false;
+
     String updateStmt = "INSERT INTO member (Name, Surname, Address, FiscalCode, Username, Password) "
         + "VALUES ('" + member.getName() + "', '" + member.getSurname()
         + "', '" + member.getAddress() + "', '" + member.getFiscalCode() + "', '"
@@ -26,7 +28,11 @@ public class MemberDAO {
     } catch (SQLException e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
+    } finally {
+      memAdded = true;
     }
+
+    return memAdded;
   }
 
   /**

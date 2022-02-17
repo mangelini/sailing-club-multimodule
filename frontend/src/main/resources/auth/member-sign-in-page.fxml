@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"
-      xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.sailingclub.frontend.controllers.member.MemberSignInPageController">
     <children>
         <Label layoutX="316.0" layoutY="7.0" text="MEMBER SIGN IN PAGE">

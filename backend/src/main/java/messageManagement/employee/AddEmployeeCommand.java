@@ -14,14 +14,19 @@ public class AddEmployeeCommand implements Command {
   @Override
   public Reply execute(Message message) {
     Reply replyMessage = null;
+    boolean empAdded = false;
 
     try {
       Employee clientEmployee = (Employee) message.getUser();
-      EmployeeDAO.insertEmployee(clientEmployee);
+      empAdded = EmployeeDAO.insertEmployee(clientEmployee);
 
-      replyMessage = new Reply(ReplyType.OK);
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      if(empAdded)
+        replyMessage = new Reply(ReplyType.OK);
+      else
+        replyMessage = new Reply(ReplyType.ERROR);
     }
 
     return replyMessage;

@@ -55,7 +55,7 @@ public class MemberSignUpPageController {
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
                         new MemberAuthHomePage().render();
-                    } else {
+                    } else if(reply.getResponseCode() == ReplyType.ERROR) {
                         Helpers.showStage("Some error occurred in the Sign Up process");
                     }
                 }

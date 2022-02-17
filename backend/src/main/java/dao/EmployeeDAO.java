@@ -16,7 +16,9 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
+  public static boolean insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
+    boolean empAdded = false;
+
     String updateStmt = "INSERT INTO employee (Username, Password) "
         + "VALUES ('" + employee.getUsername() + "', '" + employee.getPassword() + "')";
 
@@ -25,7 +27,11 @@ public class EmployeeDAO {
     } catch (SQLException e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
+    } finally {
+      empAdded = true;
     }
+
+    return empAdded;
   }
 
   /**
