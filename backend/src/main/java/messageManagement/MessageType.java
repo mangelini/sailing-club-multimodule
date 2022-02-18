@@ -3,17 +3,13 @@ package messageManagement;
 import messageManagement.employee.AddEmployeeCommand;
 import messageManagement.employee.GetEmployeeCommand;
 import messageManagement.employee.LoginEmployeeCommand;
-import messageManagement.member.AddBoatCommand;
-import messageManagement.member.AddMemberCommand;
-import messageManagement.member.LoginMemberCommand;
+import messageManagement.member.*;
 
 public enum MessageType {
   LOGIN_EMPLOYEE(new LoginEmployeeCommand()), ADD_EMPLOYEE(new AddEmployeeCommand()),
   GET_EMPLOYEE(new GetEmployeeCommand()), LOGIN_MEMBER(new LoginMemberCommand()),
   ADD_MEMBER(new AddMemberCommand()), CONNECTION_ESTABLISHED(new ConnectionEstablishedCommand()),
-  ADD_BOAT(new AddBoatCommand());
-
-  // GET_MEMBER
+  ADD_BOAT(new AddBoatCommand()), REMOVE_BOAT(new RemoveBoatCommand()), GET_ALL_BOATS(new GetAllBoatsCommand());
 
   private Command command;
 

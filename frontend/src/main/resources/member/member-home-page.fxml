@@ -17,7 +17,7 @@
         </font>
     </Button>
    <Button layoutX="338.0" layoutY="138.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" onAction="#onAddBoatClick" text="ADD BOAT" />
-   <Button layoutX="338.0" layoutY="198.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="REMOVE BOAT" />
+   <Button layoutX="338.0" layoutY="198.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" onAction="#onRemoveBoatClick" text="REMOVE BOAT" />
    <Button layoutX="338.0" layoutY="259.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="PAY FEES" />
    <Button layoutX="338.0" layoutY="318.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="RACES" />
 </Pane>
