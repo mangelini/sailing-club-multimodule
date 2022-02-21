@@ -91,10 +91,8 @@ create table notify_storage_fee
     ID         int auto_increment
         primary key,
     StorageFee int        not null,
-    Boat       int        not null,
     Sent       tinyint(1) not null,
-    constraint notify_storage_fee_boat_ID_fk
-        foreign key (Boat) references boat (ID),
     constraint notify_storage_fee_storage_fee_ID_fk
         foreign key (StorageFee) references storage_fee (ID)
 );
+
