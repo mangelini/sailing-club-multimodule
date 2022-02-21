@@ -44,7 +44,7 @@ public class EmployeeSignInPageController {
             if (o instanceof Reply){
                 Reply reply = (Reply) o;
                 if(reply.getResponseCode() == ReplyType.OK){
-                    new EmployeeHomePage().render();
+                    new EmployeeHomePage((Employee) ((Reply) o).getResults().get(0)).render();
                 } else if (reply.getResponseCode() == ReplyType.NOT_FOUND) {
                     Helpers.showStage("Credentials are not right");
                 } else {

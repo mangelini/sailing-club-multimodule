@@ -60,8 +60,6 @@ public class ServerThread implements Runnable {
             System.out.println(member.getID());
           }
 
-          //if(message.getRequestType() == MessageType.CONNECTION_ESTABLISHED) continue;
-
           Reply replyMessage = message.getRequestType().execute(message);
 
           os.writeObject(replyMessage);

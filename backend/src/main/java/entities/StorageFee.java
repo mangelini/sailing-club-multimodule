@@ -8,19 +8,29 @@ import java.util.Date;
 public class StorageFee implements Serializable {
     private static final long serialVersionUID = 1L;
     private Boat boat;
-    private java.sql.Date date;
+    private java.sql.Timestamp date;
     private Double fee;
     private Integer ID;
 
     /**
-     * Constructor for the Storage Fee Entity
+     * Constructor for the Storage Fee Entity for DB records
      * @param boat Boat for which the fee needs to be paid
      * @param date Date of the transaction
      * @param fee Fee for the storage of a boat
      */
-    public StorageFee(Boat boat, java.sql.Date date, Double fee){
+    public StorageFee(Boat boat, java.sql.Timestamp date, Double fee){
         this.boat = boat;
         this.date = date;
+        this.fee = calculateFee(boat.getLength());
+    }
+
+    /**
+     * Constructor for the Storage Fee Entity for Client side
+     * @param boat Boat for which the fee needs to be paid
+     */
+    public StorageFee(Boat boat){
+        this.boat = boat;
+        this.date = new java.sql.Timestamp(new java.util.Date().getTime());
         this.fee = calculateFee(boat.getLength());
     }
 
@@ -50,7 +60,7 @@ public class StorageFee implements Serializable {
      * Getter for date of selected Storage Fee record
      * @return Date
      */
-    public Date getDate() {
+    public java.sql.Timestamp getDate() {
         return this.date;
     }
 

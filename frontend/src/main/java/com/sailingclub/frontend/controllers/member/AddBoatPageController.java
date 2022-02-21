@@ -4,6 +4,7 @@ import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.memberPages.MemberHomePage;
 import entities.Boat;
 import entities.Member;
+import entities.StorageFee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -44,6 +45,7 @@ public class AddBoatPageController {
                 if (o instanceof Reply){
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
+                        payStoageFee(boatToAdd);
                         new MemberHomePage(currentMember).render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
                         Helpers.showStage("Some error occurred in the Add Boat process");
@@ -51,6 +53,22 @@ public class AddBoatPageController {
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    // TODO this is temporary, should be in PayStorageFeesPage
+    private void payStoageFee(Boat boat) throws IOException, ClassNotFoundException {
+        StorageFee storageFee = new StorageFee(boat);
+        Message<Member> message = new Message<>(currentMember, MessageType.PAY_STORAGE_FEE, "", storageFee);
+
+        Helpers.getOutputStream().writeObject(message);
+
+        Object o = Helpers.getInputStream().readObject();
+        if (o instanceof Reply) {
+            Reply reply = (Reply) o;
+            if (reply.getResponseCode() == ReplyType.ERROR) {
+                throw new IOException();
             }
         }
     }

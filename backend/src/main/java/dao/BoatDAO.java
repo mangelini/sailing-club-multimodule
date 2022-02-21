@@ -126,12 +126,36 @@ public class BoatDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
+      // Send ResultSet to the getBoatsFromResultSet method and get boat object
       ArrayList<Boat> boats = getBoatsFromResultSet(rsBoats);
 
       return boats;
     } catch (SQLException e) {
       System.out.println("While searching a boat with " + member.getID() + " owner ID, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
+  /**
+   * Returns all boats
+   * @return ArrayList of boats
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
+  public static ArrayList<Boat> getAllBoats() throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM boat";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getBoatsFromResultSet method and get boats array
+      ArrayList<Boat> boats = getBoatsFromResultSet(rsBoats);
+
+      return boats;
+    } catch (SQLException e) {
+      e.printStackTrace();
       // Return exception
       throw e;
     }

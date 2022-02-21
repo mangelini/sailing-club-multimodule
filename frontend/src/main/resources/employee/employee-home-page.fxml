@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sailingclub.frontend.controllers.employee.EmployeeHomePageController"
-            prefHeight="400.0" prefWidth="600.0">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.employee.EmployeeHomePageController">
+    <children>
+        <Label layoutX="299.0" layoutY="14.0" text="EMPLOYEE HOME PAGE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
 
-</AnchorPane>
+        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+        <Button layoutX="306.0" layoutY="138.0" mnemonicParsing="false" onAction="#onNotifyMembershipFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY MEMBERSHIP FEES" />
+        <Button layoutX="306.0" layoutY="198.0" mnemonicParsing="false" onAction="#onNotifyStorageFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY STORAGE FEES" />
+        <Button layoutX="306.0" layoutY="259.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="CHECK PAYMENTS" />
+        <Button layoutX="306.0" layoutY="318.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="MODIFY MEMBERS" />
+    </children>
+</Pane>

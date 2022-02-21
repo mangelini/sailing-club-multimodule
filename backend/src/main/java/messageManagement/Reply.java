@@ -51,4 +51,8 @@ public class Reply implements Serializable {
   public boolean wasOk() {
     return this.responseCode == ReplyType.OK;
   }
+
+  public void addResult(Serializable obj){
+    this.results.add(obj);
+  }
 }
