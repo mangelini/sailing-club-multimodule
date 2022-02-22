@@ -108,6 +108,19 @@ public class StorageFeeDAO {
     }
   }
 
+  public static void deleteStorageFeeByBoat(Integer boatID)
+          throws SQLException, ClassNotFoundException {
+    String updateStmt = "DELETE FROM storage_fee WHERE Boat='" + boatID + "'";
+
+    // Execute DELETE operation
+    try {
+      DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (SQLException e) {
+      System.out.print("Error occurred while DELETE Operation: " + e);
+      throw e;
+    }
+  }
+
   /**
    * Search for a Storage Fees of a specific date within DB table
    *
@@ -139,9 +152,9 @@ public class StorageFeeDAO {
 
     if (rs.next()) {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
-      java.sql.Timestamp sqlDate = new java.sql.Timestamp(rs.getDate("Date").getTime());
+      //java.sql.Timestamp sqlDate = new java.sql.Timestamp(rs.getDate("Date").getTime());
 
-      storageFee = new StorageFee(boat, sqlDate, rs.getDouble("Fee"));
+      storageFee = new StorageFee(boat, rs.getTimestamp("Date"), rs.getDouble("Fee"));
       storageFee.setID(rs.getInt("ID"));
     }
 

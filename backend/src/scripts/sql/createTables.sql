@@ -33,9 +33,9 @@ create table membership_fee
 (
     ID     int auto_increment
         primary key,
-    Member int      not null,
-    Date   datetime not null,
-    Fee    double   not null,
+    Member int       not null,
+    Date   timestamp not null,
+    Fee    double    not null,
     constraint membership_fee_FK
         foreign key (Member) references member (ID)
 );
@@ -59,7 +59,7 @@ create table race
         primary key,
     Name     varchar(100) not null,
     Location varchar(100) not null,
-    Date     date         not null
+    Date     timestamp    not null
 );
 
 create table registration_fee
@@ -79,9 +79,9 @@ create table storage_fee
 (
     ID   int auto_increment
         primary key,
-    Boat int      not null,
-    Date datetime not null,
-    Fee  double   not null,
+    Boat int       not null,
+    Date timestamp not null,
+    Fee  double    not null,
     constraint storage_fee_FK
         foreign key (Boat) references boat (ID)
 );
@@ -95,4 +95,5 @@ create table notify_storage_fee
     constraint notify_storage_fee_storage_fee_ID_fk
         foreign key (StorageFee) references storage_fee (ID)
 );
+
 

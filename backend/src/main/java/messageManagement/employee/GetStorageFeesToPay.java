@@ -15,12 +15,11 @@ import messageManagement.ReplyType;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 public class GetStorageFeesToPay implements Command {
     Reply replyMessage = null;
-    ArrayList<Date> dates = null;
-    ArrayList<Member> owners = null;
-    ArrayList<Boat> boats = null;
+    ArrayList<StorageFee> fees = new ArrayList<StorageFee>();
 
     @Override
     public Reply execute(Message message) {
@@ -32,23 +31,17 @@ public class GetStorageFeesToPay implements Command {
                 StorageFee storageFee = StorageFeeDAO.searchExpiredStorageFeeOfBoat(b.getID());
 
                 if (storageFee != null){
-                    // convert timestamp to Date
-                    dates.add(new Date(storageFee.getDate().getTime()));
-                    owners.add(b.getOwner());
-                    boats.add(b);
                     // do not send notification if it was previously sent
                     /*if (!NotifyStorageFeeDAO.notificationAlreadySent(storageFee.getID()))
                         NotifyStorageFeeDAO.insertNotifyStorageFee(new NotifyStorageFee(storageFee, false));*/
+                    fees.add(storageFee);
                 }
             }
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;
         } finally {
-            replyMessage = new Reply(ReplyType.OK);
-            replyMessage.addResult(dates);
-            replyMessage.addResult(owners);
-            replyMessage.addResult(boats);
+            replyMessage = new Reply(ReplyType.OK, fees);
         }
 
         return replyMessage;

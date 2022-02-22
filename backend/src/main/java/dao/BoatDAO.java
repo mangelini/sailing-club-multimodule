@@ -92,6 +92,7 @@ public class BoatDAO {
     while (rs.next()) {
       Member member = MemberDAO.searchMemberByID(rs.getInt("Owner"));
       boat = new Boat(rs.getString("Name"), member, rs.getDouble("Length"));
+      boat.setID(rs.getInt("ID"));
     }
     return boat;
   }

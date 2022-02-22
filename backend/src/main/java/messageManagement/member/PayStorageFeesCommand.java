@@ -19,7 +19,6 @@ public class PayStorageFeesCommand implements Command {
             Boat boat = BoatDAO.searchBoatByName(storageFee.getBoat().getName()).get(0);
             StorageFeeDAO.insertStorageFee(new StorageFee(boat));
         } catch (Exception e) {
-            System.out.println("In exception");
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;
         } finally {

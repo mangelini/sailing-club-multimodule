@@ -20,6 +20,7 @@ public class GetAllBoatsCommand implements Command {
             results = BoatDAO.searchBoatsByMember((Member) message.getUser());
         } catch (Exception e){
             replyMessage = new Reply(ReplyType.ERROR);
+            return replyMessage;
         } finally {
             replyMessage = new Reply(ReplyType.OK, results);
         }
