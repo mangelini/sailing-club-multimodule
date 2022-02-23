@@ -1,9 +1,6 @@
 package messageManagement;
 
-import messageManagement.employee.AddEmployeeCommand;
-import messageManagement.employee.GetEmployeeCommand;
-import messageManagement.employee.GetStorageFeesToPay;
-import messageManagement.employee.LoginEmployeeCommand;
+import messageManagement.employee.*;
 import messageManagement.member.*;
 
 public enum MessageType {
@@ -11,7 +8,8 @@ public enum MessageType {
   GET_EMPLOYEE(new GetEmployeeCommand()), LOGIN_MEMBER(new LoginMemberCommand()),
   ADD_MEMBER(new AddMemberCommand()), CONNECTION_ESTABLISHED(new ConnectionEstablishedCommand()),
   ADD_BOAT(new AddBoatCommand()), REMOVE_BOAT(new RemoveBoatCommand()), GET_ALL_BOATS(new GetAllBoatsCommand()),
-  PAY_STORAGE_FEE(new PayStorageFeesCommand()), GET_STORAGE_FEES_TO_PAY(new GetStorageFeesToPay());
+  PAY_STORAGE_FEE(new PayStorageFeesCommand()), GET_STORAGE_FEES_TO_PAY(new GetStorageFeesToPay()),
+  NOTIFY_MEMBER_STORAGE_FEES(new NotifyMemberStorageFees());
 
   private Command command;
 

@@ -62,7 +62,26 @@ public class NotifyStorageFeesPageController {
     }
 
     public void onNotifyMemberClick(){
+        StorageFee selectedFee = selectionModel.getSelectedItem();
+        Message<Employee> message = new Message<>(currentEmployee, MessageType.NOTIFY_MEMBER_STORAGE_FEES, "", selectedFee);
 
+        try {
+            Helpers.getOutputStream().writeObject(message);
+
+            Object o = Helpers.getInputStream().readObject();
+
+            if (o instanceof Reply) {
+                Reply reply = (Reply) o;
+                if (reply.getResponseCode() == ReplyType.OK){
+                    tableView.getItems().remove(selectedFee);
+                }
+                if (reply.getResponseCode() == ReplyType.ERROR) {
+                    Helpers.showStage("Some error occurred while notifying member");
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getAllData() {

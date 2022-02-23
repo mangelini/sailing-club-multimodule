@@ -31,9 +31,6 @@ public class GetStorageFeesToPay implements Command {
                 StorageFee storageFee = StorageFeeDAO.searchExpiredStorageFeeOfBoat(b.getID());
 
                 if (storageFee != null){
-                    // do not send notification if it was previously sent
-                    /*if (!NotifyStorageFeeDAO.notificationAlreadySent(storageFee.getID()))
-                        NotifyStorageFeeDAO.insertNotifyStorageFee(new NotifyStorageFee(storageFee, false));*/
                     fees.add(storageFee);
                 }
             }
