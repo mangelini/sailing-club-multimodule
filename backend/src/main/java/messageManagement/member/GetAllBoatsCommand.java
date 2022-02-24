@@ -11,11 +11,11 @@ import messageManagement.ReplyType;
 import java.util.ArrayList;
 
 public class GetAllBoatsCommand implements Command {
-    Reply replyMessage = null;
-    ArrayList<Boat> results;
-
     @Override
-    public Reply execute(Message message) {
+    public synchronized Reply execute(Message message) {
+        Reply replyMessage = null;
+        ArrayList<Boat> results = new ArrayList<>();
+
         try {
             results = BoatDAO.searchBoatsByMember((Member) message.getUser());
         } catch (Exception e){

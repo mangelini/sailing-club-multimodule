@@ -13,7 +13,7 @@ public class RaceDAO {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static void insertRace(Race race) throws SQLException, ClassNotFoundException {
+    public static synchronized void insertRace(Race race) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO race (Name, Location, Date) "
                 + "VALUES ('" + race.getName() + "', '" + race.getLocation() + "', '"
                 + race.getDate() + "')";
@@ -33,7 +33,7 @@ public class RaceDAO {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static Race searchRaceByName(String name) throws SQLException, ClassNotFoundException {
+    public static synchronized Race searchRaceByName(String name) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race WHERE Name='"+name +"'";
 
         try {
@@ -58,7 +58,7 @@ public class RaceDAO {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static Race searchRaceByID(Integer ID) throws SQLException, ClassNotFoundException {
+    public static synchronized Race searchRaceByID(Integer ID) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race WHERE ID='"+ID +"'";
 
         try {

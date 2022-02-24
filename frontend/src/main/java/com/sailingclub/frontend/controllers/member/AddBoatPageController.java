@@ -45,7 +45,7 @@ public class AddBoatPageController {
                 if (o instanceof Reply){
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
-                        payStoageFee(boatToAdd);
+                        payStorageFee(boatToAdd);
                         new MemberHomePage(currentMember).render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
                         Helpers.showStage("Some error occurred in the Add Boat process");
@@ -58,7 +58,7 @@ public class AddBoatPageController {
     }
 
     // TODO this is temporary, should be in PayStorageFeesPage
-    private void payStoageFee(Boat boat) throws IOException, ClassNotFoundException {
+    private void payStorageFee(Boat boat) throws IOException, ClassNotFoundException {
         StorageFee storageFee = new StorageFee(boat);
         Message<Member> message = new Message<>(currentMember, MessageType.PAY_STORAGE_FEE, "", storageFee);
 

@@ -49,6 +49,8 @@ public class Client {
 
             App.startFrontend();
             System.out.println("Closing socket");
+            Helpers.getInputStream().close();
+            Helpers.getOutputStream().close();
             client.close();
         } catch (Exception e) {
             e.printStackTrace();

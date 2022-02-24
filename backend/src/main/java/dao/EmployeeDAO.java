@@ -16,7 +16,7 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static boolean insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
+  public static synchronized boolean insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
     boolean empAdded = false;
 
     String updateStmt = "INSERT INTO employee (Username, Password) "
@@ -42,7 +42,7 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void updateEmployeeUsername(Integer ID, String newUsername)
+  public static synchronized void updateEmployeeUsername(Integer ID, String newUsername)
       throws SQLException, ClassNotFoundException {
     // Declare a UPDATE statement
     String updateStmt = "UPDATE employee" +
@@ -66,7 +66,7 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void updateEmployeePassword(Integer ID, String newPassword)
+  public static synchronized void updateEmployeePassword(Integer ID, String newPassword)
       throws SQLException, ClassNotFoundException {
     // Declare a UPDATE statement
     String updateStmt = "UPDATE employee" +
@@ -89,7 +89,7 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<Employee> getAllEmployees() throws SQLException, ClassNotFoundException {
+  public static synchronized ArrayList<Employee> getAllEmployees() throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM employee";
 
     try {
@@ -132,7 +132,7 @@ public class EmployeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Employee searchEmployee(String Username) throws SQLException, ClassNotFoundException {
+  public static synchronized Employee searchEmployee(String Username) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM employee WHERE Username='" + Username + "'";
 
     try {
@@ -150,7 +150,7 @@ public class EmployeeDAO {
     }
   }
 
-  public static Employee logIn(Employee clientEmployee) throws SQLException, ClassNotFoundException {
+  public static synchronized Employee logIn(Employee clientEmployee) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM employee WHERE Username='" + clientEmployee.getUsername() +
             "' AND Password='" + clientEmployee.getPassword() + "'";
 

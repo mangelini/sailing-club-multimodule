@@ -34,33 +34,6 @@ public class Helpers {
         newStage.showAndWait();
     }
 
-    public void sendObjectToServer(Message message){
-        try {
-            os.writeObject(message);
-            os.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Reply readReplyFromServer() {
-        Reply reply = null;
-        Object o = null;
-
-        try {
-            o = is.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error while reading object from input stream");
-        } finally {
-            if(o instanceof Reply){
-                reply = (Reply) o;
-            }
-        }
-
-        return reply;
-    }
-
     /**
      * Setter for input stream
      * @param is Input Stream object

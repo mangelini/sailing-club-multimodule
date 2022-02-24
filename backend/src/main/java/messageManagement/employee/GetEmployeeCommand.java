@@ -13,7 +13,7 @@ import messageManagement.ReplyType;
  */
 public class GetEmployeeCommand implements Command {
   @Override
-  public Reply execute(Message message) {
+  public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
 
     try {

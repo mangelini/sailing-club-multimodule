@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
 import com.sailingclub.frontend.memberPages.AddBoatPage;
+import com.sailingclub.frontend.memberPages.PayStorageFeesPage;
 import com.sailingclub.frontend.memberPages.RemoveBoatPage;
 import entities.Member;
 import javafx.fxml.FXML;
@@ -29,6 +30,8 @@ public class MemberHomePageController {
     }
 
     public void onRemoveBoatClick() { new RemoveBoatPage(currentMember).render(); }
+
+    public void onPayStorageFeesClick() { new PayStorageFeesPage(currentMember).render(); }
 
     /**
      * Goes back to the previous page

@@ -17,7 +17,7 @@ public class RegistrationFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertRegistrationFee(RegistrationFee registrationFee)
+  public static synchronized void insertRegistrationFee(RegistrationFee registrationFee)
       throws SQLException, ClassNotFoundException {
     String updateStmt = "INSERT INTO registration_fee (Boat, Race, Fee) "
         + "VALUES ('" + registrationFee.getBoat().getID() + "', '" + registrationFee.getRace().getID()
@@ -39,7 +39,7 @@ public class RegistrationFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<RegistrationFee> searchRegistrationFeesByBoat(Integer boatID)
+  public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByBoat(Integer boatID)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM registration_fee WHERE Boat='" + boatID + "'";
 
@@ -66,7 +66,7 @@ public class RegistrationFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<RegistrationFee> searchRegistrationFeesByRace(Integer raceID)
+  public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByRace(Integer raceID)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM registration_fee WHERE Race='" + raceID + "'";
 
@@ -93,7 +93,7 @@ public class RegistrationFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<RegistrationFee> searchRegistrationFeesByID(Integer ID)
+  public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByID(Integer ID)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM registration_fee WHERE ID='" + ID + "'";
 

@@ -12,7 +12,7 @@ import messageManagement.ReplyType;
 
 public class AddEmployeeCommand implements Command {
   @Override
-  public Reply execute(Message message) {
+  public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
     boolean empAdded = false;
 

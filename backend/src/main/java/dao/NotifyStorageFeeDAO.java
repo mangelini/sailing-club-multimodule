@@ -14,7 +14,7 @@ public class NotifyStorageFeeDAO {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static void insertNotifyStorageFee(NotifyStorageFee notifyStorageFee) throws SQLException, ClassNotFoundException {
+    public static synchronized void insertNotifyStorageFee(NotifyStorageFee notifyStorageFee) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO notify_storage_fee (StorageFee, Sent) "
                 + "VALUES ('" + notifyStorageFee.getStorageFee().getID() + "', '" + notifyStorageFee.isSent() + "')";
 
@@ -26,16 +26,33 @@ public class NotifyStorageFeeDAO {
         }
     }
 
-    public static boolean notificationAlreadySent(int storageFeeID) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM notify_storage_fee WHERE Sent=0 AND StorageFee='" + storageFeeID + "'";
+    public static synchronized boolean notificationAlreadySent(int storageFeeID) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM notify_storage_fee WHERE Sent=1 AND StorageFee='" + storageFeeID + "'";
 
         try {
             ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
 
             NotifyStorageFee notifyStorageFee = getNotifyStorageFeeFromResultSet(rsFee);
 
-            if (notifyStorageFee == null) return true;
-            else return false;
+            if (notifyStorageFee == null) return false;
+            else return true;
+        } catch (SQLException e) {
+            System.out.println("While searching a notify storage fee, an error occurred: " + e);
+            // Return exception
+            throw e;
+        }
+    }
+
+    public static synchronized boolean isStorageFeePresent(Integer feeID) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM notify_storage_fee WHERE StorageFee='" + feeID + "'";
+
+        try {
+            ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
+
+            NotifyStorageFee notifyStorageFee = getNotifyStorageFeeFromResultSet(rsFee);
+
+            if (notifyStorageFee == null) return false;
+            else return true;
         } catch (SQLException e) {
             System.out.println("While searching a notify storage fee, an error occurred: " + e);
             // Return exception
@@ -52,5 +69,17 @@ public class NotifyStorageFeeDAO {
         }
 
         return notifyStorageFee;
+    }
+
+    public static synchronized void deleteNotification(Integer feeID) throws SQLException, ClassNotFoundException {
+        String updateStmt = "DELETE FROM notify_storage_fee WHERE StorageFee='" + feeID + "'";
+
+        // Execute DELETE operation
+        try {
+            DBUtil.dbExecuteUpdate(updateStmt);
+        } catch (SQLException e) {
+            System.out.print("Error occurred while DELETE Operation: " + e);
+            throw e;
+        }
     }
 }

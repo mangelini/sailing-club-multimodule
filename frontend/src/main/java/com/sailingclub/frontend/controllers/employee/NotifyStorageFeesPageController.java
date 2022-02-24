@@ -27,9 +27,6 @@ import java.util.Date;
 
 public class NotifyStorageFeesPageController {
     Employee currentEmployee;
-    ArrayList<Member> owners;
-    ArrayList<Boat> boats;
-    ArrayList<Date> dates;
     ArrayList<StorageFee> fees;
 
     @FXML
@@ -85,7 +82,7 @@ public class NotifyStorageFeesPageController {
     }
 
     private void getAllData() {
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.GET_STORAGE_FEES_TO_PAY, "");
+        Message<Employee> message = new Message<>(currentEmployee, MessageType.GET_EMPLOYEE_STORAGE_FEES_TO_PAY, "");
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -97,9 +94,6 @@ public class NotifyStorageFeesPageController {
                 if (reply.getResponseCode() == ReplyType.OK) {
                     // make cast of serializable array of response
                     ArrayList<Serializable> serializableArrayList = reply.getResults();
-                    /*dates = (ArrayList<Date>) serializableArrayList.get(0);
-                    owners = (ArrayList<Member>) serializableArrayList.get(1);
-                    boats = (ArrayList<Boat>) serializableArrayList.get(2);*/
                     fees = (ArrayList<StorageFee>) serializableArrayList.get(0);
                 }
             }
@@ -113,26 +107,38 @@ public class NotifyStorageFeesPageController {
         member.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                return new ReadOnlyStringWrapper(data.getValue().getBoat().getOwner().getUsername());
+                if(data.getValue().getBoat().getOwner().getUsername() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getOwner().getUsername());
+
+                return new ReadOnlyStringWrapper("");
             }
         });
 
         boat.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                return new ReadOnlyStringWrapper(data.getValue().getBoat().getName());
+                if (data.getValue().getBoat().getName() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getName());
+
+                return new ReadOnlyStringWrapper("");
             }
         });
 
         date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                String date = new SimpleDateFormat("dd.MM.yyyy").format(data.getValue().getDate());
-                return new ReadOnlyStringWrapper(date);
+                if (data.getValue().getDate() != null) {
+                    String date = new SimpleDateFormat("dd.MM.yyyy").format(data.getValue().getDate());
+                    return new ReadOnlyStringWrapper(date);
+                }
+
+                return new ReadOnlyStringWrapper("");
             }
         });
 
-        if (fees != null) tableView.getItems().setAll(fees);
+        for (StorageFee storageFee : fees) {
+            tableView.getItems().add(storageFee);
+        }
     }
 
     /**

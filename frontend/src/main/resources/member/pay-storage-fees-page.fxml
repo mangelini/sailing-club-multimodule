@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.member.PayStorageFeesPageController">
    <children>
-      <Label layoutX="294.0" layoutY="14.0" text="MEMBER PAY STORAGE FEES PAGE">
+      <Label layoutX="252.0" layoutY="14.0" text="MEMBER PAY STORAGE FEES PAGE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

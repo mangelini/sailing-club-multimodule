@@ -12,7 +12,7 @@ import messageManagement.ReplyType;
  */
 public class AddMemberCommand implements Command {
   @Override
-  public Reply execute(Message message) {
+  public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
     boolean memAdded = false;
 

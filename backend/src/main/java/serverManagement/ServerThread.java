@@ -66,6 +66,17 @@ public class ServerThread implements Runnable {
           os.flush();
         }
       } catch (Exception e) {
+        System.out.println("Exc in ServerThread");
+
+        try {
+          if (os != null)
+            os.close();
+
+          is.close();
+          socket.close();
+        } catch (Exception ex) {
+          System.out.println("Failed closing streams");
+        }
         break;
       }
     }

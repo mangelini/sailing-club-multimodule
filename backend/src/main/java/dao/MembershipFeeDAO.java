@@ -16,7 +16,7 @@ public class MembershipFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertMembershipFee(MembershipFee membershipFee) throws SQLException, ClassNotFoundException {
+  public static synchronized void insertMembershipFee(MembershipFee membershipFee) throws SQLException, ClassNotFoundException {
     String updateStmt = "INSERT INTO membership_fee (Member, Date, Fee) "
         + "VALUES ('" + membershipFee.getMember().getID() + "', '" + membershipFee.getDate()
         + "', '" + membershipFee.getFee() + "')";
@@ -29,7 +29,7 @@ public class MembershipFeeDAO {
     }
   }
 
-  public static ArrayList<MembershipFee> searchMembershipFeesByMember(Integer memberID)
+  public static synchronized ArrayList<MembershipFee> searchMembershipFeesByMember(Integer memberID)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM membership_fee WHERE Member='" + memberID + "'";
 

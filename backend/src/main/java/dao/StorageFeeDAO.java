@@ -18,7 +18,7 @@ public class StorageFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void insertStorageFee(StorageFee storageFee) throws SQLException, ClassNotFoundException {
+  public static synchronized void insertStorageFee(StorageFee storageFee) throws SQLException, ClassNotFoundException {
     String updateStmt = "INSERT INTO storage_fee (Boat, Date, Fee) "
         + "VALUES ('" + storageFee.getBoat().getID() + "', '" + storageFee.getDate()
         + "', '" + storageFee.getFee() + "')";
@@ -38,7 +38,7 @@ public class StorageFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static StorageFee searchStorageFeeByBoat(Integer boatID) throws SQLException, ClassNotFoundException {
+  public static synchronized StorageFee searchStorageFeeByBoat(Integer boatID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM storage_fee WHERE Boat='" + boatID + "'";
 
     try {
@@ -63,7 +63,7 @@ public class StorageFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<StorageFee> searchStorageFeeByDate(java.sql.Timestamp date)
+  public static synchronized ArrayList<StorageFee> searchStorageFeeByDate(java.sql.Timestamp date)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM storage_fee WHERE Date='" + date + "'";
 
@@ -89,7 +89,7 @@ public class StorageFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static StorageFee searchStorageFeeByID(Integer storageFeeID)
+  public static synchronized StorageFee searchStorageFeeByID(Integer storageFeeID)
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM storage_fee WHERE ID='" + storageFeeID + "'";
 
@@ -108,7 +108,7 @@ public class StorageFeeDAO {
     }
   }
 
-  public static void deleteStorageFeeByBoat(Integer boatID)
+  public static synchronized void deleteStorageFeeByBoat(Integer boatID)
           throws SQLException, ClassNotFoundException {
     String updateStmt = "DELETE FROM storage_fee WHERE Boat='" + boatID + "'";
 
@@ -127,7 +127,7 @@ public class StorageFeeDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static StorageFee searchExpiredStorageFeeOfBoat(int boatID)
+  public static synchronized StorageFee searchExpiredStorageFeeOfBoat(int boatID)
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM storage_fee WHERE timestampdiff(second, Date, NOW()) > 30 AND Boat='"
             + boatID + "'";
@@ -143,6 +143,19 @@ public class StorageFeeDAO {
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
+      throw e;
+    }
+  }
+
+  public static synchronized void updateStorageFee(int feeID)
+          throws SQLException, ClassNotFoundException {
+    String updateStmt = "UPDATE storage_fee SET Date=NOW() WHERE ID='" + feeID + "'";
+
+    // Execute UPDATE operation
+    try {
+      DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (SQLException e) {
+      System.out.print("Error occurred while UPDATE Operation: " + e);
       throw e;
     }
   }

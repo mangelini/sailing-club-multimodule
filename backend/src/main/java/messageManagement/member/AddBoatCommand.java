@@ -9,7 +9,7 @@ import messageManagement.ReplyType;
 
 public class AddBoatCommand implements Command {
     @Override
-    public Reply execute(Message message) {
+    public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
         boolean boatAdded = false;
 

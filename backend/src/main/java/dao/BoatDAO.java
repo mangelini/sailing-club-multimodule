@@ -16,7 +16,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static boolean insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
+  public static synchronized boolean insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
     boolean boatAdded = false;
 
     String updateStmt = "INSERT INTO boat (Name, Owner, Length) "
@@ -42,7 +42,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<Boat> searchBoatByName(String name) throws SQLException, ClassNotFoundException {
+  public static synchronized ArrayList<Boat> searchBoatByName(String name) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE Name='" + name + "'";
 
     try {
@@ -68,7 +68,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Boat searchBoatByID(Integer ID) throws SQLException, ClassNotFoundException {
+  public static synchronized Boat searchBoatByID(Integer ID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE ID='" + ID + "'";
 
     try {
@@ -120,7 +120,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<Boat> searchBoatsByMember(Member member) throws SQLException, ClassNotFoundException {
+  public static synchronized ArrayList<Boat> searchBoatsByMember(Member member) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE Owner='" + member.getID() + "'";
 
     try {
@@ -144,7 +144,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<Boat> getAllBoats() throws SQLException, ClassNotFoundException {
+  public static synchronized ArrayList<Boat> getAllBoats() throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat";
 
     try {
@@ -169,7 +169,7 @@ public class BoatDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void deleteBoat(Integer boatID) throws SQLException, ClassNotFoundException {
+  public static synchronized void deleteBoat(Integer boatID) throws SQLException, ClassNotFoundException {
     String updateStmt = "DELETE FROM boat WHERE ID='" + boatID + "'";
 
     // Execute DELETE operation

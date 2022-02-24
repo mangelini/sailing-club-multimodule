@@ -9,10 +9,10 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 public class NotifyMemberStorageFees implements Command {
-    Reply replyMessage = null;
-
     @Override
-    public Reply execute(Message message) {
+    public synchronized Reply execute(Message message) {
+        Reply replyMessage = null;
+
         try {
             StorageFee feeToSend = (StorageFee) message.getNewObject();
             // do not send notification if it was previously sent

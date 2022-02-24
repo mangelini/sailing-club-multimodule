@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class NotifyStorageFee implements Serializable {
     private Integer ID;
     private StorageFee storageFee;
-    private boolean sent;
+    private Integer sent;
 
     /**
      * Constructor without ID
@@ -14,7 +14,8 @@ public class NotifyStorageFee implements Serializable {
      */
     public NotifyStorageFee(StorageFee storageFee, boolean sent) {
         this.storageFee = storageFee;
-        this.sent = sent;
+        if (!sent) this.sent = 0;
+        else this.sent = 1;
     }
 
     /**
@@ -25,7 +26,8 @@ public class NotifyStorageFee implements Serializable {
     public NotifyStorageFee(Integer ID, StorageFee storageFee, boolean sent) {
         this.ID = ID;
         this.storageFee = storageFee;
-        this.sent = sent;
+        if (!sent) this.sent = 0;
+        else this.sent = 1;
     }
 
     /**
@@ -46,7 +48,7 @@ public class NotifyStorageFee implements Serializable {
 
     /**
      * Getter for StorageFee of NotifyStorageFee
-     * @return
+     * @return StorageFee
      */
     public StorageFee getStorageFee() {
         return storageFee;
@@ -62,9 +64,9 @@ public class NotifyStorageFee implements Serializable {
 
     /**
      * Getter for Sent of NotifyStorageFee
-     * @return
+     * @return Sent
      */
-    public boolean isSent() {
+    public Integer isSent() {
         return sent;
     }
 
@@ -73,6 +75,7 @@ public class NotifyStorageFee implements Serializable {
      * @param sent Boolean value to be put
      */
     public void setSent(boolean sent) {
-        this.sent = sent;
+        if (!sent) this.sent = 0;
+        else this.sent = 1;
     }
 }

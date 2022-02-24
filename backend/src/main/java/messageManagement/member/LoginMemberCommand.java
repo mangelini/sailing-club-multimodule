@@ -12,7 +12,7 @@ import messageManagement.ReplyType;
  */
 public class LoginMemberCommand implements Command {
   @Override
-  public Reply execute(Message message) {
+  public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
     Member member = null;
 

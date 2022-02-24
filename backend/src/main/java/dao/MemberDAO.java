@@ -15,7 +15,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static boolean insertMember(Member member) throws SQLException, ClassNotFoundException {
+  public static synchronized boolean insertMember(Member member) throws SQLException, ClassNotFoundException {
     boolean memAdded = false;
 
     String updateStmt = "INSERT INTO member (Name, Surname, Address, FiscalCode, Username, Password) "
@@ -42,7 +42,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static ArrayList<Member> getAllMembers() throws SQLException, ClassNotFoundException {
+  public static synchronized ArrayList<Member> getAllMembers() throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member";
 
     try {
@@ -84,7 +84,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Member logIn(Member clientMember) throws SQLException, ClassNotFoundException {
+  public static synchronized Member logIn(Member clientMember) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE Username='" + clientMember.getUsername() +
             "' AND Password='" + clientMember.getPassword() + "'";
 
@@ -111,7 +111,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Member searchMember(String Username) throws SQLException, ClassNotFoundException {
+  public static synchronized Member searchMember(String Username) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE Username='" + Username + "'";
 
     try {
@@ -137,7 +137,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static Member searchMemberByID(Integer ID) throws SQLException, ClassNotFoundException {
+  public static synchronized Member searchMemberByID(Integer ID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE ID='" + ID + "'";
 
     try {
@@ -177,7 +177,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void updateMemberUsername(String Surname, String newUsername)
+  public static synchronized void updateMemberUsername(String Surname, String newUsername)
       throws SQLException, ClassNotFoundException {
     // Declare a UPDATE statement
     String updateStmt = "UPDATE member" +
@@ -201,7 +201,7 @@ public class MemberDAO {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public static void updateMemberPassword(String Surname, String newPassword)
+  public static synchronized void updateMemberPassword(String Surname, String newPassword)
       throws SQLException, ClassNotFoundException {
     // Declare a UPDATE statement
     String updateStmt = "UPDATE member" +

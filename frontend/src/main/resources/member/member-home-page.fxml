@@ -17,9 +17,10 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Button>
-        <Button layoutX="338.0" layoutY="138.0" mnemonicParsing="false" onAction="#onAddBoatClick" prefHeight="45.0" prefWidth="158.0" text="ADD BOAT" />
-        <Button layoutX="338.0" layoutY="198.0" mnemonicParsing="false" onAction="#onRemoveBoatClick" prefHeight="45.0" prefWidth="158.0" text="REMOVE BOAT" />
-        <Button layoutX="338.0" layoutY="259.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="PAY FEES" />
-        <Button layoutX="338.0" layoutY="318.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="RACES" />
+        <Button layoutX="338.0" layoutY="94.0" mnemonicParsing="false" onAction="#onAddBoatClick" prefHeight="45.0" prefWidth="158.0" text="ADD BOAT" />
+        <Button layoutX="338.0" layoutY="154.0" mnemonicParsing="false" onAction="#onRemoveBoatClick" prefHeight="45.0" prefWidth="158.0" text="REMOVE BOAT" />
+        <Button layoutX="338.0" layoutY="281.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="PAY MEMBERSHIP FEES" />
+        <Button layoutX="338.0" layoutY="344.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="158.0" text="RACES" />
+      <Button layoutX="338.0" layoutY="217.0" mnemonicParsing="false" onAction="#onPayStorageFeesClick" prefHeight="45.0" prefWidth="158.0" text="PAY STORAGE FEES" />
     </children>
 </Pane>

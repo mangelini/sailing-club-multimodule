@@ -69,7 +69,7 @@ public class DBUtil {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
+    public synchronized static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         //Declare statement, resultSet and CachedResultSet as null
         Statement stmt = null;
         ResultSet resultSet = null;
@@ -117,7 +117,7 @@ public class DBUtil {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
+    public synchronized static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         //Declare statement as null
         Statement stmt = null;
         try {
