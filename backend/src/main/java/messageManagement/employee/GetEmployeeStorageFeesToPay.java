@@ -16,7 +16,7 @@ public class GetEmployeeStorageFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
-        ArrayList<StorageFee> fees = new ArrayList<StorageFee>();
+        ArrayList<StorageFee> fees = new ArrayList<>();
 
         try {
             // search for all boats and find the ones with Storage Fees expired

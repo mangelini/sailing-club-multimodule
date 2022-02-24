@@ -17,7 +17,6 @@ public class PayStorageFeesCommand implements Command {
 
         try {
             StorageFee storageFee = (StorageFee) message.getNewObject();
-            //Boat boat = BoatDAO.searchBoatByName(storageFee.getBoat().getName()).get(0);
 
             // creates new StorageFee if it isn't already present in db
             // otherwise updates that record

@@ -9,7 +9,9 @@ public enum MessageType {
   ADD_MEMBER(new AddMemberCommand()), CONNECTION_ESTABLISHED(new ConnectionEstablishedCommand()),
   ADD_BOAT(new AddBoatCommand()), REMOVE_BOAT(new RemoveBoatCommand()), GET_ALL_BOATS(new GetAllBoatsCommand()),
   PAY_STORAGE_FEE(new PayStorageFeesCommand()), GET_EMPLOYEE_STORAGE_FEES_TO_PAY(new GetEmployeeStorageFeesToPay()),
-  NOTIFY_MEMBER_STORAGE_FEES(new NotifyMemberStorageFees()), GET_MEMBER_STORAGE_FEES_TO_PAY(new GetMemberStorageFeesToPay());
+  NOTIFY_MEMBER_STORAGE_FEES(new NotifyMemberStorageFees()), GET_MEMBER_STORAGE_FEES_TO_PAY(new GetMemberStorageFeesToPay()),
+  GET_EMPLOYEE_MEM_FEES_TO_PAY(new GetEmpMembFeesToPay()), NOTIFY_MEMBER_MEM_FEES(new NotifyMemberMembershipFees()),
+  GET_MEMBER_MEM_FEES_TO_PAY(new GetMemberMembFeesToPay()), PAY_MEMBERSHIP_FEE(new PayMembershipFeeCommand());
 
   private Command command;
 

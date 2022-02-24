@@ -2,11 +2,12 @@ package entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MembershipFee implements Serializable {
     private static final long serialVersionUID = 1L;
     private Member member;
-    private Date date;
+    private Timestamp date;
     private Double fee;
     private Integer ID;
 
@@ -16,7 +17,7 @@ public class MembershipFee implements Serializable {
      * @param date Date of the payment
      * @param fee Fee that was paid
      */
-    public MembershipFee(Member member, Date date, Double fee){
+    public MembershipFee(Member member, Timestamp date, Double fee){
         this.member = member;
         this.date = date;
         this.fee = fee;
@@ -26,7 +27,7 @@ public class MembershipFee implements Serializable {
      * Getter for date of Membership Fee
      * @return date of the payment
      */
-    public Date getDate() {
+    public Timestamp getDate() {
         return this.date;
     }
 
