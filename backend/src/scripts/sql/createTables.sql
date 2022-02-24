@@ -44,11 +44,8 @@ create table notify_membership_fee
 (
     ID            int auto_increment
         primary key,
-    Member        int        not null,
     MembershipFee int        not null,
     Sent          tinyint(1) not null,
-    constraint notify_membership_fee_member_ID_fk
-        foreign key (Member) references member (ID),
     constraint notify_membership_fee_membership_fee_ID_fk
         foreign key (MembershipFee) references membership_fee (ID)
 );
