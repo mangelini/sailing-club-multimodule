@@ -1,6 +1,7 @@
 package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.authPages.AuthHomePage;
+import com.sailingclub.frontend.employeePages.NotifyMembershipFeesPage;
 import com.sailingclub.frontend.employeePages.NotifyStorageFeesPage;
 import entities.Employee;
 import javafx.fxml.FXML;
@@ -23,9 +24,7 @@ public class EmployeeHomePageController {
         this.backButton.setStyle("-fx-background-radius: 5em; ");
     }
 
-    public void onNotifyMembershipFeesClick() {
-
-    }
+    public void onNotifyMembershipFeesClick() { new NotifyMembershipFeesPage(currentEmployee).render(); }
 
     public void onNotifyStorageFeesClick() {
         new NotifyStorageFeesPage(currentEmployee).render();

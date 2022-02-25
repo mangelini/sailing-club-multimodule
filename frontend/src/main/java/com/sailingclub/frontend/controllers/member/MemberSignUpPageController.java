@@ -13,8 +13,12 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MemberSignUpPageController {
+    Member currentMember = null;
+
     @FXML private TextField username;
     @FXML private TextField name;
     @FXML private TextField surname;
@@ -61,6 +65,10 @@ public class MemberSignUpPageController {
                 if (o instanceof  Reply){
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
+                        ArrayList<Serializable> serializableArrayList = reply.getResults();
+                        currentMember = (Member) serializableArrayList.get(0);
+                        payMembershipFee();
+
                         new MemberAuthHomePage().render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
                         Helpers.showStage("Some error occurred in the Sign Up process");
@@ -69,6 +77,26 @@ public class MemberSignUpPageController {
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void payMembershipFee(){
+        Message<Member> message = new Message<Member>(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "");
+
+        try {
+            Helpers.getOutputStream().writeObject(message);
+
+            Object o = Helpers.getInputStream().readObject();
+            if (o instanceof  Reply){
+                Reply reply = (Reply) o;
+                if(reply.getResponseCode() == ReplyType.OK){
+                    new MemberAuthHomePage().render();
+                } else if(reply.getResponseCode() == ReplyType.ERROR) {
+                    Helpers.showStage("Some error occurred in the Sign Up process");
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

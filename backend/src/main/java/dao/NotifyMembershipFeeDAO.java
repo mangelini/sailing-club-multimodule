@@ -43,7 +43,7 @@ public class NotifyMembershipFeeDAO {
     }
 
     public static synchronized boolean isMembershipFeePresent(Integer feeID) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM notify_membership_fee WHERE Membership='" + feeID + "'";
+        String selectStmt = "SELECT * FROM notify_membership_fee WHERE MembershipFee='" + feeID + "'";
 
         try {
             ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);

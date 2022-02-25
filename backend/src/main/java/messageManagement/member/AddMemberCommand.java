@@ -15,16 +15,18 @@ public class AddMemberCommand implements Command {
   public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
     boolean memAdded = false;
+    Member actualMember = null;
 
     try {
       Member clientMember = (Member) message.getUser();
 
       memAdded = MemberDAO.insertMember(clientMember);
+      actualMember = MemberDAO.searchMember(clientMember.getUsername());
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
       if (memAdded)
-        replyMessage = new Reply(ReplyType.OK);
+        replyMessage = new Reply(ReplyType.OK, actualMember);
       else
         replyMessage = new Reply(ReplyType.ERROR);
     }

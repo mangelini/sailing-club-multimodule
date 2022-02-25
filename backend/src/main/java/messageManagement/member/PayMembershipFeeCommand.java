@@ -12,14 +12,20 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+import java.sql.Timestamp;
+
 public class PayMembershipFeeCommand implements Command {
     @Override
     public Reply execute(Message message) {
         Reply replyMessage = null;
+        MembershipFee membershipFee;
 
         try {
             Member member = (Member) message.getUser();
-            MembershipFee membershipFee = (MembershipFee) message.getNewObject();
+            if(message.getNewObject() == null)
+                membershipFee = new MembershipFee(member, new Timestamp(System.currentTimeMillis()), 100.0);
+            else
+                membershipFee = (MembershipFee) message.getNewObject();
 
             // creates new MembershipFee if it isn't already present in db
             // otherwise updates that record
