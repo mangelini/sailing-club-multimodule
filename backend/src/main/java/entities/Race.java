@@ -1,14 +1,16 @@
 package entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Race implements Serializable {
     private static final long serialVersionUID = 1L;
     private String name;
     private String location;
-    private java.sql.Date date;
+    private java.sql.Timestamp date;
     private Integer ID;
+    private Integer expired;
 
     /**
      * Constructor for Race Entity
@@ -16,10 +18,29 @@ public class Race implements Serializable {
      * @param location Where the race is being held
      * @param date When the race starts
      */
-    public Race(String name, String location, java.sql.Date date){
+    public Race(String name, String location, java.sql.Timestamp date, boolean expired){
         this.name = name;
         this.location = location;
         this.date = date;
+        if (!expired) this.expired = 0;
+        else this.expired = 1;
+    }
+
+    public Race(String name, String location, boolean expired){
+        this.name = name;
+        this.location = location;
+        this.date = new Timestamp(System.currentTimeMillis());
+        if (!expired) this.expired = 0;
+        else this.expired = 1;
+    }
+
+    public Race(Integer ID, String name, String location, java.sql.Timestamp date, boolean expired){
+        this.ID = ID;
+        this.name = name;
+        this.location = location;
+        this.date = date;
+        if (!expired) this.expired = 0;
+        else this.expired = 1;
     }
 
     /**
@@ -34,7 +55,7 @@ public class Race implements Serializable {
      * Getter for date of the race
      * @return Date
      */
-    public Date getDate() {
+    public Timestamp getDate() {
         return this.date;
     }
 
@@ -60,5 +81,19 @@ public class Race implements Serializable {
      */
     public Integer getID() {
         return ID;
+    }
+
+
+
+    /**
+     * Getter for expired property of Race entity
+     * @return Expired
+     */
+    /*public boolean isExpired() {
+        return this.expired;
+    }*/
+
+    public Integer isExpired() {
+        return this.expired;
     }
 }

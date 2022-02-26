@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.member.RegisterToRacePageController">
+    <children>
+        <Label layoutX="253.0" layoutY="14.0" text="MEMBER REGISTER TO RACE PAGE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <TableView fx:id="tableView" layoutX="195.0" layoutY="88.0" prefHeight="190.0" prefWidth="412.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="140.0" text="Name" />
+                <TableColumn fx:id="date" prefWidth="145.0" text="Date" />
+                <TableColumn fx:id="loc" prefWidth="126.0" text="Location" />
+            </columns>
+        </TableView>
+
+        <Button fx:id="payButton" layoutX="332.0" layoutY="364.0" mnemonicParsing="false" onAction="#onChooseBoatClick" prefHeight="44.0" prefWidth="137.0" text="CHOOSE BOAT" />
+
+        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>

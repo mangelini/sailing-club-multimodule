@@ -11,7 +11,10 @@ public enum MessageType {
   PAY_STORAGE_FEE(new PayStorageFeesCommand()), GET_EMPLOYEE_STORAGE_FEES_TO_PAY(new GetEmployeeStorageFeesToPay()),
   NOTIFY_MEMBER_STORAGE_FEES(new NotifyMemberStorageFees()), GET_MEMBER_STORAGE_FEES_TO_PAY(new GetMemberStorageFeesToPay()),
   GET_EMPLOYEE_MEM_FEES_TO_PAY(new GetEmpMembFeesToPay()), NOTIFY_MEMBER_MEM_FEES(new NotifyMemberMembershipFees()),
-  GET_MEMBER_MEM_FEES_TO_PAY(new GetMemberMembFeesToPay()), PAY_MEMBERSHIP_FEE(new PayMembershipFeeCommand());
+  GET_MEMBER_MEM_FEES_TO_PAY(new GetMemberMembFeesToPay()), PAY_MEMBERSHIP_FEE(new PayMembershipFeeCommand()),
+  ADD_RACE(new AddRaceCommand()), GET_ALL_RACES(new GetAllRacesCommand()), GET_AVAILABLE_RACES(new GetAvailableRacesCommand()),
+  REGISTER_TO_RACE(new RegisterToRaceCommand()), GET_AVAILABLE_BOATS(new GetAvailableBoatsCommand()),
+  VIEW_PARTICIPANTS(new ViewParticipantsCommand());
 
   private Command command;
 

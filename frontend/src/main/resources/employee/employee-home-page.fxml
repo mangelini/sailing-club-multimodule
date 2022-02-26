@@ -17,9 +17,10 @@
                 <Font name="System Bold" size="18.0" />
             </font>
         </Button>
-        <Button layoutX="306.0" layoutY="138.0" mnemonicParsing="false" onAction="#onNotifyMembershipFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY MEMBERSHIP FEES" />
-        <Button layoutX="306.0" layoutY="198.0" mnemonicParsing="false" onAction="#onNotifyStorageFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY STORAGE FEES" />
-        <Button layoutX="306.0" layoutY="259.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="CHECK PAYMENTS" />
-        <Button layoutX="306.0" layoutY="318.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="MODIFY MEMBERS" />
+        <Button layoutX="306.0" layoutY="167.0" mnemonicParsing="false" onAction="#onNotifyMembershipFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY MEMBERSHIP FEES" />
+        <Button layoutX="306.0" layoutY="227.0" mnemonicParsing="false" onAction="#onNotifyStorageFeesClick" prefHeight="45.0" prefWidth="189.0" text="NOTIFY STORAGE FEES" />
+        <Button layoutX="306.0" layoutY="288.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="CHECK PAYMENTS" />
+        <Button layoutX="306.0" layoutY="347.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="189.0" text="MODIFY MEMBERS" />
+        <Button layoutX="305.0" layoutY="109.0" mnemonicParsing="false" onAction="#onRacesClick" prefHeight="45.0" prefWidth="189.0" text="RACES" />
     </children>
 </Pane>

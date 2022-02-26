@@ -1,10 +1,7 @@
 package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
-import com.sailingclub.frontend.memberPages.AddBoatPage;
-import com.sailingclub.frontend.memberPages.PayMembershipFeesPage;
-import com.sailingclub.frontend.memberPages.PayStorageFeesPage;
-import com.sailingclub.frontend.memberPages.RemoveBoatPage;
+import com.sailingclub.frontend.memberPages.*;
 import entities.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,6 +32,8 @@ public class MemberHomePageController {
     public void onPayStorageFeesClick() { new PayStorageFeesPage(currentMember).render(); }
 
     public void onPayMembershipFeesClick() { new PayMembershipFeesPage(currentMember).render(); }
+
+    public void onRacesClick() { new RegisterToRacePage(currentMember).render(); }
 
     /**
      * Goes back to the previous page

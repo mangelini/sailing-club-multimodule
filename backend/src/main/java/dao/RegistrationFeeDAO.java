@@ -58,6 +58,24 @@ public class RegistrationFeeDAO {
     }
   }
 
+  public static synchronized boolean boatAlreadyRegistered(Integer boatID, Integer raceID) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM registration_fee WHERE Boat='" + boatID + "' AND Race='" + raceID + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
+      RegistrationFee registrationFee = getRegistrationFeeFromResultSet(rsFee);
+
+      return registrationFee != null;
+    } catch (SQLException e) {
+      System.out.println("While searching a membership fee, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
   /**
    * Search for a specific Registration Fee within DB table
    * 
@@ -118,7 +136,7 @@ public class RegistrationFeeDAO {
 
     while (rs.next()) {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
-      Race race = RaceDAO.searchRaceByID(rs.getInt("ID"));
+      Race race = RaceDAO.searchRaceByID(rs.getInt("Race"));
       // TODO Registration Fee will be decided per race???
       RegistrationFee registrationFee = new RegistrationFee(boat, race, 100.0);
       registrationFee.setID(rs.getInt("ID"));
@@ -127,5 +145,20 @@ public class RegistrationFeeDAO {
     }
 
     return feesList;
+  }
+
+  private static RegistrationFee getRegistrationFeeFromResultSet(ResultSet rs)
+          throws SQLException, ClassNotFoundException {
+    RegistrationFee registrationFee = null;
+
+    if (rs.next()){
+      Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
+      Race race = RaceDAO.searchRaceByID(rs.getInt("Race"));
+      // TODO Registration Fee will be decided per race???
+      registrationFee = new RegistrationFee(boat, race, 100.0);
+      registrationFee.setID(rs.getInt("ID"));
+    }
+
+    return registrationFee;
   }
 }

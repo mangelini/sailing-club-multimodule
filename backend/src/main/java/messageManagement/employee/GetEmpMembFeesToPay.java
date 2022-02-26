@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class GetEmpMembFeesToPay implements Command {
     @Override
-    public Reply execute(Message message) {
+    public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
         ArrayList<MembershipFee> fees = new ArrayList<>();
 

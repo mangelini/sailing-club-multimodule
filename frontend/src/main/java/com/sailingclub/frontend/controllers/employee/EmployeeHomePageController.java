@@ -3,6 +3,7 @@ package com.sailingclub.frontend.controllers.employee;
 import com.sailingclub.frontend.authPages.AuthHomePage;
 import com.sailingclub.frontend.employeePages.NotifyMembershipFeesPage;
 import com.sailingclub.frontend.employeePages.NotifyStorageFeesPage;
+import com.sailingclub.frontend.employeePages.RacesHomePage;
 import entities.Employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,6 +30,8 @@ public class EmployeeHomePageController {
     public void onNotifyStorageFeesClick() {
         new NotifyStorageFeesPage(currentEmployee).render();
     }
+
+    public void onRacesClick() { new RacesHomePage(currentEmployee).render(); }
 
     /**
      * Goes back to the previous page
