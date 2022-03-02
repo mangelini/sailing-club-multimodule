@@ -20,7 +20,7 @@ public class PayStorageFeesCommand implements Command {
 
             // creates new StorageFee if it isn't already present in db
             // otherwise updates that record
-            if (StorageFeeDAO.searchStorageFeeByBoat(storageFee.getID()) == null)
+            if (StorageFeeDAO.searchStorageFeeByBoat(storageFee.getBoat().getID()) == null)
                 StorageFeeDAO.insertStorageFee(storageFee);
             else {
                 StorageFeeDAO.updateStorageFee(storageFee.getID());

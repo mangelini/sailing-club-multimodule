@@ -14,6 +14,8 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class AddBoatPageController {
     @FXML
@@ -45,6 +47,9 @@ public class AddBoatPageController {
                 if (o instanceof Reply){
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
+                        ArrayList<Serializable> serializableArrayList = reply.getResults();
+                        boatToAdd = (Boat) serializableArrayList.get(0);
+
                         payStorageFee(boatToAdd);
                         new MemberHomePage(currentMember).render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
@@ -57,7 +62,8 @@ public class AddBoatPageController {
         }
     }
 
-    // TODO this is temporary, should be in PayStorageFeesPage
+    // TODO BoatDAO insert should return the object with the ID
+    // so that we could use it to do other researches
     private void payStorageFee(Boat boat) throws IOException, ClassNotFoundException {
         StorageFee storageFee = new StorageFee(boat);
         Message<Member> message = new Message<>(currentMember, MessageType.PAY_STORAGE_FEE, "", storageFee);

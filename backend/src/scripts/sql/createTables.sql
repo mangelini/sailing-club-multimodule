@@ -92,5 +92,3 @@ create table notify_storage_fee
     constraint notify_storage_fee_storage_fee_ID_fk
         foreign key (StorageFee) references storage_fee (ID)
 );
-
-
