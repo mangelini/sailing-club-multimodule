@@ -136,9 +136,8 @@ public class NotifyStorageFeesPageController {
             }
         });
 
-        for (StorageFee storageFee : fees) {
-            tableView.getItems().add(storageFee);
-        }
+        if (fees != null)
+            tableView.getItems().setAll(fees);
     }
 
     /**

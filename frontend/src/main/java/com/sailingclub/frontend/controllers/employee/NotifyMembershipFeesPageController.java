@@ -110,9 +110,8 @@ public class NotifyMembershipFeesPageController {
             }
         });
 
-        for (MembershipFee membershipFee : fees) {
-            tableView.getItems().add(membershipFee);
-        }
+        if (fees != null)
+            tableView.getItems().setAll(fees);
     }
 
     public void onNotifyMemberClick(){

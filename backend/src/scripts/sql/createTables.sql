@@ -56,7 +56,8 @@ create table race
         primary key,
     Name     varchar(100) not null,
     Location varchar(100) not null,
-    Date     timestamp    not null
+    Date     timestamp    not null,
+    Expired  tinyint(1)   not null
 );
 
 create table registration_fee
@@ -92,3 +93,5 @@ create table notify_storage_fee
     constraint notify_storage_fee_storage_fee_ID_fk
         foreign key (StorageFee) references storage_fee (ID)
 );
+
+

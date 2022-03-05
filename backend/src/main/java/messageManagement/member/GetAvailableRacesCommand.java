@@ -1,6 +1,10 @@
 package messageManagement.member;
 
+import dao.BoatDAO;
 import dao.RaceDAO;
+import dao.RegistrationFeeDAO;
+import entities.Boat;
+import entities.Member;
 import entities.Race;
 import messageManagement.Command;
 import messageManagement.Message;
@@ -17,7 +21,19 @@ public class GetAvailableRacesCommand implements Command {
 
         try {
             RaceDAO.updateExpirationField();
+
+            // assert that member did not already register any boat
+            // to race
+            Member member = (Member) message.getUser();
+            ArrayList<Boat> boatsOfMember = BoatDAO.searchBoatsByMember(member);
             races = RaceDAO.getRacesNotExpired();
+
+            for (Race race : races) {
+                for (Boat boat : boatsOfMember) {
+                    if (RegistrationFeeDAO.boatAlreadyRegistered(boat.getID(), race.getID()))
+                        races.remove(race);
+                }
+            }
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

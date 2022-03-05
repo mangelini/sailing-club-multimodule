@@ -10,7 +10,6 @@ public class Member implements Serializable {
     private String surname;
     private String address;
     private String fiscalCode;
-    private ArrayList<Boat> boats;
     private Integer ID;
     private String username;
     private String password;
@@ -59,30 +58,6 @@ public class Member implements Serializable {
      */
     public String getFiscalCode() {
         return this.fiscalCode;
-    }
-
-    /**
-     * Adds a boat to ArrayList
-     * @param boat The given boat
-     */
-    public void addBoat(Boat boat){
-        this.boats.add(boat);
-    }
-
-    /**
-     * Removes the specified boat
-     * @param boat Given boat
-     */
-    public void removeBoat(Boat boat){
-        this.boats.remove(boat);
-    }
-
-    /**
-     * Returns the boat to add to db
-     * @return Boat
-     */
-    public Boat getBoatToAdd() {
-        return this.boats.get(0);
     }
 
     /**

@@ -106,9 +106,8 @@ public class ViewAllRacesPageController {
             }
         });
 
-        for (Race race : races) {
-            tableView.getItems().add(race);
-        }
+        if (races != null)
+            tableView.getItems().setAll(races);
     }
 
     public void onViewParticipantsClick() {

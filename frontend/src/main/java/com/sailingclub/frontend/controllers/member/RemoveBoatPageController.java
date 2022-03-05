@@ -72,7 +72,8 @@ public class RemoveBoatPageController {
         length.setCellValueFactory(new PropertyValueFactory<Boat, Double>("Length"));
         ID.setCellValueFactory(new PropertyValueFactory<Boat, Integer>("ID"));
 
-        tableView.getItems().setAll(boats);
+        if (boats != null)
+            tableView.getItems().setAll(boats);
     }
 
     public void onRemoveBoatClick(){

@@ -77,9 +77,8 @@ public class ViewParticipantsPageController {
             }
         });
 
-        for (Boat boat : boats){
-            tableView.getItems().add(boat);
-        }
+        if (boats != null)
+            tableView.getItems().setAll(boats);
     }
 
     private void getData() {

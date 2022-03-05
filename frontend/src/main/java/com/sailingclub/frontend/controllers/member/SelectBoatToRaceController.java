@@ -57,7 +57,8 @@ public class SelectBoatToRaceController {
         length.setCellValueFactory(new PropertyValueFactory<Boat, Double>("Length"));
         ID.setCellValueFactory(new PropertyValueFactory<Boat, Integer>("ID"));
 
-        tableView.getItems().setAll(availableBoats);
+        if (availableBoats != null)
+            tableView.getItems().setAll(availableBoats);
     }
 
     private void getAllData() {
