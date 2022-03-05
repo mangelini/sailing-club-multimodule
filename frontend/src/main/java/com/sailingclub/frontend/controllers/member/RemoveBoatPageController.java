@@ -47,7 +47,7 @@ public class RemoveBoatPageController {
     }
 
     private void getBoatsOfMember() {
-        Message<Member> message = new Message<>(currentMember, MessageType.GET_ALL_BOATS, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.GET_ALL_BOATS);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -78,7 +78,7 @@ public class RemoveBoatPageController {
 
     public void onRemoveBoatClick(){
         Boat boat = selectionModel.getSelectedItem();
-        Message<Member> message = new Message<>(currentMember, MessageType.REMOVE_BOAT, "", boat);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.REMOVE_BOAT, boat);
 
         try {
             Helpers.getOutputStream().writeObject(message);

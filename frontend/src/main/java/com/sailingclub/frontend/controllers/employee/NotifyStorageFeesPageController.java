@@ -2,9 +2,7 @@ package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.employeePages.EmployeeHomePage;
-import entities.Boat;
 import entities.Employee;
-import entities.Member;
 import entities.StorageFee;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
@@ -23,7 +21,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class NotifyStorageFeesPageController {
     Employee currentEmployee;
@@ -60,7 +57,7 @@ public class NotifyStorageFeesPageController {
 
     public void onNotifyMemberClick(){
         StorageFee selectedFee = selectionModel.getSelectedItem();
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.NOTIFY_MEMBER_STORAGE_FEES, "", selectedFee);
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_STORAGE_FEES, selectedFee);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -82,7 +79,7 @@ public class NotifyStorageFeesPageController {
     }
 
     private void getAllData() {
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.GET_EMPLOYEE_STORAGE_FEES_TO_PAY, "");
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.GET_EMPLOYEE_STORAGE_FEES_TO_PAY);
 
         try {
             Helpers.getOutputStream().writeObject(message);

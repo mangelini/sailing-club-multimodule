@@ -59,7 +59,7 @@ public class ViewAllRacesPageController {
     }
 
     private void getData(){
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.GET_ALL_RACES, "");
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.GET_ALL_RACES);
 
         try {
             Helpers.getOutputStream().writeObject(message);

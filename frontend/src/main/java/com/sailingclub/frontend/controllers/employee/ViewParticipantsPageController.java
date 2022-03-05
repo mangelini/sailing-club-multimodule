@@ -82,7 +82,7 @@ public class ViewParticipantsPageController {
     }
 
     private void getData() {
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.VIEW_PARTICIPANTS, "", selectedRace);
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.VIEW_PARTICIPANTS, selectedRace);
 
         try {
             Helpers.getOutputStream().writeObject(message);

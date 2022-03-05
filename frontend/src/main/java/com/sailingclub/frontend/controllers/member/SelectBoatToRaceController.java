@@ -62,7 +62,7 @@ public class SelectBoatToRaceController {
     }
 
     private void getAllData() {
-        Message<Member> message = new Message<>(currentMember, MessageType.GET_AVAILABLE_BOATS, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.GET_AVAILABLE_BOATS);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -90,15 +90,14 @@ public class SelectBoatToRaceController {
         arrayList.add(raceToSubscribe);
         arrayList.add(selectedBoat);
 
-        Message<Member> message = new Message<>(currentMember, MessageType.REGISTER_TO_RACE, "", arrayList);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.REGISTER_TO_RACE, arrayList);
 
         try {
             Helpers.getOutputStream().writeObject(message);
 
             Object o = Helpers.getInputStream().readObject();
 
-            if (o instanceof Reply) {
-                Reply reply = (Reply) o;
+            if (o instanceof Reply reply) {
                 if (reply.getResponseCode() == ReplyType.OK) {
                     new MemberHomePage(currentMember).render();
                 } else if (reply.getResponseCode() == ReplyType.ERROR) {

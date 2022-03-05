@@ -43,7 +43,7 @@ public class PayMembershipFeesPageController {
     }
 
     private void getMembershipFee(){
-        Message<Member> message = new Message<>(currentMember, MessageType.GET_MEMBER_MEM_FEES_TO_PAY, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.GET_MEMBER_MEM_FEES_TO_PAY);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -64,7 +64,7 @@ public class PayMembershipFeesPageController {
     }
 
     public void onPayFeeClick(){
-        Message<Member> message = new Message<>(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "", fee);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, fee);
 
         try {
             Helpers.getOutputStream().writeObject(message);

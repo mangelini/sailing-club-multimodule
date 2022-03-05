@@ -36,7 +36,7 @@ public class AddRacePageController {
     public void onAddRaceClick(){
         if (!name.getText().isEmpty() && !loc.getText().isEmpty()){
             Race race = new Race(name.getText(), loc.getText(), false);
-            Message<Employee> message = new Message<>(currentEmployee, MessageType.ADD_RACE, "", race);
+            Message<Employee> message = Message.newInstance(currentEmployee, MessageType.ADD_RACE, race);
 
             try {
                 Helpers.getOutputStream().writeObject(message);

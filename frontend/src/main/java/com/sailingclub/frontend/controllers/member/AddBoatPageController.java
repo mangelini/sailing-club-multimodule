@@ -38,7 +38,7 @@ public class AddBoatPageController {
     public void onAddBoatClick(){
         if (!name.getText().isEmpty() && !length.getText().isEmpty()) {
             Boat boatToAdd = new Boat(name.getText(), currentMember, Double.parseDouble(length.getText()));
-            Message<Member> message = new Message<>(currentMember, MessageType.ADD_BOAT, "", boatToAdd);
+            Message<Member> message = Message.newInstance(currentMember, MessageType.ADD_BOAT, boatToAdd);
 
             try {
                 Helpers.getOutputStream().writeObject(message);
@@ -66,7 +66,7 @@ public class AddBoatPageController {
     // so that we could use it to do other researches
     private void payStorageFee(Boat boat) throws IOException, ClassNotFoundException {
         StorageFee storageFee = new StorageFee(boat);
-        Message<Member> message = new Message<>(currentMember, MessageType.PAY_STORAGE_FEE, "", storageFee);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, storageFee);
 
         Helpers.getOutputStream().writeObject(message);
 

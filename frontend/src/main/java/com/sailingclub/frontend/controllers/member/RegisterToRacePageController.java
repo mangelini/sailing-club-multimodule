@@ -59,7 +59,7 @@ public class RegisterToRacePageController {
     }
 
     private void getAllData(){
-        Message<Member> message = new Message<>(currentMember, MessageType.GET_AVAILABLE_RACES, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.GET_AVAILABLE_RACES);
 
         try {
             Helpers.getOutputStream().writeObject(message);

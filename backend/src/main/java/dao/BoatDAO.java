@@ -162,6 +162,7 @@ public class BoatDAO {
     }
   }
 
+  // TODO Better delete, it should disable it instead of deleting the actual column
   /**
    * Deletes record of selected boat
    * 

@@ -37,7 +37,7 @@ public class MemberSignInPageController {
      */
     public void onSignInClick(){
         Member insertedMember = new Member(username.getText(), password.getText());
-        Message<Member> message = new Message<Member>(insertedMember, MessageType.LOGIN_MEMBER, "");
+        Message<Member> message = Message.newInstance(insertedMember, MessageType.LOGIN_MEMBER);
 
         try {
             Helpers.getOutputStream().writeObject(message);

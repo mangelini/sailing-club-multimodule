@@ -59,7 +59,7 @@ public class PayStorageFeesPageController {
 
     public void onPayFeeClick() {
         StorageFee selectedFee = selectionModel.getSelectedItem();
-        Message<Member> message = new Message<>(currentMember, MessageType.PAY_STORAGE_FEE, "", selectedFee);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, selectedFee);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -81,7 +81,7 @@ public class PayStorageFeesPageController {
     }
 
     private void getAllData() {
-        Message<Member> message = new Message<>(currentMember, MessageType.GET_MEMBER_STORAGE_FEES_TO_PAY, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.GET_MEMBER_STORAGE_FEES_TO_PAY);
 
         try {
             Helpers.getOutputStream().writeObject(message);

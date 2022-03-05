@@ -35,7 +35,7 @@ public class EmployeeSignInPageController {
      */
     public void onSignInClick(){
         Employee insertedEmployee = new Employee(username.getText(), password.getText());
-        Message<Employee> message = new Message<Employee>(insertedEmployee, MessageType.LOGIN_EMPLOYEE, "");
+        Message<Employee> message = Message.newInstance(insertedEmployee, MessageType.LOGIN_EMPLOYEE);
 
         try {
             Helpers.getOutputStream().writeObject(message);

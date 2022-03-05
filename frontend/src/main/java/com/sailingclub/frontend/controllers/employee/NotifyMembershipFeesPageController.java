@@ -56,7 +56,7 @@ public class NotifyMembershipFeesPageController {
     }
 
     private void getAllData() {
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.GET_EMPLOYEE_MEM_FEES_TO_PAY, "");
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.GET_EMPLOYEE_MEM_FEES_TO_PAY);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -116,7 +116,7 @@ public class NotifyMembershipFeesPageController {
 
     public void onNotifyMemberClick(){
         MembershipFee selectedFee = selectionModel.getSelectedItem();
-        Message<Employee> message = new Message<>(currentEmployee, MessageType.NOTIFY_MEMBER_MEM_FEES, "", selectedFee);
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_MEM_FEES, selectedFee);
 
         try {
             Helpers.getOutputStream().writeObject(message);

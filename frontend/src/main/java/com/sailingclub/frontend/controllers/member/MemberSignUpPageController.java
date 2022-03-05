@@ -56,7 +56,7 @@ public class MemberSignUpPageController {
         if(password1.getText().equals(password2.getText())) {
             Member member = new Member(name.getText(), surname.getText(),
                     address.getText(), fiscalCode.getText(), username.getText(), password1.getText());
-            Message<Member> message = new Message<Member>(member, MessageType.ADD_MEMBER, "");
+            Message<Member> message = Message.newInstance(member, MessageType.ADD_MEMBER);
 
             try {
                 Helpers.getOutputStream().writeObject(message);
@@ -81,7 +81,7 @@ public class MemberSignUpPageController {
     }
 
     private void payMembershipFee(){
-        Message<Member> message = new Message<Member>(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "");
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE);
 
         try {
             Helpers.getOutputStream().writeObject(message);
