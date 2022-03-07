@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.employee.CheckPaymentsPageController">
+    <children>
+        <Label layoutX="248.0" layoutY="14.0" text="EMPLOYEE CHECK PAYMENTS PAGE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Button layoutX="306.0" layoutY="167.0" mnemonicParsing="false" onAction="#onCheckMembershipFeePaymentsClick" prefHeight="45.0" prefWidth="189.0" text="CHECK MEMBERSHIP FEES" />
+        <Button layoutX="306.0" layoutY="227.0" mnemonicParsing="false" onAction="#onCheckStorageFeePaymentsClick" prefHeight="45.0" prefWidth="189.0" text="CHECK STORAGE FEES" />
+        <Button layoutX="306.0" layoutY="288.0" mnemonicParsing="false" onAction="#onCheckRegistrationFeePaymentsClick" prefHeight="45.0" prefWidth="189.0" text="CHECK REGISTRATION FEES" />
+
+        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>

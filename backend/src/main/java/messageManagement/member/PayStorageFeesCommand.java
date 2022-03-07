@@ -1,6 +1,8 @@
 package messageManagement.member;
 
+import dao.NotifyStorageFeeDAO;
 import dao.StorageFeeDAO;
+import entities.Boat;
 import entities.StorageFee;
 import messageManagement.Command;
 import messageManagement.Message;
@@ -13,19 +15,13 @@ public class PayStorageFeesCommand implements Command {
         Reply replyMessage = null;
 
         try {
-            StorageFee storageFee = (StorageFee) message.getNewObject();
+            Boat boat = (Boat) message.getNewObject();
 
-            // creates new StorageFee if it isn't already present in db
-            // otherwise updates that record
-            if (StorageFeeDAO.searchStorageFeeByBoat(storageFee.getBoat().getID()) == null)
-                StorageFeeDAO.insertStorageFee(storageFee);
-            else {
-                StorageFeeDAO.updateStorageFee(storageFee.getID());
+            StorageFee storageFee = new StorageFee(boat, "Credit Card");
 
-                // delete notification from NotifyStorageFee
-                NotifyStorageFeeDAO.deleteNotification(storageFee.getID());
-            }
+            StorageFeeDAO.insertStorageFeeWithPaymentType(storageFee);
 
+            NotifyStorageFeeDAO.deleteNotification(boat.getID());
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

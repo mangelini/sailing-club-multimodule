@@ -45,6 +45,22 @@ public class MembershipFeeDAO {
     }
   }
 
+  public static synchronized ArrayList<MembershipFee> getAllFees()
+          throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM membership_fee";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
+
+      return getMembershipFeesFromResultSet(rsFees);
+    } catch (SQLException e) {
+      System.out.println("While searching a membership fee, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
   public static synchronized MembershipFee searchMembershipFeeByMember(Integer memberID)
       throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM membership_fee WHERE Member='" + memberID + "' ORDER BY Date";

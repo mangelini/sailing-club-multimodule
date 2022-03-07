@@ -25,7 +25,7 @@ public class GetEmployeeStorageFeesToPay implements Command {
             for (Boat b : allBoats) {
                 StorageFee storageFee = StorageFeeDAO.searchNotExpiredStorageFeeOfBoat(b.getID());
 
-                if (storageFee != null && !NotifyStorageFeeDAO.notificationAlreadySent(b.getID())){
+                if (storageFee == null && !NotifyStorageFeeDAO.notificationAlreadySent(b.getID())){
                     boatsWithExpiredFees.add(b);
                 }
             }

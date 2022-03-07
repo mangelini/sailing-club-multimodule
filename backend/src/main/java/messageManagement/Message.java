@@ -13,6 +13,8 @@ public class Message<T> implements Serializable {
   private MessageType requestType;
   private Serializable newObject;
 
+  // Constraint Generics type to only accept Member and Employee
+
   private Message(T user, MessageType requestType, Serializable newObject) {
     this.user = user;
     this.requestType = requestType;

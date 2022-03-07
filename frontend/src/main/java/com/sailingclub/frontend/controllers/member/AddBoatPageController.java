@@ -65,8 +65,7 @@ public class AddBoatPageController {
     // TODO BoatDAO insert should return the object with the ID
     // so that we could use it to do other researches
     private void payStorageFee(Boat boat) throws IOException, ClassNotFoundException {
-        StorageFee storageFee = new StorageFee(boat);
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, storageFee);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, boat);
 
         Helpers.getOutputStream().writeObject(message);
 

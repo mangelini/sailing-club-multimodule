@@ -1,5 +1,6 @@
 package messageManagement.member;
 
+import common.Constants;
 import dao.RegistrationFeeDAO;
 import entities.Boat;
 import entities.Race;
@@ -10,6 +11,7 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class RegisterToRaceCommand implements Command {
@@ -22,7 +24,9 @@ public class RegisterToRaceCommand implements Command {
             Race selectedRace = (Race) arr.get(0);
             Boat selectedBoat = (Boat) arr.get(1);
 
-            RegistrationFeeDAO.insertRegistrationFee(new RegistrationFee(selectedBoat, selectedRace, 100.0));
+            RegistrationFeeDAO.insertRegistrationFee(new RegistrationFee(selectedBoat, selectedRace,
+                    Constants.REGISTRATION_FEE, new Timestamp(System.currentTimeMillis()),
+                    "Credit Card"));
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

@@ -1,6 +1,7 @@
 package messageManagement.member;
 
 import dao.BoatDAO;
+import dao.NotifyStorageFeeDAO;
 import dao.StorageFeeDAO;
 import entities.Boat;
 import messageManagement.Command;
@@ -16,8 +17,8 @@ public class RemoveBoatCommand implements Command {
         try {
             Boat boatToDelete = (Boat) message.getNewObject();
 
-            // delete notification that depends on StorageFee
-            NotifyStorageFeeDAO.deleteNotification(StorageFeeDAO.searchStorageFeeByBoat(boatToDelete.getID()).getID());
+            // delete notification that depends on selected boat
+            NotifyStorageFeeDAO.deleteNotification(boatToDelete.getID());
             // delete StorageFee that depends on boat
             StorageFeeDAO.deleteStorageFeeByBoat(boatToDelete.getID());
             // delete boat

@@ -1,6 +1,7 @@
 package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.authPages.AuthHomePage;
+import com.sailingclub.frontend.employeePages.CheckPaymentsPage;
 import com.sailingclub.frontend.employeePages.NotifyMembershipFeesPage;
 import com.sailingclub.frontend.employeePages.NotifyStorageFeesPage;
 import com.sailingclub.frontend.employeePages.RacesHomePage;
@@ -32,6 +33,10 @@ public class EmployeeHomePageController {
     }
 
     public void onRacesClick() { new RacesHomePage(currentEmployee).render(); }
+
+    public void onCheckPaymentsClick() {
+        new CheckPaymentsPage(currentEmployee).render();
+    }
 
     /**
      * Goes back to the previous page

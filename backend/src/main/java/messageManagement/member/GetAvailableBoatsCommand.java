@@ -24,8 +24,8 @@ public class GetAvailableBoatsCommand implements Command {
             ArrayList<Boat> boats = (ArrayList<Boat>) BoatDAO.searchBoatsByMember(member);
 
             for (Boat boat : boats){
-                StorageFee storageFee = StorageFeeDAO.searchExpiredStorageFeeOfBoat(boat.getID());
-                if (storageFee == null)
+                StorageFee storageFee = StorageFeeDAO.searchNotExpiredStorageFeeOfBoat(boat.getID());
+                if (storageFee != null)
                     availableBoats.add(boat);
             }
         } catch (Exception e) {

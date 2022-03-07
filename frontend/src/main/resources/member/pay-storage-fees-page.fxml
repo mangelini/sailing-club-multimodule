@@ -12,11 +12,9 @@
          </font>
       </Label>
 
-      <TableView fx:id="tableView" layoutX="195.0" layoutY="88.0" prefHeight="190.0" prefWidth="412.0">
+      <TableView fx:id="tableView" layoutX="332.0" layoutY="89.0" prefHeight="190.0" prefWidth="137.0">
          <columns>
             <TableColumn fx:id="boat" prefWidth="140.0" text="Boat Name" />
-            <TableColumn fx:id="expirationDate" prefWidth="145.0" text="Expiration Date" />
-            <TableColumn fx:id="fee" prefWidth="126.0" text="Fee" />
          </columns>
       </TableView>
 
