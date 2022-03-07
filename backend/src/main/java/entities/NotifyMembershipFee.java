@@ -2,28 +2,28 @@ package entities;
 
 public class NotifyMembershipFee {
     private Integer ID;
-    private MembershipFee membershipFee;
+    private Member member;
     private Integer sent;
 
     /**
      * Constructor without ID
-     * @param membershipFee Membership Fee to be added
+     * @param member Member to notify
      * @param sent Parameter set if the employee already sent the notification
      */
-    public NotifyMembershipFee(MembershipFee membershipFee, boolean sent){
-        this.membershipFee = membershipFee;
+    public NotifyMembershipFee(Member member, boolean sent){
+        this.member = member;
         if (!sent) this.sent = 0;
         else this.sent = 1;
     }
 
     /**
      * Constructor with ID
-     * @param membershipFee Membership Fee to be added
+     * @param member Member to notify
      * @param sent Parameter set if the employee already sent the notification
      */
-    public NotifyMembershipFee(Integer ID, MembershipFee membershipFee, boolean sent){
+    public NotifyMembershipFee(Integer ID, Member member, boolean sent){
         this.ID = ID;
-        this.membershipFee = membershipFee;
+        this.member = member;
         if (!sent) this.sent = 0;
         else this.sent = 1;
     }
@@ -45,19 +45,19 @@ public class NotifyMembershipFee {
     }
 
     /**
-     * Getter for membershipFee entity of NotifyMembershipFee
-     * @return MembershipFee
+     * Getter for Member entity of NotifyMembershipFee
+     * @return Member
      */
-    public MembershipFee getMembershipFee() {
-        return membershipFee;
+    public Member getMember() {
+        return member;
     }
 
     /**
-     * Setter for MembershipFee of NotifyMembershipFee
-     * @param membershipFee MembershipFee to be put
+     * Setter for Member of NotifyMembershipFee
+     * @param member Member to be put
      */
-    public void setMembershipFee(MembershipFee membershipFee) {
-        this.membershipFee = membershipFee;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     /**

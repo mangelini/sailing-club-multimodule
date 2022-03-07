@@ -17,22 +17,21 @@ public class GetMemberStorageFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
-        ArrayList<StorageFee> fees = new ArrayList<StorageFee>();
+        ArrayList<Boat> boats = new ArrayList<Boat>();
 
         try {
             Member member = (Member) message.getUser();
             ArrayList<Boat> boatsOfMember = BoatDAO.searchBoatsByMember(member);
 
             for (Boat boat : boatsOfMember) {
-                StorageFee storageFee = StorageFeeDAO.searchStorageFeeByBoat(boat.getID());
-                if (NotifyStorageFeeDAO.isStorageFeePresent(storageFee.getID()))
-                    fees.add(storageFee);
+                if (NotifyStorageFeeDAO.isBoatPresent(boat.getID()))
+                    boats.add(boat);
             }
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;
         } finally {
-            replyMessage = new Reply(ReplyType.OK, fees);
+            replyMessage = new Reply(ReplyType.OK, boats);
         }
 
         return replyMessage;

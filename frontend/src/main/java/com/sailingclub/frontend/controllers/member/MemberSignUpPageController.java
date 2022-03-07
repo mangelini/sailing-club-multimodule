@@ -81,7 +81,7 @@ public class MemberSignUpPageController {
     }
 
     private void payMembershipFee(){
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "bank transfer");
 
         try {
             Helpers.getOutputStream().writeObject(message);

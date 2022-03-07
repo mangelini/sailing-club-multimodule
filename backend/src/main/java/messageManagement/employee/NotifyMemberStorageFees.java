@@ -1,6 +1,7 @@
 package messageManagement.employee;
 
 import dao.NotifyStorageFeeDAO;
+import entities.Boat;
 import entities.NotifyStorageFee;
 import entities.StorageFee;
 import messageManagement.Command;
@@ -14,10 +15,9 @@ public class NotifyMemberStorageFees implements Command {
         Reply replyMessage = null;
 
         try {
-            StorageFee feeToSend = (StorageFee) message.getNewObject();
-            // do not send notification if it was previously sent
-            if (!NotifyStorageFeeDAO.notificationAlreadySent(feeToSend.getID()))
-                NotifyStorageFeeDAO.insertNotifyStorageFee(new NotifyStorageFee(feeToSend, true));
+            Boat boatToNotify = (Boat) message.getNewObject();
+
+            NotifyStorageFeeDAO.insertNotifyStorageFee(new NotifyStorageFee(boatToNotify, true));
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

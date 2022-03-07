@@ -1,37 +1,41 @@
 package entities;
 
-import entities.Boat;
-
-import java.io.Serializable;
-import java.util.Date;
-
-public class StorageFee implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private Boat boat;
-    private java.sql.Timestamp date;
-    private Double fee;
-    private Integer ID;
+public class StorageFee extends Fee {
+    private final Boat boat;
 
     /**
      * Constructor for the Storage Fee Entity for DB records
      * @param boat Boat for which the fee needs to be paid
      * @param date Date of the transaction
-     * @param fee Fee for the storage of a boat
      */
-    public StorageFee(Boat boat, java.sql.Timestamp date, Double fee){
+    public StorageFee(Boat boat, java.sql.Timestamp date, String paymentType){
         this.boat = boat;
         this.date = date;
         this.fee = calculateFee(boat.getLength());
+        this.paymentType = paymentType;
+    }
+
+    /**
+     * Constructor with Fee for the Storage Fee Entity for DB records
+     * @param boat Boat for which the fee needs to be paid
+     * @param date Date of the transaction
+     */
+    public StorageFee(Boat boat, java.sql.Timestamp date, Double fee, String paymentType){
+        this.boat = boat;
+        this.date = date;
+        this.fee = fee;
+        this.paymentType = paymentType;
     }
 
     /**
      * Constructor for the Storage Fee Entity for Client side
      * @param boat Boat for which the fee needs to be paid
      */
-    public StorageFee(Boat boat){
+    public StorageFee(Boat boat, String paymentType){
         this.boat = boat;
         this.date = new java.sql.Timestamp(new java.util.Date().getTime());
         this.fee = calculateFee(boat.getLength());
+        this.paymentType = paymentType;
     }
 
     private Double calculateFee(Double boatLength){
@@ -79,4 +83,10 @@ public class StorageFee implements Serializable {
     public Integer getID() {
         return ID;
     }
+
+    /**
+     * Getter for PaymentType
+     * @return paymentType
+     */
+    public String getPaymentType(){ return this.paymentType; }
 }

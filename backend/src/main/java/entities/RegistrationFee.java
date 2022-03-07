@@ -1,23 +1,23 @@
 package entities;
 
-import java.io.Serializable;
 
-public class RegistrationFee implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private Boat boat;
-    private Race race;
-    private Double fee;
-    private Integer ID;
+import java.sql.Timestamp;
+
+public class RegistrationFee extends Fee {
+    private final Boat boat;
+    private final Race race;
 
     /**
      * Constructor for the Registration Fee Entity
      * @param boat Boat registered to the race
      * @param race Race of the Registration Fee record
      */
-    public RegistrationFee(Boat boat, Race race, Double fee){
+    public RegistrationFee(Boat boat, Race race, Double fee, Timestamp date, String paymentType){
         this.boat = boat;
         this.race = race;
         this.fee = fee;
+        this.date = date;
+        this.paymentType = paymentType;
     }
 
     /**
@@ -59,4 +59,18 @@ public class RegistrationFee implements Serializable {
     public Integer getID() {
         return ID;
     }
+
+    /**
+     * Getter for date of selected Storage Fee record
+     * @return Date
+     */
+    public java.sql.Timestamp getDate() {
+        return this.date;
+    }
+
+    /**
+     * Getter for PaymentType
+     * @return paymentType
+     */
+    public String getPaymentType(){ return this.paymentType; }
 }

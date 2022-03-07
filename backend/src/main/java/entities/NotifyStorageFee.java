@@ -4,28 +4,28 @@ import java.io.Serializable;
 
 public class NotifyStorageFee implements Serializable {
     private Integer ID;
-    private StorageFee storageFee;
+    private Boat boat;
     private Integer sent;
 
     /**
      * Constructor without ID
-     * @param storageFee Storage Fee to be added
+     * @param boat Boat to be added
      * @param sent Parameter set if the employee already sent the notification
      */
-    public NotifyStorageFee(StorageFee storageFee, boolean sent) {
-        this.storageFee = storageFee;
+    public NotifyStorageFee(Boat boat, boolean sent) {
+        this.boat = boat;
         if (!sent) this.sent = 0;
         else this.sent = 1;
     }
 
     /**
      * Constructor with ID
-     * @param storageFee Storage Fee to be added
+     * @param boat Storage Fee to be added
      * @param sent Parameter set if the employee already sent the notification
      */
-    public NotifyStorageFee(Integer ID, StorageFee storageFee, boolean sent) {
+    public NotifyStorageFee(Integer ID, Boat boat, boolean sent) {
         this.ID = ID;
-        this.storageFee = storageFee;
+        this.boat = boat;
         if (!sent) this.sent = 0;
         else this.sent = 1;
     }
@@ -47,19 +47,19 @@ public class NotifyStorageFee implements Serializable {
     }
 
     /**
-     * Getter for StorageFee of NotifyStorageFee
-     * @return StorageFee
+     * Getter for Boat of NotifyStorageFee
+     * @return Boat
      */
-    public StorageFee getStorageFee() {
-        return storageFee;
+    public Boat getBoat() {
+        return boat;
     }
 
     /**
-     * Setter for StorageFee of NotifyStorageFee
-     * @param storageFee Fee to be put
+     * Setter for Boat of NotifyStorageFee
+     * @param boat Boat to be put
      */
-    public void setStorageFee(StorageFee storageFee) {
-        this.storageFee = storageFee;
+    public void setBoat(Boat boat) {
+        this.boat = boat;
     }
 
     /**

@@ -17,7 +17,6 @@ public class LoginEmployeeCommand implements Command {
     Employee employee = null;
 
     try {
-      // TODO better way to handle generics
       Employee clientEmployee = (Employee) message.getUser();
       employee = EmployeeDAO.logIn(clientEmployee);
     } catch (Exception e) {

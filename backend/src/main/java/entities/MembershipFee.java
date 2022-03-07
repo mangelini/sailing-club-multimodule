@@ -1,15 +1,9 @@
 package entities;
 
-import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
-public class MembershipFee implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private Member member;
-    private Timestamp date;
-    private Double fee;
-    private Integer ID;
+public class MembershipFee extends Fee {
+    private final Member member;
 
     /**
      * Constructor for Membership Fee Entity
@@ -17,10 +11,11 @@ public class MembershipFee implements Serializable {
      * @param date Date of the payment
      * @param fee Fee that was paid
      */
-    public MembershipFee(Member member, Timestamp date, Double fee){
+    public MembershipFee(Member member, Timestamp date, Double fee, String paymentType){
         this.member = member;
         this.date = date;
         this.fee = fee;
+        this.paymentType = paymentType;
     }
 
     /**
@@ -62,4 +57,10 @@ public class MembershipFee implements Serializable {
     public Integer getID() {
         return this.ID;
     }
+
+    /**
+     * Getter for PaymentType
+     * @return paymentType
+     */
+    public String getPaymentType(){ return paymentType; }
 }

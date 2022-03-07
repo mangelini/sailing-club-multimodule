@@ -17,7 +17,6 @@ public class GetEmployeeCommand implements Command {
     Reply replyMessage = null;
 
     try {
-      // TODO better way to handle generics
       Employee clientEmployee = (Employee) message.getUser();
       Employee employee = EmployeeDAO.searchEmployee(clientEmployee.getUsername());
 

@@ -14,14 +14,13 @@ public class RegistrationFeeDAO {
    * Adds a new Registration Fee record to db
    * 
    * @param registrationFee Fee to be added
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void insertRegistrationFee(RegistrationFee registrationFee)
       throws SQLException, ClassNotFoundException {
-    String updateStmt = "INSERT INTO registration_fee (Boat, Race, Fee) "
+    String updateStmt = "INSERT INTO registration_fee (Boat, Race, Fee, PaymentType, Date) "
         + "VALUES ('" + registrationFee.getBoat().getID() + "', '" + registrationFee.getRace().getID()
-        + "', '" + registrationFee.getFee() + "')";
+        + "', '" + registrationFee.getFee() + "', '" + registrationFee.getPaymentType()
+            + "', '" + registrationFee.getDate() + "')";
 
     try {
       DBUtil.dbExecuteUpdate(updateStmt);
@@ -36,8 +35,6 @@ public class RegistrationFeeDAO {
    * 
    * @param boatID ID of boat used for searching record
    * @return Registration Fee found with matching criteria
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByBoat(Integer boatID)
       throws SQLException, ClassNotFoundException {
@@ -48,9 +45,8 @@ public class RegistrationFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      ArrayList<RegistrationFee> registrationFees = getRegistrationFeesFromResultSet(rsFees);
 
-      return registrationFees;
+      return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -81,8 +77,6 @@ public class RegistrationFeeDAO {
    * 
    * @param raceID ID of race used for searching record
    * @return Registration Fee found with matching criteria
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByRace(Integer raceID)
       throws SQLException, ClassNotFoundException {
@@ -93,9 +87,8 @@ public class RegistrationFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      ArrayList<RegistrationFee> registrationFees = getRegistrationFeesFromResultSet(rsFees);
 
-      return registrationFees;
+      return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -108,8 +101,6 @@ public class RegistrationFeeDAO {
    * 
    * @param ID ID of Registration Fee used for searching record
    * @return Registration Fee found with matching criteria
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<RegistrationFee> searchRegistrationFeesByID(Integer ID)
       throws SQLException, ClassNotFoundException {
@@ -120,9 +111,8 @@ public class RegistrationFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      ArrayList<RegistrationFee> registrationFees = getRegistrationFeesFromResultSet(rsFees);
 
-      return registrationFees;
+      return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -137,8 +127,10 @@ public class RegistrationFeeDAO {
     while (rs.next()) {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
       Race race = RaceDAO.searchRaceByID(rs.getInt("Race"));
-      // TODO Registration Fee will be decided per race???
-      RegistrationFee registrationFee = new RegistrationFee(boat, race, 100.0);
+
+      // TODO Registration Fee will be decided per race
+      RegistrationFee registrationFee = new RegistrationFee(boat, race, 100.0,
+              rs.getTimestamp("Date"), rs.getString("PaymentType"));
       registrationFee.setID(rs.getInt("ID"));
 
       feesList.add(registrationFee);
@@ -155,7 +147,8 @@ public class RegistrationFeeDAO {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
       Race race = RaceDAO.searchRaceByID(rs.getInt("Race"));
       // TODO Registration Fee will be decided per race???
-      registrationFee = new RegistrationFee(boat, race, 100.0);
+      registrationFee = new RegistrationFee(boat, race, 100.0,
+              rs.getTimestamp("Date"), rs.getString("PaymentType"));
       registrationFee.setID(rs.getInt("ID"));
     }
 

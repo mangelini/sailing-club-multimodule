@@ -18,11 +18,10 @@
             </font>
         </Button>
 
-        <TableView fx:id="tableView" layoutX="194.0" layoutY="101.0" prefHeight="190.0" prefWidth="412.0">
+        <TableView fx:id="tableView" layoutX="258.0" layoutY="102.0" prefHeight="190.0" prefWidth="284.0">
             <columns>
                 <TableColumn fx:id="name" prefWidth="140.0" text="Name" />
                 <TableColumn fx:id="username" prefWidth="145.0" text="Username" />
-                <TableColumn fx:id="date" prefWidth="126.0" text="Date" />
             </columns>
         </TableView>
 

@@ -1,7 +1,6 @@
 package messageManagement.member;
 
 import dao.BoatDAO;
-import dao.NotifyStorageFeeDAO;
 import dao.StorageFeeDAO;
 import entities.Boat;
 import messageManagement.Command;

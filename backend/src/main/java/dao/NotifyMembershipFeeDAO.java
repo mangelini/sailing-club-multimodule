@@ -9,13 +9,11 @@ import java.sql.SQLException;
 public class NotifyMembershipFeeDAO {
     /**
      * Adds a new record to NotifyStorageFee table
-     * @param notifyMembershipFee Notification Fee to be added
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * @param notifyMembershipFee Member to be added
      */
-    public static synchronized void insertNotifyMembershipFee(NotifyMembershipFee notifyMembershipFee) throws SQLException, ClassNotFoundException {
-        String updateStmt = "INSERT INTO notify_membership_fee (MembershipFee, Sent) "
-                + "VALUES ('" + notifyMembershipFee.getMembershipFee().getID() + "', '" + notifyMembershipFee.getSent() + "')";
+    public static synchronized void insertNotifyMember(NotifyMembershipFee notifyMembershipFee) throws SQLException, ClassNotFoundException {
+        String updateStmt = "INSERT INTO notify_membership_fee (Member, Sent) "
+                + "VALUES ('" + notifyMembershipFee.getMember().getID() + "', '" + notifyMembershipFee.getSent() + "')";
 
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
@@ -25,16 +23,15 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
-    public static synchronized boolean notificationAlreadySent(int membershipFeeID) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM notify_membership_fee WHERE Sent=1 AND MembershipFee='" + membershipFeeID + "'";
+    public static synchronized boolean notificationAlreadySent(int memberID) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM notify_membership_fee WHERE Sent=1 AND Member='" + memberID + "'";
 
         try {
             ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
 
             NotifyMembershipFee notifyMembershipFee = getNotifyMembershipFeeFromResultSet(rsFee);
 
-            if (notifyMembershipFee == null) return false;
-            else return true;
+            return notifyMembershipFee != null;
         } catch (SQLException e) {
             System.out.println("While searching a notify membership fee, an error occurred: " + e);
             // Return exception
@@ -42,16 +39,15 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
-    public static synchronized boolean isMembershipFeePresent(Integer feeID) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM notify_membership_fee WHERE MembershipFee='" + feeID + "'";
+    public static synchronized boolean isMemberPresent(Integer memberID) throws SQLException, ClassNotFoundException {
+        String selectStmt = "SELECT * FROM notify_membership_fee WHERE Member='" + memberID + "'";
 
         try {
             ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
 
             NotifyMembershipFee notifyMembershipFee = getNotifyMembershipFeeFromResultSet(rsFee);
 
-            if (notifyMembershipFee == null) return false;
-            else return true;
+            return notifyMembershipFee != null;
         } catch (SQLException e) {
             System.out.println("While searching a notify storage fee, an error occurred: " + e);
             // Return exception
@@ -59,8 +55,8 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
-    public static synchronized void deleteNotification(Integer feeID) throws SQLException, ClassNotFoundException {
-        String updateStmt = "DELETE FROM notify_membership_fee WHERE MembershipFee='" + feeID + "'";
+    public static synchronized void deleteNotification(Integer memberID) throws SQLException, ClassNotFoundException {
+        String updateStmt = "DELETE FROM notify_membership_fee WHERE Member='" + memberID + "'";
 
         // Execute DELETE operation
         try {
@@ -75,8 +71,8 @@ public class NotifyMembershipFeeDAO {
         NotifyMembershipFee notifyMembershipFee = null;
 
         if (rs.next()){
-            MembershipFee membershipFee = MembershipFeeDAO.searchMembershipFeeByID(rs.getInt("MembershipFee"));
-            notifyMembershipFee = new NotifyMembershipFee(rs.getInt("ID"), membershipFee, rs.getBoolean("Sent"));
+            Member member = MemberDAO.searchMemberByID(rs.getInt("Member"));
+            notifyMembershipFee = new NotifyMembershipFee(rs.getInt("ID"), member, rs.getBoolean("Sent"));
         }
 
         return notifyMembershipFee;

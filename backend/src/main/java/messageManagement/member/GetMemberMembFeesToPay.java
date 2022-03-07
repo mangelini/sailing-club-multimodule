@@ -16,20 +16,19 @@ public class GetMemberMembFeesToPay implements Command {
     @Override
     public Reply execute(Message message) {
         Reply replyMessage = null;
-        MembershipFee fee = null;
+        boolean feeExpired = false;
 
         try {
             Member member = (Member) message.getUser();
 
-            MembershipFee membershipFee = MembershipFeeDAO.searchMembershipFeeByMember(member.getID());
-            if (NotifyMembershipFeeDAO.isMembershipFeePresent(membershipFee.getID()))
-                fee = membershipFee;
+            if (NotifyMembershipFeeDAO.isMemberPresent(member.getID()))
+                feeExpired = true;
 
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;
         } finally {
-            replyMessage = new Reply(ReplyType.OK, fee);
+            replyMessage = new Reply(ReplyType.OK, feeExpired);
         }
 
         return replyMessage;

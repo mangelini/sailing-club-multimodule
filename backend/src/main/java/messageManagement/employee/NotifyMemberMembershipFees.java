@@ -1,6 +1,7 @@
 package messageManagement.employee;
 
 import dao.NotifyMembershipFeeDAO;
+import entities.Member;
 import entities.MembershipFee;
 import entities.NotifyMembershipFee;
 import messageManagement.Command;
@@ -14,10 +15,9 @@ public class NotifyMemberMembershipFees implements Command {
         Reply replyMessage = null;
 
         try {
-            MembershipFee feeToSend = (MembershipFee) message.getNewObject();
-            // do not send notification if it was previously sent
-            if (!NotifyMembershipFeeDAO.notificationAlreadySent(feeToSend.getID()))
-                NotifyMembershipFeeDAO.insertNotifyMembershipFee(new NotifyMembershipFee(feeToSend, true));
+            Member memberToNotify = (Member) message.getNewObject();
+
+            NotifyMembershipFeeDAO.insertNotifyMember(new NotifyMembershipFee(memberToNotify, true));
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

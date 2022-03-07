@@ -3,7 +3,7 @@ package com.sailingclub.frontend.controllers.employee;
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.employeePages.EmployeeHomePage;
 import entities.Employee;
-import entities.MembershipFee;
+import entities.Member;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -24,20 +24,18 @@ import java.util.ArrayList;
 
 public class NotifyMembershipFeesPageController {
     Employee currentEmployee;
-    ArrayList<MembershipFee> fees;
+    ArrayList<Member> members;
 
     @FXML
     private Button backButton;
     @FXML
-    private TableView<MembershipFee> tableView;
+    private TableView<Member> tableView;
     @FXML
-    private TableColumn<MembershipFee, String> username;
+    private TableColumn<Member, String> username;
     @FXML
-    private TableColumn<MembershipFee, String> name;
-    @FXML
-    private TableColumn<MembershipFee, String> date;
+    private TableColumn<Member, String> name;
 
-    TableView.TableViewSelectionModel<MembershipFee> selectionModel;
+    TableView.TableViewSelectionModel<Member> selectionModel;
 
     /**
      * Initialize FXML components,
@@ -68,7 +66,7 @@ public class NotifyMembershipFeesPageController {
                 if (reply.getResponseCode() == ReplyType.OK) {
                     // make cast of serializable array of response
                     ArrayList<Serializable> serializableArrayList = reply.getResults();
-                    fees = (ArrayList<MembershipFee>) serializableArrayList.get(0);
+                    members = (ArrayList<Member>) serializableArrayList.get(0);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -78,45 +76,34 @@ public class NotifyMembershipFeesPageController {
 
     private void initTableView() {
         // Fill table with data passed by backend
-        name.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        name.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
-                if(data.getValue().getMember().getName() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getMember().getName());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Member, String> data) {
+                if(data.getValue().getName() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getName());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        username.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        username.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Member, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
-                if (data.getValue().getMember().getUsername() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getMember().getUsername());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Member, String> data) {
+                if (data.getValue().getUsername() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getUsername());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
-                if (data.getValue().getDate() != null) {
-                    String date = new SimpleDateFormat("dd.MM.yyyy").format(data.getValue().getDate());
-                    return new ReadOnlyStringWrapper(date);
-                }
 
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-
-        if (fees != null)
-            tableView.getItems().setAll(fees);
+        if (members != null)
+            tableView.getItems().setAll(members);
     }
 
     public void onNotifyMemberClick(){
-        MembershipFee selectedFee = selectionModel.getSelectedItem();
-        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_MEM_FEES, selectedFee);
+        Member selectedMember = selectionModel.getSelectedItem();
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_MEM_FEES, selectedMember);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -126,7 +113,7 @@ public class NotifyMembershipFeesPageController {
             if (o instanceof Reply) {
                 Reply reply = (Reply) o;
                 if (reply.getResponseCode() == ReplyType.OK){
-                    tableView.getItems().remove(selectedFee);
+                    tableView.getItems().remove(selectedMember);
                 }
                 if (reply.getResponseCode() == ReplyType.ERROR) {
                     Helpers.showStage("Some error occurred while notifying member");

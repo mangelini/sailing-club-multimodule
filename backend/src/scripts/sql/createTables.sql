@@ -1,4 +1,7 @@
-create table employee
+drop database if exists `sailing-club`;
+create database `sailing-club`;
+
+create table `sailing-club`.employee
 (
     Username varchar(100) not null,
     Password varchar(100) null,
@@ -6,7 +9,7 @@ create table employee
         primary key
 );
 
-create table member
+create table `sailing-club`.member
 (
     Name       varchar(100) not null,
     Surname    varchar(100) not null,
@@ -18,7 +21,7 @@ create table member
         primary key
 );
 
-create table boat
+create table `sailing-club`.boat
 (
     Name   varchar(100) not null,
     Owner  int          not null,
@@ -29,28 +32,29 @@ create table boat
         foreign key (Owner) references member (ID)
 );
 
-create table membership_fee
+create table `sailing-club`.membership_fee
 (
-    ID     int auto_increment
+    ID          int auto_increment
         primary key,
-    Member int       not null,
-    Date   timestamp not null,
-    Fee    double    not null,
+    Member      int         not null,
+    Date        timestamp   not null,
+    Fee         double      not null,
+    PaymentType varchar(20) null,
     constraint membership_fee_FK
         foreign key (Member) references member (ID)
 );
 
-create table notify_membership_fee
+create table `sailing-club`.notify_membership_fee
 (
-    ID            int auto_increment
+    ID     int auto_increment
         primary key,
-    MembershipFee int        not null,
-    Sent          tinyint(1) not null,
-    constraint notify_membership_fee_membership_fee_ID_fk
-        foreign key (MembershipFee) references membership_fee (ID)
+    Sent   tinyint(1) not null,
+    Member int        not null,
+    constraint notify_membership_fee_member_ID_fk
+        foreign key (Member) references member (ID)
 );
 
-create table race
+create table `sailing-club`.race
 (
     ID       int auto_increment
         primary key,
@@ -60,38 +64,39 @@ create table race
     Expired  tinyint(1)   not null
 );
 
-create table registration_fee
+create table `sailing-club`.registration_fee
 (
-    ID   int auto_increment
+    ID          int auto_increment
         primary key,
-    Boat int    not null,
-    Race int    not null,
-    Fee  double not null,
+    Boat        int         not null,
+    Race        int         not null,
+    Fee         double      not null,
+    PaymentType varchar(20) null,
+    Date        timestamp   not null,
     constraint registration_fee_FK
         foreign key (Boat) references boat (ID),
     constraint registration_fee_FK_1
         foreign key (Race) references race (ID)
 );
 
-create table storage_fee
+create table `sailing-club`.storage_fee
 (
-    ID   int auto_increment
+    ID          int auto_increment
         primary key,
-    Boat int       not null,
-    Date timestamp not null,
-    Fee  double    not null,
+    Boat        int         not null,
+    Date        timestamp   not null,
+    Fee         double      not null,
+    PaymentType varchar(20) null,
     constraint storage_fee_FK
         foreign key (Boat) references boat (ID)
 );
 
-create table notify_storage_fee
+create table `sailing-club`.notify_storage_fee
 (
-    ID         int auto_increment
+    ID   int auto_increment
         primary key,
-    StorageFee int        not null,
-    Sent       tinyint(1) not null,
-    constraint notify_storage_fee_storage_fee_ID_fk
-        foreign key (StorageFee) references storage_fee (ID)
+    Sent tinyint(1) not null,
+    Boat int        not null,
+    constraint notify_storage_fee_boat_ID_fk
+        foreign key (Boat) references boat (ID)
 );
-
-

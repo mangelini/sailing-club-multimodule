@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.employeePages.EmployeeHomePage;
+import entities.Boat;
 import entities.Employee;
 import entities.StorageFee;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -24,20 +25,18 @@ import java.util.ArrayList;
 
 public class NotifyStorageFeesPageController {
     Employee currentEmployee;
-    ArrayList<StorageFee> fees;
+    ArrayList<Boat> boats;
 
     @FXML
     private Button backButton;
     @FXML
-    private TableView<StorageFee> tableView;
+    private TableView<Boat> tableView;
     @FXML
-    private TableColumn<StorageFee, String> boat;
+    private TableColumn<Boat, String> boat;
     @FXML
-    private TableColumn<StorageFee, String> member;
-    @FXML
-    private TableColumn<StorageFee, String> date;
+    private TableColumn<Boat, String> member;
 
-    TableView.TableViewSelectionModel<StorageFee> selectionModel;
+    TableView.TableViewSelectionModel<Boat> selectionModel;
 
     /**
      * Initialize FXML components,
@@ -56,8 +55,8 @@ public class NotifyStorageFeesPageController {
     }
 
     public void onNotifyMemberClick(){
-        StorageFee selectedFee = selectionModel.getSelectedItem();
-        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_STORAGE_FEES, selectedFee);
+        Boat selectedBoat = selectionModel.getSelectedItem();
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.NOTIFY_MEMBER_STORAGE_FEES, selectedBoat);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -67,7 +66,7 @@ public class NotifyStorageFeesPageController {
             if (o instanceof Reply) {
                 Reply reply = (Reply) o;
                 if (reply.getResponseCode() == ReplyType.OK){
-                    tableView.getItems().remove(selectedFee);
+                    tableView.getItems().remove(selectedBoat);
                 }
                 if (reply.getResponseCode() == ReplyType.ERROR) {
                     Helpers.showStage("Some error occurred while notifying member");
@@ -91,7 +90,7 @@ public class NotifyStorageFeesPageController {
                 if (reply.getResponseCode() == ReplyType.OK) {
                     // make cast of serializable array of response
                     ArrayList<Serializable> serializableArrayList = reply.getResults();
-                    fees = (ArrayList<StorageFee>) serializableArrayList.get(0);
+                    boats = (ArrayList<Boat>) serializableArrayList.get(0);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -101,40 +100,28 @@ public class NotifyStorageFeesPageController {
 
     private void initTableView() {
         // Fill table with data passed by backend
-        member.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
+        member.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Boat, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                if(data.getValue().getBoat().getOwner().getUsername() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getOwner().getUsername());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Boat, String> data) {
+                if(data.getValue().getOwner().getUsername() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getOwner().getUsername());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        boat.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
+        boat.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Boat, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                if (data.getValue().getBoat().getName() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getName());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Boat, String> data) {
+                if (data.getValue().getName() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getName());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
-                if (data.getValue().getDate() != null) {
-                    String date = new SimpleDateFormat("dd.MM.yyyy").format(data.getValue().getDate());
-                    return new ReadOnlyStringWrapper(date);
-                }
-
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-
-        if (fees != null)
-            tableView.getItems().setAll(fees);
+        if (boats != null)
+            tableView.getItems().setAll(boats);
     }
 
     /**

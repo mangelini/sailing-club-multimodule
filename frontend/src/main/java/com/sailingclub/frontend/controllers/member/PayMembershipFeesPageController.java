@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class PayMembershipFeesPageController {
     Member currentMember;
-    MembershipFee fee;
+    boolean feeExpired;
 
     @FXML
     private Button backButton;
@@ -38,7 +38,7 @@ public class PayMembershipFeesPageController {
 
         getMembershipFee();
 
-        if(fee == null) this.alreadyPayedLabel.setVisible(true);
+        if(!feeExpired) this.alreadyPayedLabel.setVisible(true);
         else this.payButton.setVisible(true);
     }
 
@@ -55,7 +55,7 @@ public class PayMembershipFeesPageController {
                 if (reply.getResponseCode() == ReplyType.OK) {
                     // make cast of serializable array of response
                     ArrayList<Serializable> serializableArrayList = reply.getResults();
-                    fee = (MembershipFee) serializableArrayList.get(0);
+                    feeExpired = (Boolean) serializableArrayList.get(0);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -64,7 +64,7 @@ public class PayMembershipFeesPageController {
     }
 
     public void onPayFeeClick(){
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, fee);
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "Credit Card");
 
         try {
             Helpers.getOutputStream().writeObject(message);

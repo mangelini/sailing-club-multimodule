@@ -1,22 +1,18 @@
 package dao;
 
 import entities.Boat;
-import dao.BoatDAO;
 import common.DBUtil;
 import entities.StorageFee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class StorageFeeDAO {
   /**
    * Adds a new Storage Fee record to db
    * 
    * @param storageFee Fee to be added
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void insertStorageFee(StorageFee storageFee) throws SQLException, ClassNotFoundException {
     String updateStmt = "INSERT INTO storage_fee (Boat, Date, Fee) "
@@ -32,23 +28,38 @@ public class StorageFeeDAO {
   }
 
   /**
+   * Adds a new Storage Fee with PaymentType record to db
+   *
+   * @param storageFee Fee to be added
+   */
+  public static synchronized void insertStorageFeeWithPaymentType(StorageFee storageFee) throws SQLException, ClassNotFoundException {
+    String updateStmt = "INSERT INTO storage_fee (Boat, Date, Fee, PaymentType) "
+            + "VALUES ('" + storageFee.getBoat().getID() + "', '" + storageFee.getDate()
+            + "', '" + storageFee.getFee() + "', '" + storageFee.getPaymentType() + "')";
+
+    try {
+      DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (SQLException e) {
+      System.out.print("Error occurred while INSERT Operation: " + e);
+      throw e;
+    }
+  }
+
+  /**
    * Search for a specific Storage Fee within DB table
    * 
    * @param boatID ID of boat used for searching record
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized StorageFee searchStorageFeeByBoat(Integer boatID) throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM storage_fee WHERE Boat='" + boatID + "'";
+    String selectStmt = "SELECT * FROM storage_fee WHERE Boat='" + boatID + "' ORDER BY Date";
 
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      StorageFee storageFee = getStorageFeeFromResultSet(rsFee);
 
-      return storageFee;
+      return getStorageFeeFromResultSet(rsFee);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -60,8 +71,6 @@ public class StorageFeeDAO {
    * Search for a Storage Fees of a specific date within DB table
    * 
    * @param date Date used for searching record
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<StorageFee> searchStorageFeeByDate(java.sql.Timestamp date)
       throws SQLException, ClassNotFoundException {
@@ -72,9 +81,8 @@ public class StorageFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      ArrayList<StorageFee> storageFees = getStorageFeesFromResultSet(rsFees);
 
-      return storageFees;
+      return getStorageFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a storage fee, an error occurred: " + e);
       // Return exception
@@ -86,8 +94,6 @@ public class StorageFeeDAO {
    * Search for a Storage Fees of a specific date within DB table
    *
    * @param storageFeeID ID used for searching record
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized StorageFee searchStorageFeeByID(Integer storageFeeID)
           throws SQLException, ClassNotFoundException {
@@ -98,9 +104,8 @@ public class StorageFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      StorageFee storageFee = getStorageFeeFromResultSet(rsFees);
 
-      return storageFee;
+      return getStorageFeeFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a storage fee, an error occurred: " + e);
       // Return exception
@@ -123,33 +128,32 @@ public class StorageFeeDAO {
 
   /**
    * Search for a Storage Fees of a specific date within DB table
-   *
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static synchronized StorageFee searchExpiredStorageFeeOfBoat(int boatID)
+  public static synchronized StorageFee searchNotExpiredStorageFeeOfBoat(int boatID)
           throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM storage_fee WHERE timestampdiff(second, Date, NOW()) > 30 AND Boat='"
+    String selectStmt = "SELECT * FROM storage_fee WHERE timestampdiff(second, Date, NOW()) < 30 AND Boat='"
             + boatID + "'";
 
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      StorageFee storageFee = getStorageFeeFromResultSet(rsFees);
-
-      return storageFee;
+      return getStorageFeeFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
-      // Return exception
       throw e;
     }
   }
 
-  public static synchronized void updateStorageFee(int feeID)
+  /**
+   * Updates the payment type when the fee is paid
+   * @param feeID Paid Fee
+   * @param paymentType New PaymentType
+   */
+  public static synchronized void updatePaymentType(int feeID, String paymentType)
           throws SQLException, ClassNotFoundException {
-    String updateStmt = "UPDATE storage_fee SET Date=NOW() WHERE ID='" + feeID + "'";
+    String updateStmt = "UPDATE storage_fee SET PaymentType='" + paymentType
+            + "' WHERE ID='" + feeID + "'";
 
     // Execute UPDATE operation
     try {
@@ -165,9 +169,9 @@ public class StorageFeeDAO {
 
     if (rs.next()) {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
-      //java.sql.Timestamp sqlDate = new java.sql.Timestamp(rs.getDate("Date").getTime());
 
-      storageFee = new StorageFee(boat, rs.getTimestamp("Date"), rs.getDouble("Fee"));
+      storageFee = new StorageFee(boat, rs.getTimestamp("Date"), rs.getDouble("Fee"),
+              rs.getString("PaymentType"));
       storageFee.setID(rs.getInt("ID"));
     }
 
@@ -180,9 +184,9 @@ public class StorageFeeDAO {
 
     while (rs.next()) {
       Boat boat = BoatDAO.searchBoatByID(rs.getInt("Boat"));
-      java.sql.Timestamp sqlDate = new java.sql.Timestamp(rs.getDate("Date").getTime());
 
-      StorageFee storageFee = new StorageFee(boat, sqlDate, rs.getDouble("Fee"));
+      StorageFee storageFee = new StorageFee(boat, rs.getTimestamp("Date"), rs.getDouble("Fee"),
+              rs.getString("PaymentType"));
       storageFee.setID(rs.getInt("ID"));
 
       feesList.add(storageFee);

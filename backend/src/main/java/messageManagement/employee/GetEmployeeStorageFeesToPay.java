@@ -16,24 +16,24 @@ public class GetEmployeeStorageFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
-        ArrayList<StorageFee> fees = new ArrayList<>();
+        ArrayList<Boat> boatsWithExpiredFees = new ArrayList<>();
 
         try {
             // search for all boats and find the ones with Storage Fees expired
             ArrayList<Boat> allBoats = BoatDAO.getAllBoats();
 
             for (Boat b : allBoats) {
-                StorageFee storageFee = StorageFeeDAO.searchExpiredStorageFeeOfBoat(b.getID());
+                StorageFee storageFee = StorageFeeDAO.searchNotExpiredStorageFeeOfBoat(b.getID());
 
-                if (storageFee != null && !NotifyStorageFeeDAO.notificationAlreadySent(storageFee.getID())){
-                    fees.add(storageFee);
+                if (storageFee != null && !NotifyStorageFeeDAO.notificationAlreadySent(b.getID())){
+                    boatsWithExpiredFees.add(b);
                 }
             }
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;
         } finally {
-            replyMessage = new Reply(ReplyType.OK, fees);
+            replyMessage = new Reply(ReplyType.OK, boatsWithExpiredFees);
         }
 
         return replyMessage;

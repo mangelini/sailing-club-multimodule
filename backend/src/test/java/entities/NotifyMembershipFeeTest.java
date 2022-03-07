@@ -19,7 +19,7 @@ class NotifyMembershipFeeTest {
         member = new Member("John", "Doe", "street Test 45", "AVERGER892364528", "user1", "pass");
         member.setID(1);
 
-        membershipFee = new MembershipFee(member, timestamp, Constants.MEMBERSHIP_FEE);
+        membershipFee = new MembershipFee(member, timestamp, Constants.MEMBERSHIP_FEE, "credit card");
         membershipFee.setID(1);
 
         notifyMembershipFee = new NotifyMembershipFee(1, membershipFee, false);

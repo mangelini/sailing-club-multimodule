@@ -13,8 +13,6 @@ public class MembershipFeeDAO {
    * Adds new Membership Fee record
    * 
    * @param membershipFee Entity to be added to database
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void insertMembershipFee(MembershipFee membershipFee) throws SQLException, ClassNotFoundException {
     String updateStmt = "INSERT INTO membership_fee (Member, Date, Fee) "
@@ -29,17 +27,33 @@ public class MembershipFeeDAO {
     }
   }
 
+  /**
+   * Adds new Membership Fee record with PaymentType
+   *
+   * @param membershipFee Entity to be added to database
+   */
+  public static synchronized void insertMembershipFeeWithPaymentType(MembershipFee membershipFee) throws SQLException, ClassNotFoundException {
+    String updateStmt = "INSERT INTO membership_fee (Member, Date, Fee, PaymentType) "
+            + "VALUES ('" + membershipFee.getMember().getID() + "', '" + membershipFee.getDate()
+            + "', '" + membershipFee.getFee() + "', '" + membershipFee.getPaymentType() + "')";
+
+    try {
+      DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (SQLException e) {
+      System.out.print("Error occurred while INSERT Operation: " + e);
+      throw e;
+    }
+  }
+
   public static synchronized MembershipFee searchMembershipFeeByMember(Integer memberID)
       throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM membership_fee WHERE Member='" + memberID + "'";
+    String selectStmt = "SELECT * FROM membership_fee WHERE Member='" + memberID + "' ORDER BY Date";
 
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      MembershipFee membershipFee = getMembershipFeeFromResultSet(rsFees);
-
-      return membershipFee;
+      return getMembershipFeeFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -56,9 +70,8 @@ public class MembershipFeeDAO {
       ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      MembershipFee membershipFee = getMembershipFeeFromResultSet(rsFee);
 
-      return membershipFee;
+      return getMembershipFeeFromResultSet(rsFee);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -66,9 +79,9 @@ public class MembershipFeeDAO {
     }
   }
 
-  public static synchronized MembershipFee searchExpiredMembershipFeeByMember(Integer memberID)
+  public static synchronized MembershipFee searchNotExpiredMembershipFeeByMember(Integer memberID)
           throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM membership_fee WHERE timestampdiff(second, Date, NOW()) > 30 AND Member='"
+    String selectStmt = "SELECT * FROM membership_fee WHERE timestampdiff(second, Date, NOW()) < 30 AND Member='"
             + memberID + "'";
 
     try {
@@ -76,9 +89,8 @@ public class MembershipFeeDAO {
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      MembershipFee membershipFee = getMembershipFeeFromResultSet(rsFees);
 
-      return membershipFee;
+      return getMembershipFeeFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
       // Return exception
@@ -86,9 +98,15 @@ public class MembershipFeeDAO {
     }
   }
 
-  public static synchronized void updateMembershipFee(Integer feeID)
+  /**
+   * Updates the payment type when the fee is paid
+   * @param feeID Paid Fee
+   * @param paymentType New PaymentType
+   */
+  public static synchronized void updatePaymentType(int feeID, String paymentType)
           throws SQLException, ClassNotFoundException {
-    String updateStmt = "UPDATE membership_fee SET Date=NOW() WHERE ID='" + feeID + "'";
+    String updateStmt = "UPDATE membership_fee SET PaymentType='" + paymentType
+            + "' WHERE ID='" + feeID + "'";
 
     // Execute UPDATE operation
     try {
@@ -101,13 +119,14 @@ public class MembershipFeeDAO {
 
   private static ArrayList<MembershipFee> getMembershipFeesFromResultSet(ResultSet rs)
       throws SQLException, ClassNotFoundException {
-    // Declare an observable List which comprises of Membership Fee objects
+    // Declare an observable List which comprises Membership Fee objects
     ArrayList<MembershipFee> feesList = new ArrayList<MembershipFee>();
 
     while (rs.next()) {
       Member member = MemberDAO.searchMemberByID(rs.getInt("Member"));
 
-      MembershipFee membershipFee = new MembershipFee(member, rs.getTimestamp("Date"), rs.getDouble("Fee"));
+      MembershipFee membershipFee = new MembershipFee(member, rs.getTimestamp("Date"), rs.getDouble("Fee"),
+              rs.getString("PaymentType"));
       membershipFee.setID(rs.getInt("ID"));
 
       feesList.add(membershipFee);
@@ -122,7 +141,8 @@ public class MembershipFeeDAO {
     if (rs.next()){
       Member member = MemberDAO.searchMemberByID(rs.getInt("Member"));
 
-      membershipFee = new MembershipFee(member, rs.getTimestamp("Date"), rs.getDouble("Fee"));
+      membershipFee = new MembershipFee(member, rs.getTimestamp("Date"), rs.getDouble("Fee"),
+              rs.getString("PaymentType"));
       membershipFee.setID(rs.getInt("ID"));
     }
 
