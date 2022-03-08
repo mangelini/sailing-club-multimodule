@@ -1,6 +1,8 @@
 package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.employeePages.CheckMembershipFeePaymentsPage;
+import com.sailingclub.frontend.employeePages.CheckRegistrationFeePaymentsPage;
+import com.sailingclub.frontend.employeePages.CheckStorageFeePaymentsPage;
 import com.sailingclub.frontend.employeePages.EmployeeHomePage;
 import entities.Employee;
 import javafx.fxml.FXML;
@@ -24,7 +26,7 @@ public class CheckPaymentsPageController {
     }
 
     public void onCheckStorageFeePaymentsClick() {
-
+        new CheckStorageFeePaymentsPage(currentEmployee).render();
     }
 
     public void onCheckMembershipFeePaymentsClick() {
@@ -32,7 +34,7 @@ public class CheckPaymentsPageController {
     }
 
     public void onCheckRegistrationFeePaymentsClick() {
-
+        new CheckRegistrationFeePaymentsPage(currentEmployee).render();
     }
 
     /**

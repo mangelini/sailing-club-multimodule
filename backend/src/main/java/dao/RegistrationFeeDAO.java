@@ -30,6 +30,24 @@ public class RegistrationFeeDAO {
     }
   }
 
+  public static synchronized ArrayList<RegistrationFee> getAllFees()
+          throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM registration_fee";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
+
+      return getRegistrationFeesFromResultSet(rsFee);
+    } catch (SQLException e) {
+      System.out.println("While searching a registration fee, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
   /**
    * Search for a specific Registration Fee within DB table
    * 

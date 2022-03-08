@@ -3,7 +3,7 @@ package com.sailingclub.frontend.controllers.employee;
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.employeePages.CheckPaymentsPage;
 import entities.Employee;
-import entities.MembershipFee;
+import entities.StorageFee;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -22,26 +22,26 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class CheckMembershipFeePaymentsController {
+public class CheckStorageFeePaymentsController {
     Employee currentEmployee;
-    ArrayList<MembershipFee> fees;
+    ArrayList<StorageFee> fees;
 
     @FXML
     private Button backButton;
     @FXML
-    private TableView<MembershipFee> tableView;
+    private TableView<StorageFee> tableView;
     @FXML
-    private TableColumn<MembershipFee, String> name;
+    private TableColumn<StorageFee, String> boatName;
     @FXML
-    private TableColumn<MembershipFee, String> username;
+    private TableColumn<StorageFee, String> ownerName;
     @FXML
-    private TableColumn<MembershipFee, String> date;
+    private TableColumn<StorageFee, String> fee;
     @FXML
-    private TableColumn<MembershipFee, String> paymentType;
+    private TableColumn<StorageFee, String> date;
     @FXML
-    private TableColumn<MembershipFee, String> fee;
+    private TableColumn<StorageFee, String> paymentType;
 
-    TableView.TableViewSelectionModel<MembershipFee> selectionModel;
+    TableView.TableViewSelectionModel<StorageFee> selectionModel;
 
     /**
      * Initialize FXML components,
@@ -60,7 +60,7 @@ public class CheckMembershipFeePaymentsController {
     }
 
     private void getAllData() {
-        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.GET_ALL_MEMBERSHIP_FEES);
+        Message<Employee> message = Message.newInstance(currentEmployee, MessageType.GET_ALL_STORAGE_FEES);
 
         try {
             Helpers.getOutputStream().writeObject(message);
@@ -71,7 +71,7 @@ public class CheckMembershipFeePaymentsController {
                 Reply reply = (Reply) o;
                 if (reply.getResponseCode() == ReplyType.OK){
                     ArrayList<Serializable> serializableArrayList = reply.getResults();
-                    fees = (ArrayList<MembershipFee>) serializableArrayList.get(0);
+                    fees = (ArrayList<StorageFee>) serializableArrayList.get(0);
                 }
                 if (reply.getResponseCode() == ReplyType.ERROR) {
                     Helpers.showStage("Some error occurred while retrieving data");
@@ -82,30 +82,30 @@ public class CheckMembershipFeePaymentsController {
         }
     }
 
-    private void initTableView(){
-        name.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+    private void initTableView() {
+        boatName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
-                if(data.getValue().getMember().getName() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getMember().getName());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
+                if(data.getValue().getBoat().getName() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getName());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        username.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        ownerName.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
-                if(data.getValue().getMember().getUsername() != null)
-                    return new ReadOnlyStringWrapper(data.getValue().getMember().getUsername());
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
+                if(data.getValue().getBoat().getOwner().getName() != null)
+                    return new ReadOnlyStringWrapper(data.getValue().getBoat().getOwner().getName());
 
                 return new ReadOnlyStringWrapper("");
             }
         });
 
-        date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        date.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
                 if(data.getValue().getDate() != null){
                     String date = new SimpleDateFormat("dd.MM.yyyy HH:mm").format(data.getValue().getDate());
                     return new ReadOnlyStringWrapper(date);
@@ -115,9 +115,9 @@ public class CheckMembershipFeePaymentsController {
             }
         });
 
-        paymentType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        paymentType.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
                 if(data.getValue().getPaymentType() != null)
                     return new ReadOnlyStringWrapper(data.getValue().getPaymentType());
 
@@ -125,9 +125,9 @@ public class CheckMembershipFeePaymentsController {
             }
         });
 
-        fee.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<MembershipFee, String>, ObservableValue<String>>() {
+        fee.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<StorageFee, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<MembershipFee, String> data) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<StorageFee, String> data) {
                 return new ReadOnlyStringWrapper(data.getValue().getFee().toString());
             }
         });

@@ -45,6 +45,24 @@ public class StorageFeeDAO {
     }
   }
 
+  public static synchronized ArrayList<StorageFee> getAllFees()
+          throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM storage_fee";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
+
+      return getStorageFeesFromResultSet(rsFee);
+    } catch (SQLException e) {
+      System.out.println("While searching a membership fee, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
   /**
    * Search for a specific Storage Fee within DB table
    * 

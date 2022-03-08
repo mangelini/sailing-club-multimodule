@@ -14,9 +14,10 @@ public enum MessageType {
   GET_MEMBER_MEM_FEES_TO_PAY(new GetMemberMembFeesToPay()), PAY_MEMBERSHIP_FEE(new PayMembershipFeeCommand()),
   ADD_RACE(new AddRaceCommand()), GET_ALL_RACES(new GetAllRacesCommand()), GET_AVAILABLE_RACES(new GetAvailableRacesCommand()),
   REGISTER_TO_RACE(new RegisterToRaceCommand()), GET_AVAILABLE_BOATS(new GetAvailableBoatsCommand()),
-  VIEW_PARTICIPANTS(new ViewParticipantsCommand()), GET_ALL_MEMBERSHIP_FEES(new GetAllMembershipFeesCommand());
+  VIEW_PARTICIPANTS(new ViewParticipantsCommand()), GET_ALL_MEMBERSHIP_FEES(new GetAllMembershipFeesCommand()),
+  GET_ALL_STORAGE_FEES(new GetAllStorageFeesCommand()), GET_ALL_REGISTRATION_FEES(new GetAllRegistrationFeesCommand());
 
-  private Command command;
+  private final Command command;
 
   MessageType(Command command) {
     this.command = command;

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.employee.CheckStorageFeePaymentsController">
+    <children>
+        <Label layoutX="182.0" layoutY="14.0" text="EMPLOYEE CHECK STORAGE FEES PAYMENTS PAGE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Button>
+
+        <TableView fx:id="tableView" layoutX="38.0" layoutY="105.0" prefHeight="242.0" prefWidth="723.0">
+            <columns>
+                <TableColumn fx:id="ownerName" prefWidth="140.0" text="Owner" />
+                <TableColumn fx:id="boatName" prefWidth="145.0" text="Boat Name" />
+                <TableColumn fx:id="date" prefWidth="145.0" text="Date" />
+                <TableColumn fx:id="paymentType" prefWidth="145.0" text="Payment Type" />
+                <TableColumn fx:id="fee" prefWidth="145.0" text="Fee" />
+            </columns>
+        </TableView>
+    </children>
+</Pane>
