@@ -13,8 +13,6 @@ public class EmployeeDAO {
    * Creates a new employee record in the Employee DB Table
    * 
    * @param employee Employee objects that will be transformed in a DB record
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized boolean insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
     boolean empAdded = false;
@@ -32,6 +30,47 @@ public class EmployeeDAO {
     }
 
     return empAdded;
+  }
+
+  /**
+   * Creates a new admin record in the Employee DB Table
+   *
+   * @param employee Admin object that will be transformed in a DB record
+   */
+  public static synchronized boolean insertAdmin(Employee employee) throws SQLException, ClassNotFoundException {
+    boolean empAdded = false;
+
+    String updateStmt = "INSERT INTO employee (Username, Password, Admin) "
+            + "VALUES ('" + employee.getUsername() + "', '" + employee.getPassword() +
+            "', '" + employee.isAdmin() + "')";
+
+    try {
+      DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (SQLException e) {
+      System.out.print("Error occurred while INSERT Operation: " + e);
+      throw e;
+    } finally {
+      empAdded = true;
+    }
+
+    return empAdded;
+  }
+
+  public static synchronized boolean adminAlreadyExist()
+          throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM employee WHERE Admin=1";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsEmployees = DBUtil.dbExecuteQuery(selectStmt);
+
+      // Return employee object
+      return !getEmployeeList(rsEmployees).isEmpty();
+    } catch (SQLException e) {
+      System.out.println("SQL select operation has been failed: " + e);
+      // Return exception
+      throw e;
+    }
   }
 
   /**

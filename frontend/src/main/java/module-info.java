@@ -15,4 +15,6 @@ module com.sailingclub.frontend {
 
     opens com.sailingclub.frontend.controllers.employee to javafx.fxml;
     exports com.sailingclub.frontend.controllers.employee;
+    exports com.sailingclub.frontend.controllers.admin;
+    opens com.sailingclub.frontend.controllers.admin to javafx.fxml;
 }

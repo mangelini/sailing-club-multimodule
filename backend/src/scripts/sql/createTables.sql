@@ -6,7 +6,8 @@ create table `sailing-club`.employee
     Username varchar(100) not null,
     Password varchar(100) null,
     ID       int auto_increment
-        primary key
+        primary key,
+    Admin    tinyint(1)   not null
 );
 
 create table `sailing-club`.member

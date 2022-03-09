@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.employee.EmployeeSignInPageController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.controllers.admin.AdminSignInController">
     <children>
-        <Label layoutX="293.0" layoutY="8.0" text="EMPLOYEE SIGN IN PAGE">
+        <Label layoutX="293.0" layoutY="8.0" text="ADMIN SIGN IN PAGE">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
