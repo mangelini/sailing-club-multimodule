@@ -1,10 +1,7 @@
 package com.sailingclub.frontend.controllers.employee;
 
 import com.sailingclub.frontend.authPages.AuthHomePage;
-import com.sailingclub.frontend.employeePages.CheckPaymentsPage;
-import com.sailingclub.frontend.employeePages.NotifyMembershipFeesPage;
-import com.sailingclub.frontend.employeePages.NotifyStorageFeesPage;
-import com.sailingclub.frontend.employeePages.RacesHomePage;
+import com.sailingclub.frontend.employeePages.*;
 import entities.Employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,6 +33,10 @@ public class EmployeeHomePageController {
 
     public void onCheckPaymentsClick() {
         new CheckPaymentsPage(currentEmployee).render();
+    }
+
+    public void onViewMembers() {
+        new ViewMembersPage(currentEmployee).render();
     }
 
     /**

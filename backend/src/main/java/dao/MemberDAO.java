@@ -39,8 +39,6 @@ public class MemberDAO {
    * Gets all members of the club
    * 
    * @return A List of members
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<Member> getAllMembers() throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member";
@@ -49,11 +47,7 @@ public class MemberDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsMembers = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getMemberList method and get member object
-      ArrayList<Member> memList = getMemberList(rsMembers);
-
-      // Return employee object
-      return memList;
+      return getMemberList(rsMembers);
     } catch (SQLException e) {
       System.out.println("SQL select operation has been failed: " + e);
       // Return exception

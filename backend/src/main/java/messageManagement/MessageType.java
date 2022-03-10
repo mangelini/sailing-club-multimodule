@@ -16,7 +16,8 @@ public enum MessageType {
   REGISTER_TO_RACE(new RegisterToRaceCommand()), GET_AVAILABLE_BOATS(new GetAvailableBoatsCommand()),
   VIEW_PARTICIPANTS(new ViewParticipantsCommand()), GET_ALL_MEMBERSHIP_FEES(new GetAllMembershipFeesCommand()),
   GET_ALL_STORAGE_FEES(new GetAllStorageFeesCommand()), GET_ALL_REGISTRATION_FEES(new GetAllRegistrationFeesCommand()),
-  GET_ALL_EMPLOYEES(new GetAllEmployeesCommand()), ADMIN_EXIST(new AdminExistCommand());
+  GET_ALL_EMPLOYEES(new GetAllEmployeesCommand()), ADMIN_EXIST(new AdminExistCommand()),
+  GET_ALL_MEMBERS(new GetAllMembersCommand());
 
   private final Command command;
 

@@ -29,6 +29,7 @@ create table `sailing-club`.boat
     Length double       not null,
     ID     int auto_increment
         primary key,
+    Enabled tinyint(1)   not null,
     constraint boat_FK
         foreign key (Owner) references member (ID)
 );

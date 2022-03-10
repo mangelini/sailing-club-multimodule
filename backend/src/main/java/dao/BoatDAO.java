@@ -150,7 +150,6 @@ public class BoatDAO {
       return getBoatsFromResultSet(rsBoats);
     } catch (SQLException e) {
       System.out.println("While searching a boat with " + member.getID() + " owner ID, an error occurred: " + e);
-      // Return exception
       throw e;
     }
   }
@@ -167,9 +166,8 @@ public class BoatDAO {
       ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
 
       // Send ResultSet to the getBoatsFromResultSet method and get boats array
-      ArrayList<Boat> boats = getBoatsFromResultSet(rsBoats);
 
-      return boats;
+      return getBoatsFromResultSet(rsBoats);
     } catch (SQLException e) {
       e.printStackTrace();
       // Return exception
