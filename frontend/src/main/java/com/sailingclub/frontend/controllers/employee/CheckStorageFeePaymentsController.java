@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class CheckStorageFeePaymentsController {
     Employee currentEmployee;
-    ArrayList<StorageFee> fees;
+    ArrayList<StorageFee> fees = new ArrayList<>();
 
     @FXML
     private Button backButton;

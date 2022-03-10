@@ -25,7 +25,7 @@ public class GetAvailableRacesCommand implements Command {
             // assert that member did not already register any boat
             // to race
             Member member = (Member) message.getUser();
-            ArrayList<Boat> boatsOfMember = BoatDAO.searchBoatsByMember(member);
+            ArrayList<Boat> boatsOfMember = BoatDAO.searchEnabledBoatsByMember(member);
             races = RaceDAO.getRacesNotExpired();
 
             for (Race race : races) {

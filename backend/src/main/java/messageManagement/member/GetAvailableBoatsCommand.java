@@ -21,7 +21,7 @@ public class GetAvailableBoatsCommand implements Command {
 
         try {
             Member member = (Member) message.getUser();
-            ArrayList<Boat> boats = (ArrayList<Boat>) BoatDAO.searchBoatsByMember(member);
+            ArrayList<Boat> boats = (ArrayList<Boat>) BoatDAO.searchEnabledBoatsByMember(member);
 
             for (Boat boat : boats){
                 StorageFee storageFee = StorageFeeDAO.searchNotExpiredStorageFeeOfBoat(boat.getID());

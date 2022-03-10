@@ -8,6 +8,7 @@ public class Boat implements Serializable {
     private Member owner;
     private Double length;
     private Integer ID;
+    private boolean enabled;
 
     /**
      * Constructor of Boat entity
@@ -19,6 +20,21 @@ public class Boat implements Serializable {
         this.name = name;
         this.length = length;
         this.owner = owner;
+        this.enabled = true;
+    }
+
+    /**
+     * Constructor of Boat entity with Enabled property
+     * @param name Name of the boat
+     * @param owner Owner of the boat
+     * @param length Length of the boat
+     * @param enabled If the boat was erased in db
+     */
+    public Boat(String name, Member owner, Double length, boolean enabled){
+        this.name = name;
+        this.length = length;
+        this.owner = owner;
+        this.enabled = enabled;
     }
 
     /**
@@ -59,5 +75,14 @@ public class Boat implements Serializable {
      */
     public void setID(Integer ID) {
         this.ID = ID;
+    }
+
+    /**
+     * Getter for Enabled of the boat
+     * @return Enabled of the boat
+     */
+    public Integer isEnabled() {
+        if (enabled) return 1;
+        else return 0;
     }
 }

@@ -19,8 +19,9 @@ public class BoatDAO {
   public static synchronized boolean insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
     boolean boatAdded = false;
 
-    String updateStmt = "INSERT INTO boat (Name, Owner, Length) "
-        + "VALUES ('" + boat.getName() + "', '" + boat.getOwner().getID() + "', '" + boat.getLength() + "')";
+    String updateStmt = "INSERT INTO boat (Name, Owner, Length, Enabled) "
+        + "VALUES ('" + boat.getName() + "', '" + boat.getOwner().getID() + "', '" + boat.getLength()
+            + "', '" + boat.isEnabled() + "')";
 
     try {
       DBUtil.dbExecuteUpdate(updateStmt);
@@ -117,8 +118,6 @@ public class BoatDAO {
    * 
    * @param member Owner of boats
    * @return All boats owned by member
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<Boat> searchBoatsByMember(Member member) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE Owner='" + member.getID() + "'";
@@ -127,10 +126,28 @@ public class BoatDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getBoatsFromResultSet method and get boat object
-      ArrayList<Boat> boats = getBoatsFromResultSet(rsBoats);
+      return getBoatsFromResultSet(rsBoats);
+    } catch (SQLException e) {
+      System.out.println("While searching a boat with " + member.getID() + " owner ID, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
 
-      return boats;
+  /**
+   * Get all enabled boats of a particular member
+   *
+   * @param member Owner of boats
+   * @return All boats owned by member
+   */
+  public static synchronized ArrayList<Boat> searchEnabledBoatsByMember(Member member) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM boat WHERE Owner='" + member.getID() + "' AND Enabled=1";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
+
+      return getBoatsFromResultSet(rsBoats);
     } catch (SQLException e) {
       System.out.println("While searching a boat with " + member.getID() + " owner ID, an error occurred: " + e);
       // Return exception
@@ -141,11 +158,9 @@ public class BoatDAO {
   /**
    * Returns all boats
    * @return ArrayList of boats
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<Boat> getAllBoats() throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM boat";
+    String selectStmt = "SELECT * FROM boat WHERE Enabled=1";
 
     try {
       // Get ResultSet from dbExecuteQuery method
@@ -171,7 +186,7 @@ public class BoatDAO {
    * @throws ClassNotFoundException
    */
   public static synchronized void deleteBoat(Integer boatID) throws SQLException, ClassNotFoundException {
-    String updateStmt = "DELETE FROM boat WHERE ID='" + boatID + "'";
+    String updateStmt = "UPDATE boat SET Enabled=0 WHERE ID='" + boatID + "'";
 
     // Execute DELETE operation
     try {

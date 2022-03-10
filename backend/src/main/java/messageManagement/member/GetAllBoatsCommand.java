@@ -17,7 +17,7 @@ public class GetAllBoatsCommand implements Command {
         ArrayList<Boat> results = new ArrayList<>();
 
         try {
-            results = BoatDAO.searchBoatsByMember((Member) message.getUser());
+            results = BoatDAO.searchEnabledBoatsByMember((Member) message.getUser());
         } catch (Exception e){
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

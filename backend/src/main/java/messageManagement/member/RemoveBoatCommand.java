@@ -19,8 +19,6 @@ public class RemoveBoatCommand implements Command {
 
             // delete notification that depends on selected boat
             NotifyStorageFeeDAO.deleteNotification(boatToDelete.getID());
-            // delete StorageFee that depends on boat
-            StorageFeeDAO.deleteStorageFeeByBoat(boatToDelete.getID());
             // delete boat
             BoatDAO.deleteBoat(boatToDelete.getID());
         } catch (Exception e) {

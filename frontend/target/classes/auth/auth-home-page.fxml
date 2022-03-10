@@ -11,6 +11,7 @@
             <Font name="System Bold" size="18.0" />
         </font>
     </Label>
-    <Button layoutX="312.0" layoutY="188.0" mnemonicParsing="false" onAction="#onMemberClick" prefHeight="45.0" prefWidth="176.0" text="MEMBER" />
-    <Button layoutX="312.0" layoutY="267.0" mnemonicParsing="false" onAction="#onEmployeeClick" prefHeight="45.0" prefWidth="176.0" text="EMPLOYEE" />
+    <Button layoutX="312.0" layoutY="159.0" mnemonicParsing="false" onAction="#onMemberClick" prefHeight="45.0" prefWidth="176.0" text="MEMBER" />
+    <Button layoutX="312.0" layoutY="228.0" mnemonicParsing="false" onAction="#onEmployeeClick" prefHeight="45.0" prefWidth="176.0" text="EMPLOYEE" />
+   <Button layoutX="312.0" layoutY="296.0" mnemonicParsing="false" onAction="#onAdminClick" prefHeight="45.0" prefWidth="176.0" text="ADMIN" />
 </Pane>
