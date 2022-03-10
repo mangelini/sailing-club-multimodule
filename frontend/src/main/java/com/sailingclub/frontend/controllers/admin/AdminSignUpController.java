@@ -2,7 +2,6 @@ package com.sailingclub.frontend.controllers.admin;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.authPages.AuthHomePage;
-import com.sailingclub.frontend.authPages.admin.AdminSignInPage;
 import entities.Employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,7 +42,7 @@ public class AdminSignUpController {
                 if (o instanceof Reply){
                     Reply reply = (Reply) o;
                     if(reply.getResponseCode() == ReplyType.OK){
-                        new AdminSignInPage().render();
+                        new AuthHomePage().render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
                         Helpers.showStage("Some error occurred in the Sign Up process");
                     }

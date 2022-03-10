@@ -1,8 +1,5 @@
 package messageManagement.employee;
 
-
-// TODO This class still needs to be implemented
-
 import entities.Employee;
 import dao.EmployeeDAO;
 import messageManagement.Command;
@@ -14,19 +11,16 @@ public class AddEmployeeCommand implements Command {
   @Override
   public synchronized Reply execute(Message message) {
     Reply replyMessage = null;
-    boolean empAdded = false;
 
     try {
       Employee clientEmployee = (Employee) message.getUser();
-      empAdded = EmployeeDAO.insertEmployee(clientEmployee);
 
+      EmployeeDAO.insertEmployee(clientEmployee);
     } catch (Exception e) {
-      e.printStackTrace();
+      replyMessage = new Reply(ReplyType.ERROR);
+      return replyMessage;
     } finally {
-      if(empAdded)
-        replyMessage = new Reply(ReplyType.OK);
-      else
-        replyMessage = new Reply(ReplyType.ERROR);
+      replyMessage = new Reply(ReplyType.OK);
     }
 
     return replyMessage;

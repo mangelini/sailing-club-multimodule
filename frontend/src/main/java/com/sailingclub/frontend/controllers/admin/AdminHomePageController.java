@@ -1,6 +1,8 @@
 package com.sailingclub.frontend.controllers.admin;
 
 import com.sailingclub.frontend.adminPages.AdminAddEmployeePage;
+import com.sailingclub.frontend.adminPages.AdminHomePage;
+import com.sailingclub.frontend.adminPages.AdminViewEmployeesPage;
 import com.sailingclub.frontend.authPages.AuthHomePage;
 import entities.Employee;
 import javafx.fxml.FXML;
@@ -27,7 +29,9 @@ public class AdminHomePageController {
         new AdminAddEmployeePage(currentEmployee).render();
     }
 
-    public void onViewEmployeesClick(){}
+    public void onViewEmployeesClick(){
+        new AdminViewEmployeesPage(currentEmployee).render();
+    }
 
     /**
      * Goes back to the previous page
