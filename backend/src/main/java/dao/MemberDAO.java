@@ -12,11 +12,9 @@ public class MemberDAO {
    * Creates a new member record in the Member DB Table
    * 
    * @param member Member objects that will be transformed in a DB record
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static synchronized boolean insertMember(Member member) throws SQLException, ClassNotFoundException {
-    boolean memAdded = false;
+  public static synchronized int insertMember(Member member) throws SQLException, ClassNotFoundException {
+    int ID = 0;
 
     String updateStmt = "INSERT INTO member (Name, Surname, Address, FiscalCode, Username, Password) "
         + "VALUES ('" + member.getName() + "', '" + member.getSurname()
@@ -24,15 +22,13 @@ public class MemberDAO {
         + member.getUsername() + "', '" + member.getPassword() + "')";
 
     try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
+      ID = DBUtil.dbExecuteUpdate(updateStmt);
+    } catch (Exception e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
-    } finally {
-      memAdded = true;
     }
 
-    return memAdded;
+    return ID;
   }
 
   /**
@@ -55,28 +51,10 @@ public class MemberDAO {
     }
   }
 
-  private static ArrayList<Member> getMemberList(ResultSet rs) throws SQLException, ClassNotFoundException {
-    // Declare a observable List which comprises of Member objects
-    ArrayList<Member> memList = new ArrayList<Member>();
-
-    while (rs.next()) {
-      Member member = new Member(
-          rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
-          rs.getString("FiscalCode"), rs.getString("Username"), rs.getString("Password"));
-      member.setID(rs.getInt("ID"));
-
-      memList.add(member);
-    }
-
-    return memList;
-  }
-
   /**
    * Search for specified member in db
    * @param clientMember Member that we want to authenticate
    * @return Member with all fields initialized
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized Member logIn(Member clientMember) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE Username='" + clientMember.getUsername() +
@@ -86,10 +64,7 @@ public class MemberDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getMemberFromResultSet method and get member object
-      Member actualMember = getMemberFromResultSet(rsMem);
-
-      return actualMember;
+      return getMemberFromResultSet(rsMem);
     } catch (SQLException e) {
       System.out.println("While searching a member with " + clientMember.getUsername() + " username, an error occurred: " + e);
       // Return exception
@@ -102,8 +77,6 @@ public class MemberDAO {
    * 
    * @param Username Surname of target member
    * @return Member object
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized Member searchMember(String Username) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE Username='" + Username + "'";
@@ -112,10 +85,7 @@ public class MemberDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getMemberFromResultSet method and get member object
-      Member member = getMemberFromResultSet(rsMem);
-
-      return member;
+      return getMemberFromResultSet(rsMem);
     } catch (SQLException e) {
       System.out.println("While searching a member with " + Username + " username, an error occurred: " + e);
       // Return exception
@@ -128,8 +98,6 @@ public class MemberDAO {
    * 
    * @param ID ID's of target member
    * @return Member object
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized Member searchMemberByID(Integer ID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM member WHERE ID='" + ID + "'";
@@ -138,10 +106,7 @@ public class MemberDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getMemberFromResultSet method and get member object
-      Member member = getMemberFromResultSet(rsMem);
-
-      return member;
+      return getMemberFromResultSet(rsMem);
     } catch (SQLException e) {
       System.out.println("While searching a member with " + ID + " ID, an error occurred: " + e);
       // Return exception
@@ -149,27 +114,11 @@ public class MemberDAO {
     }
   }
 
-  private static Member getMemberFromResultSet(ResultSet rsMem) throws SQLException {
-    Member member = null;
-
-    if (rsMem.next()) {
-      member = new Member(rsMem.getString("Name"), rsMem.getString("Surname"),
-          rsMem.getString("Address"), rsMem.getString("FiscalCode"),
-          rsMem.getString("Username"), rsMem.getString("Password"));
-
-      member.setID(rsMem.getInt("ID"));
-    }
-
-    return member;
-  }
-
   /**
    * Updates the username of specified Member
    * 
    * @param Surname     Surname of Member
    * @param newUsername Updated username
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void updateMemberUsername(String Surname, String newUsername)
       throws SQLException, ClassNotFoundException {
@@ -192,8 +141,6 @@ public class MemberDAO {
    * 
    * @param Surname     Surname of Member
    * @param newPassword Updated password
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void updateMemberPassword(String Surname, String newPassword)
       throws SQLException, ClassNotFoundException {
@@ -209,5 +156,35 @@ public class MemberDAO {
       System.out.print("Error occurred while UPDATE Operation: " + e);
       throw e;
     }
+  }
+
+  private static ArrayList<Member> getMemberList(ResultSet rs) throws SQLException {
+    // Declare an observable List which comprises Member objects
+    ArrayList<Member> memList = new ArrayList<>();
+
+    while (rs.next()) {
+      Member member = new Member(
+              rs.getString("Name"), rs.getString("Surname"), rs.getString("Address"),
+              rs.getString("FiscalCode"), rs.getString("Username"), rs.getString("Password"));
+      member.setID(rs.getInt("ID"));
+
+      memList.add(member);
+    }
+
+    return memList;
+  }
+
+  private static Member getMemberFromResultSet(ResultSet rsMem) throws SQLException {
+    Member member = null;
+
+    if (rsMem.next()) {
+      member = new Member(rsMem.getString("Name"), rsMem.getString("Surname"),
+              rsMem.getString("Address"), rsMem.getString("FiscalCode"),
+              rsMem.getString("Username"), rsMem.getString("Password"));
+
+      member.setID(rsMem.getInt("ID"));
+    }
+
+    return member;
   }
 }

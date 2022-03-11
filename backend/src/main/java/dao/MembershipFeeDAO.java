@@ -45,6 +45,10 @@ public class MembershipFeeDAO {
     }
   }
 
+  /**
+   * Get all Membership Fees in DB
+   * @return ArrayList of MembershipFee
+   */
   public static synchronized ArrayList<MembershipFee> getAllFees()
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM membership_fee";
@@ -95,6 +99,11 @@ public class MembershipFeeDAO {
     }
   }
 
+  /**
+   * Get the only Membership Fee that is not expired
+   * @param memberID The owner of MembershipFee
+   * @return Found MembershipFee not expired, null otherwise
+   */
   public static synchronized MembershipFee searchNotExpiredMembershipFeeByMember(Integer memberID)
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM membership_fee WHERE timestampdiff(second, Date, NOW()) < 30 AND Member='"
@@ -103,8 +112,6 @@ public class MembershipFeeDAO {
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
 
       return getMembershipFeeFromResultSet(rsFees);
     } catch (SQLException e) {

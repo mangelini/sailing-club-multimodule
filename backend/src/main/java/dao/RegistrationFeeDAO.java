@@ -30,6 +30,10 @@ public class RegistrationFeeDAO {
     }
   }
 
+  /**
+   * Get all registration fees from database
+   * @return ArrayList of results
+   */
   public static synchronized ArrayList<RegistrationFee> getAllFees()
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM registration_fee";
@@ -37,8 +41,6 @@ public class RegistrationFeeDAO {
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
 
       return getRegistrationFeesFromResultSet(rsFee);
     } catch (SQLException e) {
@@ -62,8 +64,6 @@ public class RegistrationFeeDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-
       return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
@@ -72,6 +72,12 @@ public class RegistrationFeeDAO {
     }
   }
 
+  /**
+   * Check whether the given boat was already registered to race
+   * @param boatID Selected boat to do the query
+   * @param raceID Selected race to do the query
+   * @return True if boat was already registered, False otherwise
+   */
   public static synchronized boolean boatAlreadyRegistered(Integer boatID, Integer raceID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM registration_fee WHERE Boat='" + boatID + "' AND Race='" + raceID + "'";
 
@@ -104,8 +110,6 @@ public class RegistrationFeeDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-
       return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a membership fee, an error occurred: " + e);
@@ -127,8 +131,6 @@ public class RegistrationFeeDAO {
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
 
       return getRegistrationFeesFromResultSet(rsFees);
     } catch (SQLException e) {

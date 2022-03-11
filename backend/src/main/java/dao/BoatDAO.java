@@ -13,26 +13,22 @@ public class BoatDAO {
    * Add boat to the member
    * 
    * @param boat Boat to be added to the table
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
-  public static synchronized boolean insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
-    boolean boatAdded = false;
+  public static synchronized int insertBoat(Boat boat) throws SQLException, ClassNotFoundException {
+    int ID = 0;
 
     String updateStmt = "INSERT INTO boat (Name, Owner, Length, Enabled) "
         + "VALUES ('" + boat.getName() + "', '" + boat.getOwner().getID() + "', '" + boat.getLength()
             + "', '" + boat.isEnabled() + "')";
 
     try {
-      DBUtil.dbExecuteUpdate(updateStmt);
+      ID = DBUtil.dbExecuteUpdate(updateStmt);
     } catch (SQLException e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
-    } finally {
-      boatAdded = true;
     }
 
-    return boatAdded;
+    return ID;
   }
 
   /**
@@ -40,8 +36,6 @@ public class BoatDAO {
    * 
    * @param name Name of boats the method returns
    * @return List of boats found
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized ArrayList<Boat> searchBoatByName(String name) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE Name='" + name + "'";
@@ -50,10 +44,7 @@ public class BoatDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      ArrayList<Boat> boats = getBoatsFromResultSet(rsBoats);
-
-      return boats;
+      return getBoatsFromResultSet(rsBoats);
     } catch (SQLException e) {
       System.out.println("While searching a boat with " + name + " name, an error occurred: " + e);
       // Return exception
@@ -66,8 +57,6 @@ public class BoatDAO {
    * 
    * @param ID Name of boats the method returns
    * @return List of boats found
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized Boat searchBoatByID(Integer ID) throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM boat WHERE ID='" + ID + "'";
@@ -85,32 +74,6 @@ public class BoatDAO {
       // Return exception
       throw e;
     }
-  }
-
-  private static Boat getBoatFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
-    Boat boat = null;
-
-    while (rs.next()) {
-      Member member = MemberDAO.searchMemberByID(rs.getInt("Owner"));
-      boat = new Boat(rs.getString("Name"), member, rs.getDouble("Length"));
-      boat.setID(rs.getInt("ID"));
-    }
-    return boat;
-  }
-
-  private static ArrayList<Boat> getBoatsFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
-    // Declare an observable List which comprises of Boat objects
-    ArrayList<Boat> boatsList = new ArrayList<Boat>();
-
-    while (rs.next()) {
-      Member owner = MemberDAO.searchMemberByID(rs.getInt("Owner"));
-      Boat boat = new Boat(rs.getString("Name"), owner, rs.getDouble("Length"));
-      boat.setID(rs.getInt("ID"));
-
-      boatsList.add(boat);
-    }
-
-    return boatsList;
   }
 
   /**
@@ -175,13 +138,10 @@ public class BoatDAO {
     }
   }
 
-  // TODO Better delete, it should disable it instead of deleting the actual column
   /**
-   * Deletes record of selected boat
+   * Deletes record of selected boat by disabling the bit Enabled
    * 
    * @param boatID ID of boat entity
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void deleteBoat(Integer boatID) throws SQLException, ClassNotFoundException {
     String updateStmt = "UPDATE boat SET Enabled=0 WHERE ID='" + boatID + "'";
@@ -193,5 +153,31 @@ public class BoatDAO {
       System.out.print("Error occurred while DELETE Operation: " + e);
       throw e;
     }
+  }
+
+  private static Boat getBoatFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
+    Boat boat = null;
+
+    while (rs.next()) {
+      Member member = MemberDAO.searchMemberByID(rs.getInt("Owner"));
+      boat = new Boat(rs.getString("Name"), member, rs.getDouble("Length"));
+      boat.setID(rs.getInt("ID"));
+    }
+    return boat;
+  }
+
+  private static ArrayList<Boat> getBoatsFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
+    // Declare an observable List which comprises Boat objects
+    ArrayList<Boat> boatsList = new ArrayList<Boat>();
+
+    while (rs.next()) {
+      Member owner = MemberDAO.searchMemberByID(rs.getInt("Owner"));
+      Boat boat = new Boat(rs.getString("Name"), owner, rs.getDouble("Length"));
+      boat.setID(rs.getInt("ID"));
+
+      boatsList.add(boat);
+    }
+
+    return boatsList;
   }
 }

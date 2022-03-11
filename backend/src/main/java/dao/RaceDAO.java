@@ -11,8 +11,6 @@ public class RaceDAO {
     /**
      * Add new race record to db
      * @param race Entity that will be added
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public static synchronized void insertRace(Race race) throws SQLException, ClassNotFoundException {
         String updateStmt = "INSERT INTO race (Name, Location, Date, Expired) "
@@ -31,8 +29,6 @@ public class RaceDAO {
      * Search for a specific race within Race DB's table
      * @param name Name of searched race
      * @return Record of search result
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public static synchronized Race searchRaceByName(String name) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race WHERE Name='"+name +"'";
@@ -41,10 +37,7 @@ public class RaceDAO {
             //Get ResultSet from dbExecuteQuery method
             ResultSet rsRace = DBUtil.dbExecuteQuery(selectStmt);
 
-            //Send ResultSet to the getRaceFromResultSet method and get race object
-            Race race = getRaceFromResultSet(rsRace);
-
-            return race;
+            return getRaceFromResultSet(rsRace);
         } catch (SQLException e) {
             System.out.println("While searching a race with " + name + " name, an error occurred: " + e);
             //Return exception
@@ -56,8 +49,6 @@ public class RaceDAO {
      * Search for a specific race within Race DB's table
      * @param ID ID of searched race
      * @return Record of search result
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public static synchronized Race searchRaceByID(Integer ID) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race WHERE ID='"+ID +"'";
@@ -66,10 +57,7 @@ public class RaceDAO {
             //Get ResultSet from dbExecuteQuery method
             ResultSet rsRace = DBUtil.dbExecuteQuery(selectStmt);
 
-            //Send ResultSet to the getRaceFromResultSet method and get race object
-            Race race = getRaceFromResultSet(rsRace);
-
-            return race;
+            return getRaceFromResultSet(rsRace);
         } catch (SQLException e) {
             System.out.println("While searching a race with " + ID + " ID, an error occurred: " + e);
             //Return exception
@@ -77,6 +65,10 @@ public class RaceDAO {
         }
     }
 
+    /**
+     * Get all races expired and not expired
+     * @return ArrayList of results
+     */
     public static synchronized ArrayList<Race> getAllRaces() throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race";
 
@@ -84,16 +76,17 @@ public class RaceDAO {
             //Get ResultSet from dbExecuteQuery method
             ResultSet rsRaces = DBUtil.dbExecuteQuery(selectStmt);
 
-            //Send ResultSet to the getRaceFromResultSet method and get race object
-            ArrayList<Race> races = getRacesFromResultSet(rsRaces);
-
-            return races;
+            return getRacesFromResultSet(rsRaces);
         } catch (SQLException e) {
             System.out.println("While getting all races, an error occurred: " + e);
             throw e;
         }
     }
 
+    /**
+     * Get only the races that are not expired
+     * @return ArrayList of results
+     */
     public static synchronized ArrayList<Race> getRacesNotExpired() throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM race WHERE Expired=0";
 
@@ -101,16 +94,16 @@ public class RaceDAO {
             //Get ResultSet from dbExecuteQuery method
             ResultSet rsRaces = DBUtil.dbExecuteQuery(selectStmt);
 
-            //Send ResultSet to the getRaceFromResultSet method and get race object
-            ArrayList<Race> races = getRacesFromResultSet(rsRaces);
-
-            return races;
+            return getRacesFromResultSet(rsRaces);
         } catch (SQLException e) {
             System.out.println("While getting all races, an error occurred: " + e);
             throw e;
         }
     }
 
+    /**
+     * Set the race to an Expired state, which means no other Member can subscribe to it
+     */
     public static synchronized void updateExpirationField() throws SQLException, ClassNotFoundException {
         String updateStmt = "UPDATE race SET Expired=1 WHERE timestampdiff(second, Date, NOW()) > 150";
 

@@ -28,8 +28,6 @@ public class DBUtil {
 
     /**
      * Open the connection to the database
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public static void dbConnect() throws SQLException, ClassNotFoundException {
         try {
@@ -66,8 +64,6 @@ public class DBUtil {
      * This enables us to not open too many connections slowing down our application
      * @param queryStmt The query that will be executed
      * @return Returns the result of the SQL statement
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public synchronized static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         //Declare statement, resultSet and CachedResultSet as null
@@ -117,16 +113,20 @@ public class DBUtil {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public synchronized static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
+    public synchronized static int dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         //Declare statement as null
         Statement stmt = null;
+        int ID = 0;
+
         try {
             //Connect to DB
             dbConnect();
             //Create Statement
             stmt = conn.createStatement();
-            //Run executeUpdate operation with given sql statement
-            stmt.executeUpdate(sqlStmt);
+            //Run executeUpdate operation with given sql statement and get
+            // auto generated ID
+            ID = stmt.executeUpdate(sqlStmt, Statement.RETURN_GENERATED_KEYS);
+
         } catch (SQLException e) {
             System.out.println("Problem occurred at executeUpdate operation : " + e);
             throw e;
@@ -138,6 +138,8 @@ public class DBUtil {
             //Close connection
             dbDisconnect();
         }
+
+        return ID;
     }
 
     /**

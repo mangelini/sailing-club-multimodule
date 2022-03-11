@@ -11,22 +11,18 @@ public class AddBoatCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {
         Reply replyMessage = null;
-        boolean boatAdded = false;
         Boat boat = null;
 
         try {
             Boat boatToAdd = (Boat) message.getNewObject();
-            boatAdded = BoatDAO.insertBoat(boatToAdd);
+            int ID = BoatDAO.insertBoat(boatToAdd);
 
-            // TODO insertBoat should return the boat ID and to do the search with that
-            boat = BoatDAO.searchBoatByName(boatToAdd.getName()).get(0);
+            boat = BoatDAO.searchBoatByID(ID);
         } catch (Exception e) {
-            e.printStackTrace();
+            replyMessage = new Reply(ReplyType.ERROR);
+            return replyMessage;
         } finally {
-            if (boatAdded)
-                replyMessage = new Reply(ReplyType.OK, boat);
-            else
-                replyMessage = new Reply(ReplyType.ERROR);
+            replyMessage = new Reply(ReplyType.OK, boat);
         }
 
         return replyMessage;

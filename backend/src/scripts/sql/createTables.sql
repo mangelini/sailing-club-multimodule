@@ -102,3 +102,28 @@ create table `sailing-club`.notify_storage_fee
     constraint notify_storage_fee_boat_ID_fk
         foreign key (Boat) references boat (ID)
 );
+
+create table `sailing-club`.payment_type
+(
+    ID int auto_increment
+        primary key
+);
+
+/*create table `sailing-club`.credit_card(
+    ID int auto_increment
+        primary key references `sailing-club`.payment_type (ID),
+    CardNumber varchar(16),
+    Owner int not null,
+    Name varchar(50),
+    SecurityCode varchar(3),
+    ExpMonth tinyint(1),
+    ExpYear smallint(2),
+    constraint credit_card_FK
+        foreign key (Owner) references member (ID)
+);
+
+create table `sailing-club`.bank_transfer(
+    ID int auto_increment
+        primary key references `sailing-club`.payment_type (ID),
+    TransferReceipt varchar()
+);*/

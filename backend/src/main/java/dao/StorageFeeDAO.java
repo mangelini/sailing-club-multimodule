@@ -45,6 +45,10 @@ public class StorageFeeDAO {
     }
   }
 
+  /**
+   * Get all Storage fees in database
+   * @return ArrayList of results
+   */
   public static synchronized ArrayList<StorageFee> getAllFees()
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM storage_fee";
@@ -52,8 +56,6 @@ public class StorageFeeDAO {
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
 
       return getStorageFeesFromResultSet(rsFee);
     } catch (SQLException e) {
@@ -74,8 +76,6 @@ public class StorageFeeDAO {
     try {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFee = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
 
       return getStorageFeeFromResultSet(rsFee);
     } catch (SQLException e) {
@@ -98,8 +98,6 @@ public class StorageFeeDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-
       return getStorageFeesFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a storage fee, an error occurred: " + e);
@@ -121,8 +119,6 @@ public class StorageFeeDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsFees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-
       return getStorageFeeFromResultSet(rsFees);
     } catch (SQLException e) {
       System.out.println("While searching a storage fee, an error occurred: " + e);
@@ -131,21 +127,10 @@ public class StorageFeeDAO {
     }
   }
 
-  public static synchronized void deleteStorageFeeByBoat(Integer boatID)
-          throws SQLException, ClassNotFoundException {
-    String updateStmt = "DELETE FROM storage_fee WHERE Boat='" + boatID + "'";
-
-    // Execute DELETE operation
-    try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
-      System.out.print("Error occurred while DELETE Operation: " + e);
-      throw e;
-    }
-  }
-
   /**
-   * Search for a Storage Fees of a specific date within DB table
+   * Search for the only Storage Fee not expired of given boat in database
+   * @param boatID Selected Boat that should have a valid StorageFee
+   * @return StorageFee object of result, null otherwise
    */
   public static synchronized StorageFee searchNotExpiredStorageFeeOfBoat(int boatID)
           throws SQLException, ClassNotFoundException {

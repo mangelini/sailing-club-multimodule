@@ -27,6 +27,11 @@ public class EmployeeDAO {
     }
   }
 
+  /**
+   * Check weather an administrator account already exist or not.
+   * If admin exist go to Auth HomePage, if it doesn't go to Admin Sign Up process
+   * @return True if exists, False otherwise
+   */
   public static synchronized boolean adminAlreadyExist()
           throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM employee WHERE Admin=1";
@@ -49,8 +54,6 @@ public class EmployeeDAO {
    * 
    * @param ID          ID's of Member
    * @param newUsername Updated username
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void updateEmployeeUsername(Integer ID, String newUsername)
       throws SQLException, ClassNotFoundException {
@@ -73,8 +76,6 @@ public class EmployeeDAO {
    * 
    * @param ID          ID of Employee
    * @param newPassword Updated password
-   * @throws SQLException
-   * @throws ClassNotFoundException
    */
   public static synchronized void updateEmployeePassword(Integer ID, String newPassword)
       throws SQLException, ClassNotFoundException {
@@ -95,9 +96,7 @@ public class EmployeeDAO {
   /**
    * Gets all employees of the club
    * 
-   * @return A List of members
-   * @throws SQLException
-   * @throws ClassNotFoundException
+   * @return A List of employees
    */
   public static synchronized ArrayList<Employee> getAllEmployees() throws SQLException, ClassNotFoundException {
     String selectStmt = "SELECT * FROM employee WHERE Admin=0";
@@ -106,11 +105,8 @@ public class EmployeeDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsEmployees = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getMemberList method and get member object
-      ArrayList<Employee> empList = getEmployeeList(rsEmployees);
-
       // Return employee object
-      return empList;
+      return getEmployeeList(rsEmployees);
     } catch (SQLException e) {
       System.out.println("SQL select operation has been failed: " + e);
       // Return exception
@@ -118,8 +114,52 @@ public class EmployeeDAO {
     }
   }
 
-  private static ArrayList<Employee> getEmployeeList(ResultSet rs) throws SQLException, ClassNotFoundException {
-    // Declare an observable List which comprises of Employee objects
+
+
+  /**
+   * Search for a specific employee inside Employee's DB table
+   * 
+   * @param Username Username of target employee
+   * @return Employee object
+   */
+  public static synchronized Employee searchEmployee(String Username) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM employee WHERE Username='" + Username + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsEmp = DBUtil.dbExecuteQuery(selectStmt);
+
+      return getEmployeeFromResultSet(rsEmp);
+    } catch (SQLException e) {
+      System.out.println("While searching an employee with " + Username + " username, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
+  /**
+   * Tries to authenticate the given user as an Employee
+   * @param clientEmployee User from GUI
+   * @return Employee filled with data if it exists in DB, null otherwise
+   */
+  public static synchronized Employee logIn(Employee clientEmployee) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM employee WHERE Username='" + clientEmployee.getUsername() +
+            "' AND Password='" + clientEmployee.getPassword() + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsEmp = DBUtil.dbExecuteQuery(selectStmt);
+
+      return getEmployeeFromResultSet(rsEmp);
+    } catch (SQLException e) {
+      System.out.println("While searching an employee with " + clientEmployee.getUsername() + " username, an error occurred: " + e);
+      // Return exception
+      throw e;
+    }
+  }
+
+  private static ArrayList<Employee> getEmployeeList(ResultSet rs) throws SQLException {
+    // Declare an observable List which comprises Employee objects
     ArrayList<Employee> empList = new ArrayList<>();
 
     while (rs.next()) {
@@ -132,51 +172,6 @@ public class EmployeeDAO {
     }
 
     return empList;
-  }
-
-  /**
-   * Search for a specific employee inside Employee's DB table
-   * 
-   * @param Username Username of target employee
-   * @return Employee object
-   * @throws SQLException
-   * @throws ClassNotFoundException
-   */
-  public static synchronized Employee searchEmployee(String Username) throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM employee WHERE Username='" + Username + "'";
-
-    try {
-      // Get ResultSet from dbExecuteQuery method
-      ResultSet rsEmp = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      Employee employee = getEmployeeFromResultSet(rsEmp);
-
-      return employee;
-    } catch (SQLException e) {
-      System.out.println("While searching an employee with " + Username + " username, an error occurred: " + e);
-      // Return exception
-      throw e;
-    }
-  }
-
-  public static synchronized Employee logIn(Employee clientEmployee) throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM employee WHERE Username='" + clientEmployee.getUsername() +
-            "' AND Password='" + clientEmployee.getPassword() + "'";
-
-    try {
-      // Get ResultSet from dbExecuteQuery method
-      ResultSet rsEmp = DBUtil.dbExecuteQuery(selectStmt);
-
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      Employee employee = getEmployeeFromResultSet(rsEmp);
-
-      return employee;
-    } catch (SQLException e) {
-      System.out.println("While searching an employee with " + clientEmployee.getUsername() + " username, an error occurred: " + e);
-      // Return exception
-      throw e;
-    }
   }
 
   private static Employee getEmployeeFromResultSet(ResultSet rsEmp) throws SQLException {

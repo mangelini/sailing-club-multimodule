@@ -23,6 +23,12 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
+    /**
+     * Checks weather a notification about the Membership Fee was already sent previously
+     * by an Employee
+     * @param memberID The Member to search
+     * @return True if the notification was already sent, False otherwise
+     */
     public static synchronized boolean notificationAlreadySent(int memberID) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM notify_membership_fee WHERE Sent=1 AND Member='" + memberID + "'";
 
@@ -39,6 +45,11 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
+    /**
+     * Check if the given Member is present in table, which means his MembershipFee is expired
+     * @param memberID Member to search
+     * @return True if it is present in table, False otherwise
+     */
     public static synchronized boolean isMemberPresent(Integer memberID) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM notify_membership_fee WHERE Member='" + memberID + "'";
 
@@ -55,6 +66,10 @@ public class NotifyMembershipFeeDAO {
         }
     }
 
+    /**
+     * Delete record of notification from table
+     * @param memberID Member to do the search for deleting the notification
+     */
     public static synchronized void deleteNotification(Integer memberID) throws SQLException, ClassNotFoundException {
         String updateStmt = "DELETE FROM notify_membership_fee WHERE Member='" + memberID + "'";
 

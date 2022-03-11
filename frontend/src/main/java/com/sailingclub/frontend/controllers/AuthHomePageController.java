@@ -1,20 +1,9 @@
 package com.sailingclub.frontend.controllers;
 
-import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.authPages.admin.AdminSignInPage;
-import com.sailingclub.frontend.authPages.admin.AdminSignUpPage;
 import com.sailingclub.frontend.authPages.employee.EmployeeSignInPage;
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
-import entities.Employee;
 import javafx.fxml.FXML;
-import messageManagement.Message;
-import messageManagement.MessageType;
-import messageManagement.Reply;
-import messageManagement.ReplyType;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class AuthHomePageController {
     /**

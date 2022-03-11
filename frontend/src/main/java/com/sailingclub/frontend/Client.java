@@ -3,8 +3,6 @@ package com.sailingclub.frontend;
 import messageManagement.Message;
 import messageManagement.MessageType;
 import messageManagement.Reply;
-import messageManagement.ReplyType;
-
 import java.io.BufferedInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,22 +13,9 @@ public class Client {
     private static final String SHOST = "localhost";
     Socket client = null;
 
-    /**
-     * Close the connection to server
-     */
-    public void closeConnection(){
-        try {
-            client.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void run() {
         try {
             client = new Socket(SHOST, SPORT);
-            //ObjectInputStream is = null;
-            /*ObjectOutputStream os = new ObjectOutputStream(client.getOutputStream());*/
 
             Helpers.setOutputStream(new ObjectOutputStream(client.getOutputStream()));
 
@@ -42,8 +27,7 @@ public class Client {
 
             Object o = Helpers.getInputStream().readObject();
 
-            if(o instanceof Reply){
-                Reply reply = (Reply) o;
+            if(o instanceof Reply reply){
                 System.out.println(reply.getResponseCode());
             }
 
