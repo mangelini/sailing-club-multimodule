@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.authPages.member.MemberAuthHomePage;
+import com.sailingclub.frontend.paymentType.PaymentTypePage;
 import entities.Member;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,9 +16,11 @@ import messageManagement.ReplyType;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MemberSignUpPageController {
     Member currentMember = null;
+    AtomicReference<String> ref = new AtomicReference<>("");
 
     @FXML private TextField username;
     @FXML private TextField name;
@@ -58,6 +61,9 @@ public class MemberSignUpPageController {
                     address.getText(), fiscalCode.getText(), username.getText(), password1.getText());
             Message<Member> message = Message.newInstance(member, MessageType.ADD_MEMBER);
 
+            // let the user choose payment type
+            new PaymentTypePage(ref).render();
+
             try {
                 Helpers.getOutputStream().writeObject(message);
 
@@ -67,7 +73,7 @@ public class MemberSignUpPageController {
                     if(reply.getResponseCode() == ReplyType.OK){
                         ArrayList<Serializable> serializableArrayList = reply.getResults();
                         currentMember = (Member) serializableArrayList.get(0);
-                        payMembershipFee();
+                        payMembershipFee(ref);
 
                         new MemberAuthHomePage().render();
                     } else if(reply.getResponseCode() == ReplyType.ERROR) {
@@ -80,8 +86,8 @@ public class MemberSignUpPageController {
         }
     }
 
-    private void payMembershipFee(){
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "bank transfer");
+    private void payMembershipFee(AtomicReference<String> ref){
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, ref.get());
 
         try {
             Helpers.getOutputStream().writeObject(message);

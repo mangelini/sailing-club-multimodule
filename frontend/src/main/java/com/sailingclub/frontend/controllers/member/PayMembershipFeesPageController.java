@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.memberPages.MemberHomePage;
+import com.sailingclub.frontend.paymentType.PaymentTypePage;
 import entities.Member;
 import entities.MembershipFee;
 import entities.StorageFee;
@@ -17,10 +18,12 @@ import messageManagement.ReplyType;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PayMembershipFeesPageController {
     Member currentMember;
     boolean feeExpired;
+    AtomicReference<String> ref = new AtomicReference<>("");
 
     @FXML
     private Button backButton;
@@ -64,7 +67,10 @@ public class PayMembershipFeesPageController {
     }
 
     public void onPayFeeClick(){
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, "Credit Card");
+        // let the user choose payment type
+        new PaymentTypePage(ref).render();
+
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_MEMBERSHIP_FEE, ref.get());
 
         try {
             Helpers.getOutputStream().writeObject(message);

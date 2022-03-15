@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.memberPages.MemberHomePage;
+import com.sailingclub.frontend.paymentType.PaymentTypePage;
 import entities.Boat;
 import entities.Employee;
 import entities.Member;
@@ -23,10 +24,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PayStorageFeesPageController {
     Member currentMember;
     ArrayList<Boat> boats;
+    AtomicReference<String> ref = new AtomicReference<>("");
 
     @FXML
     private Button backButton;
@@ -55,8 +58,16 @@ public class PayStorageFeesPageController {
     }
 
     public void onPayFeeClick() {
+        // let the user choose payment type
+        new PaymentTypePage(ref).render();
+
         Boat selectedBoat = selectionModel.getSelectedItem();
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, selectedBoat);
+
+        // create an array of objects to send to backend
+        ArrayList<Object> arrayList = new ArrayList<>();
+        arrayList.add(selectedBoat);
+        arrayList.add(ref.get());
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, arrayList);
 
         try {
             Helpers.getOutputStream().writeObject(message);

@@ -23,10 +23,11 @@ public class RegisterToRaceCommand implements Command {
             ArrayList<Serializable> arr = (ArrayList<Serializable>) message.getNewObject();
             Race selectedRace = (Race) arr.get(0);
             Boat selectedBoat = (Boat) arr.get(1);
+            String paymentType = (String) arr.get(2);
 
             RegistrationFeeDAO.insertRegistrationFee(new RegistrationFee(selectedBoat, selectedRace,
                     Constants.REGISTRATION_FEE, new Timestamp(System.currentTimeMillis()),
-                    "Credit Card"));
+                    paymentType));
         } catch (Exception e) {
             replyMessage = new Reply(ReplyType.ERROR);
             return replyMessage;

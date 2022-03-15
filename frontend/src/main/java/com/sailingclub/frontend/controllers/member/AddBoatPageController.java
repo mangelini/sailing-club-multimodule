@@ -2,6 +2,7 @@ package com.sailingclub.frontend.controllers.member;
 
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.memberPages.MemberHomePage;
+import com.sailingclub.frontend.paymentType.PaymentTypePage;
 import entities.Boat;
 import entities.Member;
 import entities.StorageFee;
@@ -16,8 +17,11 @@ import messageManagement.ReplyType;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AddBoatPageController {
+    AtomicReference<String> ref = new AtomicReference<>("");
+
     @FXML
     private Button backButton;
     @FXML
@@ -37,7 +41,11 @@ public class AddBoatPageController {
 
     public void onAddBoatClick(){
         if (!name.getText().isEmpty() && !length.getText().isEmpty()) {
+            // let the user choose payment type
+            new PaymentTypePage(ref).render();
+
             Boat boatToAdd = new Boat(name.getText(), currentMember, Double.parseDouble(length.getText()));
+
             Message<Member> message = Message.newInstance(currentMember, MessageType.ADD_BOAT, boatToAdd);
 
             try {
@@ -65,7 +73,11 @@ public class AddBoatPageController {
     // TODO BoatDAO insert should return the object with the ID
     // so that we could use it to do other researches
     private void payStorageFee(Boat boat) throws IOException, ClassNotFoundException {
-        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, boat);
+        // create an array of objects to send to backend
+        ArrayList<Object> arrayList = new ArrayList<>();
+        arrayList.add(boat);
+        arrayList.add(ref.get());
+        Message<Member> message = Message.newInstance(currentMember, MessageType.PAY_STORAGE_FEE, arrayList);
 
         Helpers.getOutputStream().writeObject(message);
 

@@ -3,6 +3,7 @@ package com.sailingclub.frontend.controllers.member;
 import com.sailingclub.frontend.Helpers;
 import com.sailingclub.frontend.memberPages.MemberHomePage;
 import com.sailingclub.frontend.memberPages.RegisterToRacePage;
+import com.sailingclub.frontend.paymentType.PaymentTypePage;
 import entities.Boat;
 import entities.Member;
 import entities.Race;
@@ -20,11 +21,13 @@ import messageManagement.ReplyType;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SelectBoatToRaceController {
     Member currentMember;
     Race raceToSubscribe;
     ArrayList<Boat> availableBoats = new ArrayList<>();
+    AtomicReference<String> ref = new AtomicReference<>("");
 
     @FXML
     private Button backButton;
@@ -83,12 +86,16 @@ public class SelectBoatToRaceController {
     }
 
     public void onRegisterClick() {
+        // let the user choose payment type
+        new PaymentTypePage(ref).render();
+
         Boat selectedBoat = selectionModel.getSelectedItem();
         ArrayList<Serializable> arrayList = new ArrayList<>();
 
         // send selected race and selected boat to backend
         arrayList.add(raceToSubscribe);
         arrayList.add(selectedBoat);
+        arrayList.add(ref.get());
 
         Message<Member> message = Message.newInstance(currentMember, MessageType.REGISTER_TO_RACE, arrayList);
 

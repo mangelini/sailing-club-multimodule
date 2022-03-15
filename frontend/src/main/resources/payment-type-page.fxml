@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sailingclub.frontend.paymentType.PaymentTypeController">
+    <Label layoutX="57.0" layoutY="14.0" text="CHOOSE PAYMENT TYPE">
+        <font>
+            <Font name="System Bold" size="16.0" />
+        </font>
+    </Label>
+   <RadioButton fx:id="creditCard" layoutX="107.0" layoutY="78.0" mnemonicParsing="false" text="Credit Card">
+       <toggleGroup>
+           <ToggleGroup fx:id="group"/>
+       </toggleGroup>
+   </RadioButton>
+   <RadioButton fx:id="bankTransfer" layoutX="107.0" layoutY="105.0" mnemonicParsing="false" text="Bank Transfer">
+       <toggleGroup>
+           <fx:reference source="group"/>
+       </toggleGroup>
+   </RadioButton>
+   <Button fx:id="select" onAction="#onSelectClick" layoutX="125.0" layoutY="154.0" mnemonicParsing="false" text="SELECT" />
+</Pane>
