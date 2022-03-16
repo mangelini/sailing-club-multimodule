@@ -3,7 +3,7 @@ package entities;
 public class NotifyMembershipFee {
     private Integer ID;
     private Member member;
-    private Integer sent;
+    private final Integer sent;
 
     /**
      * Constructor without ID
@@ -66,14 +66,5 @@ public class NotifyMembershipFee {
      */
     public Integer getSent() {
         return sent;
-    }
-
-    /**
-     * Setter for Sent of NotifyMembershipFee
-     * @param sent Boolean value to be put
-     */
-    public void setSent(boolean sent) {
-        if (!sent) this.sent = 0;
-        else this.sent = 1;
     }
 }

@@ -1,16 +1,18 @@
 package entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class Race implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private String name;
-    private String location;
-    private java.sql.Timestamp date;
+    private final String name;
+    private final String location;
+    private final java.sql.Timestamp date;
     private Integer ID;
-    private Integer expired;
+    private final Integer expired;
 
     /**
      * Constructor for Race Entity
