@@ -22,10 +22,13 @@ public class MemberDAO {
         + member.getUsername() + "', '" + member.getPassword() + "')";
 
     try {
+      DBUtil.dbConnect();
       ID = DBUtil.dbExecuteUpdate(updateStmt);
     } catch (Exception e) {
       System.out.print("Error occurred while INSERT Operation: " + e);
       throw e;
+    } finally {
+      DBUtil.dbDisconnect();
     }
 
     return ID;
@@ -46,7 +49,6 @@ public class MemberDAO {
       return getMemberList(rsMembers);
     } catch (SQLException e) {
       System.out.println("SQL select operation has been failed: " + e);
-      // Return exception
       throw e;
     }
   }
@@ -67,28 +69,6 @@ public class MemberDAO {
       return getMemberFromResultSet(rsMem);
     } catch (SQLException e) {
       System.out.println("While searching a member with " + clientMember.getUsername() + " username, an error occurred: " + e);
-      // Return exception
-      throw e;
-    }
-  }
-
-  /**
-   * Search for a specific member inside Member's DB table
-   * 
-   * @param Username Surname of target member
-   * @return Member object
-   */
-  public static synchronized Member searchMember(String Username) throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM member WHERE Username='" + Username + "'";
-
-    try {
-      // Get ResultSet from dbExecuteQuery method
-      ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
-
-      return getMemberFromResultSet(rsMem);
-    } catch (SQLException e) {
-      System.out.println("While searching a member with " + Username + " username, an error occurred: " + e);
-      // Return exception
       throw e;
     }
   }
@@ -109,51 +89,6 @@ public class MemberDAO {
       return getMemberFromResultSet(rsMem);
     } catch (SQLException e) {
       System.out.println("While searching a member with " + ID + " ID, an error occurred: " + e);
-      // Return exception
-      throw e;
-    }
-  }
-
-  /**
-   * Updates the username of specified Member
-   * 
-   * @param Surname     Surname of Member
-   * @param newUsername Updated username
-   */
-  public static synchronized void updateMemberUsername(String Surname, String newUsername)
-      throws SQLException, ClassNotFoundException {
-    // Declare a UPDATE statement
-    String updateStmt = "UPDATE member" +
-        " SET Username ='" + newUsername + "'" +
-        " WHERE Surname ='" + Surname + "'";
-
-    // Execute UPDATE operation
-    try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
-      System.out.print("Error occurred while UPDATE Operation: " + e);
-      throw e;
-    }
-  }
-
-  /**
-   * Updates the password of specified Member
-   * 
-   * @param Surname     Surname of Member
-   * @param newPassword Updated password
-   */
-  public static synchronized void updateMemberPassword(String Surname, String newPassword)
-      throws SQLException, ClassNotFoundException {
-    // Declare a UPDATE statement
-    String updateStmt = "UPDATE member" +
-        " SET Password ='" + newPassword + "'" +
-        " WHERE Surname ='" + Surname + "'";
-
-    // Execute UPDATE operation
-    try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
-      System.out.print("Error occurred while UPDATE Operation: " + e);
       throw e;
     }
   }

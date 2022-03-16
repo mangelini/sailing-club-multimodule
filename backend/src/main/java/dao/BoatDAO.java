@@ -32,27 +32,6 @@ public class BoatDAO {
   }
 
   /**
-   * Return all the boats with specified name
-   * 
-   * @param name Name of boats the method returns
-   * @return List of boats found
-   */
-  public static synchronized ArrayList<Boat> searchBoatByName(String name) throws SQLException, ClassNotFoundException {
-    String selectStmt = "SELECT * FROM boat WHERE Name='" + name + "'";
-
-    try {
-      // Get ResultSet from dbExecuteQuery method
-      ResultSet rsBoats = DBUtil.dbExecuteQuery(selectStmt);
-
-      return getBoatsFromResultSet(rsBoats);
-    } catch (SQLException e) {
-      System.out.println("While searching a boat with " + name + " name, an error occurred: " + e);
-      // Return exception
-      throw e;
-    }
-  }
-
-  /**
    * Return all the boats with specified ID
    * 
    * @param ID Name of boats the method returns
@@ -65,10 +44,7 @@ public class BoatDAO {
       // Get ResultSet from dbExecuteQuery method
       ResultSet rsBoat = DBUtil.dbExecuteQuery(selectStmt);
 
-      // Send ResultSet to the getEmployeeFromResultSet method and get employee object
-      Boat boat = getBoatFromResultSet(rsBoat);
-
-      return boat;
+      return getBoatFromResultSet(rsBoat);
     } catch (SQLException e) {
       System.out.println("While searching a boat with " + ID + " ID, an error occurred: " + e);
       // Return exception
@@ -168,7 +144,7 @@ public class BoatDAO {
 
   private static ArrayList<Boat> getBoatsFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
     // Declare an observable List which comprises Boat objects
-    ArrayList<Boat> boatsList = new ArrayList<Boat>();
+    ArrayList<Boat> boatsList = new ArrayList<>();
 
     while (rs.next()) {
       Member owner = MemberDAO.searchMemberByID(rs.getInt("Owner"));

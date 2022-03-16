@@ -23,7 +23,7 @@ public class PayStorageFeesCommand implements Command {
 
             StorageFee storageFee = new StorageFee(boat, paymentType);
 
-            StorageFeeDAO.insertStorageFeeWithPaymentType(storageFee);
+            StorageFeeDAO.insertStorageFee(storageFee);
 
             NotifyStorageFeeDAO.deleteNotification(boat.getID());
         } catch (Exception e) {

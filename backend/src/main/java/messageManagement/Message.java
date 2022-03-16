@@ -72,10 +72,6 @@ public class Message<T> implements Serializable {
     this.requestType = requestType;
   }
 
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
-
   public T getUser() {
     return user;
   }

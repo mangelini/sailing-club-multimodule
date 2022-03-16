@@ -48,51 +48,6 @@ public class EmployeeDAO {
       throw e;
     }
   }
-
-  /**
-   * Updates the username of specified Employee
-   * 
-   * @param ID          ID's of Member
-   * @param newUsername Updated username
-   */
-  public static synchronized void updateEmployeeUsername(Integer ID, String newUsername)
-      throws SQLException, ClassNotFoundException {
-    // Declare a UPDATE statement
-    String updateStmt = "UPDATE employee" +
-        " SET Username ='" + newUsername + "'" +
-        " WHERE ID ='" + ID + "'";
-
-    // Execute UPDATE operation
-    try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
-      System.out.print("Error occurred while UPDATE Operation: " + e);
-      throw e;
-    }
-  }
-
-  /**
-   * Updates the password of specified Employee
-   * 
-   * @param ID          ID of Employee
-   * @param newPassword Updated password
-   */
-  public static synchronized void updateEmployeePassword(Integer ID, String newPassword)
-      throws SQLException, ClassNotFoundException {
-    // Declare a UPDATE statement
-    String updateStmt = "UPDATE employee" +
-        " SET Password ='" + newPassword + "'" +
-        " WHERE ID ='" + ID + "'";
-
-    // Execute UPDATE operation
-    try {
-      DBUtil.dbExecuteUpdate(updateStmt);
-    } catch (SQLException e) {
-      System.out.print("Error occurred while UPDATE Operation: " + e);
-      throw e;
-    }
-  }
-
   /**
    * Gets all employees of the club
    * 
@@ -113,8 +68,6 @@ public class EmployeeDAO {
       throw e;
     }
   }
-
-
 
   /**
    * Search for a specific employee inside Employee's DB table

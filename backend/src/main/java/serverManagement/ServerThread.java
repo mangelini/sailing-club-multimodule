@@ -2,7 +2,6 @@ package serverManagement;
 
 import entities.Member;
 import messageManagement.Message;
-import messageManagement.MessageType;
 import messageManagement.Reply;
 
 import java.io.BufferedInputStream;
@@ -12,18 +11,17 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ServerThread implements Runnable {
-  private static int MAX = 100;
-  private static final long SLEEPTIME = 200;
+  private static final int MAX = 100;
 
   private Server server;
-  private Socket socket;
+  private final Socket socket;
 
   /**
    * Constructor for initializing the client of connection
    * and the server which created this thread
    * 
-   * @param server
-   * @param client
+   * @param server Server instance
+   * @param client Client instance
    */
   public ServerThread(final Server server, final Socket client) {
     this.server = server;
@@ -55,8 +53,7 @@ public class ServerThread implements Runnable {
           Message message = (Message) i;
 
           Object o = message.getUser();
-          if (o instanceof Member){
-            Member member = (Member) o;
+          if (o instanceof Member member){
             System.out.println(member.getID());
           }
 

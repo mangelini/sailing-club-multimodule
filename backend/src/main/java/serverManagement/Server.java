@@ -15,12 +15,10 @@ public class Server {
     private static final Integer MAXPOOL = 100; // maximum threads running concurrently
     private static final int IDLETIME = 5000;
 
-    private ServerSocket socket;
-    private ThreadPoolExecutor threadPool;
+    private final ServerSocket socket;
 
     /**
      * Constructor for initiating server socket
-     * @throws IOException
      */
     public Server() throws IOException {
         this.socket = new ServerSocket(SPORT);
@@ -29,7 +27,7 @@ public class Server {
     }
 
     private void run() {
-        this.threadPool = new ThreadPoolExecutor(COREPOOL, MAXPOOL, IDLETIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(COREPOOL, MAXPOOL, IDLETIME, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
 
         while (true){
             try {
@@ -38,30 +36,9 @@ public class Server {
 
                 // Add a new thread to the queue for the newly created
                 // connection of client
-                this.threadPool.execute(new ServerThread(this, client));
-            } catch (Exception e){
-            } /*finally {
-              this.threadPool.shutdown();
-            }*/
-        }
-    }
-
-    /**
-     * Getter for thread pool
-     * @return Thread pool
-     */
-    public ThreadPoolExecutor getThreadPool() {
-        return this.threadPool;
-    }
-
-    /**
-     * Close the socket
-     */
-    public void close(){
-        try {
-            this.socket.close();
-        } catch (Exception e){
-            e.printStackTrace();
+                threadPool.execute(new ServerThread(this, client));
+            } catch (Exception ignored){
+            }
         }
     }
 

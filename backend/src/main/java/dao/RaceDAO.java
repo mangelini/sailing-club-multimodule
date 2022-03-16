@@ -27,26 +27,6 @@ public class RaceDAO {
 
     /**
      * Search for a specific race within Race DB's table
-     * @param name Name of searched race
-     * @return Record of search result
-     */
-    public static synchronized Race searchRaceByName(String name) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM race WHERE Name='"+name +"'";
-
-        try {
-            //Get ResultSet from dbExecuteQuery method
-            ResultSet rsRace = DBUtil.dbExecuteQuery(selectStmt);
-
-            return getRaceFromResultSet(rsRace);
-        } catch (SQLException e) {
-            System.out.println("While searching a race with " + name + " name, an error occurred: " + e);
-            //Return exception
-            throw e;
-        }
-    }
-
-    /**
-     * Search for a specific race within Race DB's table
      * @param ID ID of searched race
      * @return Record of search result
      */
@@ -116,7 +96,7 @@ public class RaceDAO {
         }
     }
 
-    private static Race getRaceFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
+    private static Race getRaceFromResultSet(ResultSet rs) throws SQLException {
         Race race = null;
 
         if (rs.next()) {
@@ -127,7 +107,7 @@ public class RaceDAO {
         return race;
     }
 
-    private static ArrayList<Race> getRacesFromResultSet(ResultSet rs) throws SQLException, ClassNotFoundException {
+    private static ArrayList<Race> getRacesFromResultSet(ResultSet rs) throws SQLException {
         ArrayList<Race> races = new ArrayList<>();
 
         while (rs.next()){

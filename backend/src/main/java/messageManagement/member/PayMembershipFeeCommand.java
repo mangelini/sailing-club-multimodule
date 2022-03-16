@@ -24,7 +24,7 @@ public class PayMembershipFeeCommand implements Command {
             membershipFee = new MembershipFee(member, new Timestamp(System.currentTimeMillis()),
                     Constants.MEMBERSHIP_FEE, (String)message.getNewObject());
 
-            MembershipFeeDAO.insertMembershipFeeWithPaymentType(membershipFee);
+            MembershipFeeDAO.insertMembershipFee(membershipFee);
 
             NotifyMembershipFeeDAO.deleteNotification(member.getID());
         } catch (Exception e) {

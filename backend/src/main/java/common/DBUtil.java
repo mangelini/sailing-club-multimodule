@@ -74,7 +74,6 @@ public class DBUtil {
         try {
             //Connect to DB
             dbConnect();
-            System.out.println("Select statement: " + queryStmt + "\n");
 
             //Create statement
             stmt = conn.createStatement();
