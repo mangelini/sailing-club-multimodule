@@ -93,6 +93,26 @@ public class MemberDAO {
     }
   }
 
+  /**
+   * Search for a specific member inside Member's DB table
+   *
+   * @param username Username of target member
+   * @return Member object
+   */
+  public static synchronized Member searchMemberByUsername(String username) throws SQLException, ClassNotFoundException {
+    String selectStmt = "SELECT * FROM member WHERE Username='" + username + "'";
+
+    try {
+      // Get ResultSet from dbExecuteQuery method
+      ResultSet rsMem = DBUtil.dbExecuteQuery(selectStmt);
+
+      return getMemberFromResultSet(rsMem);
+    } catch (SQLException e) {
+      System.out.println("While searching a member with " + username + " username, an error occurred: " + e);
+      throw e;
+    }
+  }
+
   private static ArrayList<Member> getMemberList(ResultSet rs) throws SQLException {
     // Declare an observable List which comprises Member objects
     ArrayList<Member> memList = new ArrayList<>();

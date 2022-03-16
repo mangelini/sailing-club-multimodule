@@ -19,10 +19,13 @@ public class AddMemberCommand implements Command {
     try {
       Member clientMember = (Member) message.getUser();
 
-      // Insert member to DB
-      int ID = MemberDAO.insertMember(clientMember);
-      // get the newly added Member by searching DB with its ID
-      actualMember = MemberDAO.searchMemberByID(ID);
+      // assert that username is not already used
+      if (MemberDAO.searchMemberByUsername(clientMember.getUsername()) == null) {
+        // Insert member to DB
+        int ID = MemberDAO.insertMember(clientMember);
+        // get the newly added Member by searching DB with its ID
+        actualMember = MemberDAO.searchMemberByID(ID);
+      } else throw new Exception();
     } catch (Exception e) {
       replyMessage = new Reply(ReplyType.ERROR);
       return replyMessage;

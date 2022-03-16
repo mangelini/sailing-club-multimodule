@@ -15,7 +15,9 @@ public class AddEmployeeCommand implements Command {
     try {
       Employee clientEmployee = (Employee) message.getUser();
 
-      EmployeeDAO.insertEmployee(clientEmployee);
+      if (EmployeeDAO.searchEmployee(clientEmployee.getUsername()) == null)
+        EmployeeDAO.insertEmployee(clientEmployee);
+      else throw new Exception();
     } catch (Exception e) {
       replyMessage = new Reply(ReplyType.ERROR);
       return replyMessage;

@@ -62,6 +62,6 @@ public class AdminAddEmployeeController {
      * Goes back to the previous page
      */
     public void onGoBackClick() throws IOException {
-        new AuthHomePage().render();
+        new AdminHomePage(currentEmployee).render();
     }
 }
