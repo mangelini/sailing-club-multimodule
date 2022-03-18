@@ -7,6 +7,9 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command used to add an employee if it doesn't already exist one with the same credentials
+ */
 public class AddEmployeeCommand implements Command {
   @Override
   public synchronized Reply execute(Message message) {

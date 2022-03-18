@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Model class for StorageFee entity in database
+ */
 public class StorageFee extends Fee {
     private final Boat boat;
 
@@ -7,6 +10,7 @@ public class StorageFee extends Fee {
      * Constructor for the Storage Fee Entity for DB records
      * @param boat Boat for which the fee needs to be paid
      * @param date Date of the transaction
+     * @param paymentType Whether the fee was paid with credit card or bank transfer
      */
     public StorageFee(Boat boat, java.sql.Timestamp date, String paymentType){
         this.boat = boat;
@@ -19,6 +23,8 @@ public class StorageFee extends Fee {
      * Constructor with Fee for the Storage Fee Entity for DB records
      * @param boat Boat for which the fee needs to be paid
      * @param date Date of the transaction
+     * @param fee Actual fee of Registration Fee
+     * @param paymentType Whether the fee was paid with credit card or bank transfer
      */
     public StorageFee(Boat boat, java.sql.Timestamp date, Double fee, String paymentType){
         this.boat = boat;
@@ -30,6 +36,7 @@ public class StorageFee extends Fee {
     /**
      * Constructor for the Storage Fee Entity for Client side
      * @param boat Boat for which the fee needs to be paid
+     * @param paymentType Whether the fee was paid with credit card or bank transfer
      */
     public StorageFee(Boat boat, String paymentType){
         this.boat = boat;

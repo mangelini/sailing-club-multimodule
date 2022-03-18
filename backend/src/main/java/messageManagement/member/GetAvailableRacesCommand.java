@@ -13,6 +13,10 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of races that are not expired and to which
+ * the member didn't already register a boat
+ */
 public class GetAvailableRacesCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

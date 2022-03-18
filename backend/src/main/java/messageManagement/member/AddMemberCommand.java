@@ -8,7 +8,8 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 /**
- * AddMemberCommand
+ * Command that adds a member if another record in member table does not have same
+ * credentials
  */
 public class AddMemberCommand implements Command {
   @Override

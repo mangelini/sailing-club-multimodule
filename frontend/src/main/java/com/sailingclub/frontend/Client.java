@@ -8,6 +8,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * Client side application entry point
+ */
 public class Client {
     private static final Integer SPORT = 4444;
     private static final String SHOST = "localhost";
@@ -32,7 +35,6 @@ public class Client {
             }
 
             App.startFrontend();
-            System.out.println("Closing socket");
             Helpers.getInputStream().close();
             Helpers.getOutputStream().close();
             client.close();

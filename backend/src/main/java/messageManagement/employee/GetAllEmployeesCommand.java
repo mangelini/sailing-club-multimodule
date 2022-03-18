@@ -9,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all employees present in system
+ */
 public class GetAllEmployeesCommand implements Command {
     @Override
     public Reply execute(Message message) {

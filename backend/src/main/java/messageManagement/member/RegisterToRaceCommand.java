@@ -14,6 +14,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+/**
+ * Command to register a specified boat to selected race with preferred payment type
+ * by adding a new record to RegistrationFee table
+ */
 public class RegisterToRaceCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

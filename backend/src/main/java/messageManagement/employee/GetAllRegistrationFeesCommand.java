@@ -1,9 +1,7 @@
 package messageManagement.employee;
 
 import dao.RegistrationFeeDAO;
-import dao.StorageFeeDAO;
 import entities.RegistrationFee;
-import entities.StorageFee;
 import messageManagement.Command;
 import messageManagement.Message;
 import messageManagement.Reply;
@@ -11,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all registration to race fees present in database
+ */
 public class GetAllRegistrationFeesCommand implements Command {
     @Override
     public Reply execute(Message message) {

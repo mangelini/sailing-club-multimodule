@@ -12,6 +12,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of boats that have a not expired storage fee
+ */
 public class GetAvailableBoatsCommand implements Command {
 
     @Override
@@ -21,7 +24,7 @@ public class GetAvailableBoatsCommand implements Command {
 
         try {
             Member member = (Member) message.getUser();
-            ArrayList<Boat> boats = (ArrayList<Boat>) BoatDAO.searchEnabledBoatsByMember(member);
+            ArrayList<Boat> boats = BoatDAO.searchEnabledBoatsByMember(member);
 
             for (Boat boat : boats){
                 StorageFee storageFee = StorageFeeDAO.searchNotExpiredStorageFeeOfBoat(boat.getID());

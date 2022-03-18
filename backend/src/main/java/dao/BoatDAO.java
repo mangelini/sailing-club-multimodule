@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to Boat entity of database
+ */
 public class BoatDAO {
   /**
    * Add boat to the member

@@ -12,6 +12,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all storage fees that needs to be paid by every member
+ */
 public class GetEmployeeStorageFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {

@@ -9,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all races available and expired present in database
+ */
 public class GetAllRacesCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

@@ -3,8 +3,10 @@ package entities;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
+/**
+ * Model class for Race entity in database
+ */
 public class Race implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -15,10 +17,11 @@ public class Race implements Serializable {
     private final Integer expired;
 
     /**
-     * Constructor for Race Entity
+     * Constructor for Race Entity without ID
      * @param name Name of the Race
      * @param location Where the race is being held
-     * @param date When the race starts
+     * @param date Date of creation
+     * @param expired True if the race is expired, False otherwise
      */
     public Race(String name, String location, java.sql.Timestamp date, boolean expired){
         this.name = name;
@@ -28,6 +31,12 @@ public class Race implements Serializable {
         else this.expired = 1;
     }
 
+    /**
+     * Constructor without timestamp and ID
+     * @param name Name of race
+     * @param location Where the race is taking place
+     * @param expired True if the race is expired, False otherwise
+     */
     public Race(String name, String location, boolean expired){
         this.name = name;
         this.location = location;
@@ -36,6 +45,14 @@ public class Race implements Serializable {
         else this.expired = 1;
     }
 
+    /**
+     * Base constructor for Race entity
+     * @param ID ID of race
+     * @param name Name of race
+     * @param location Where the race is taking place
+     * @param date Date of creation
+     * @param expired True if the race is expired, False otherwise
+     */
     public Race(Integer ID, String name, String location, java.sql.Timestamp date, boolean expired){
         this.ID = ID;
         this.name = name;
@@ -85,16 +102,10 @@ public class Race implements Serializable {
         return ID;
     }
 
-
-
     /**
      * Getter for expired property of Race entity
      * @return Expired
      */
-    /*public boolean isExpired() {
-        return this.expired;
-    }*/
-
     public Integer isExpired() {
         return this.expired;
     }

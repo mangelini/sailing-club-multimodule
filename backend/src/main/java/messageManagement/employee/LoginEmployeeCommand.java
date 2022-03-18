@@ -8,7 +8,7 @@ import messageManagement.Reply;
 import messageManagement.ReplyType;
 
 /**
- * LoginEmployeeCommand
+ * Command to log in an employee by checking that inserted credentials match with a record in database
  */
 public class LoginEmployeeCommand implements Command {
   @Override

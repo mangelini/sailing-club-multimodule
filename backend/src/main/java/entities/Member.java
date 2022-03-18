@@ -1,10 +1,11 @@
 package entities;
 
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 
+/**
+ * Model class for Member entity in database
+ */
 public class Member implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -16,6 +17,15 @@ public class Member implements Serializable {
     private String username;
     private String password;
 
+    /**
+     * Base constructor for Member entity
+     * @param name Name of member
+     * @param surname Surname of member
+     * @param address Address of member
+     * @param fiscalCode Fiscal code of member
+     * @param Username Username of member
+     * @param Password Password of member
+     */
     public Member(String name, String surname, String address, String fiscalCode, String Username, String Password){
         this.name = name;
         this.surname = surname;
@@ -25,6 +35,11 @@ public class Member implements Serializable {
         this.password = Password;
     }
 
+    /**
+     * Constructor for Member with only username and password
+     * @param username Username of member
+     * @param password Password of member
+     */
     public Member(String username, String password){
         this.username = username;
         this.password = password;
@@ -72,7 +87,7 @@ public class Member implements Serializable {
 
     /**
      * Setter for member ID's
-     * @param ID
+     * @param ID ID of member
      */
     public void setID(Integer ID){
         this.ID = ID;
@@ -103,7 +118,7 @@ public class Member implements Serializable {
 
     /**
      * Setter for username
-     * @param username
+     * @param username Username of member
      */
     public void setUsername(String username) {
         this.username = username;

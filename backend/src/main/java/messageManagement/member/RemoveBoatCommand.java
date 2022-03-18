@@ -9,6 +9,9 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command to delete a boat from database
+ */
 public class RemoveBoatCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

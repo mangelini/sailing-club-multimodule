@@ -7,6 +7,9 @@ import entities.NotifyStorageFee;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class handles all the queries and interaction to NotifyStorageFee entity of database
+ */
 public class NotifyStorageFeeDAO {
     /**
      * Adds a new record to NotifyStorageFee table

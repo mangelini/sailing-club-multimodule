@@ -7,6 +7,9 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command that adds a boat to database
+ */
 public class AddBoatCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

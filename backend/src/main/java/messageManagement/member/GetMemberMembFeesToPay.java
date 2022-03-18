@@ -12,6 +12,10 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that checks whether the member has been sent by an employee
+ * a notification to renew his membership fee or not
+ */
 public class GetMemberMembFeesToPay implements Command {
     @Override
     public Reply execute(Message message) {

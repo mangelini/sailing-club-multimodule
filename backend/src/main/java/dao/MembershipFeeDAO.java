@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to MembershipFee entity of database
+ */
 public class MembershipFeeDAO {
   /**
    * Adds new Membership Fee record with PaymentType

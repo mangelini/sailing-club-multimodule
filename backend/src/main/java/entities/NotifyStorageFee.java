@@ -2,6 +2,9 @@ package entities;
 
 import java.io.Serializable;
 
+/**
+ * Model class for NotifyStorageFee entity in database
+ */
 public class NotifyStorageFee implements Serializable {
     private Integer ID;
     private Boat boat;

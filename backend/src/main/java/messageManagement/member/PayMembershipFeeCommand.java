@@ -12,6 +12,10 @@ import messageManagement.ReplyType;
 
 import java.sql.Timestamp;
 
+/**
+ * Command to pay a membership fee by removing the notification from database and adding a new
+ * record to MembershipFee table
+ */
 public class PayMembershipFeeCommand implements Command {
     @Override
     public Reply execute(Message message) {

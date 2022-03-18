@@ -11,6 +11,10 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command to pay a storage fee with preferred payment type by adding a new record
+ * to StorageFee table and deleting notification
+ */
 public class PayStorageFeesCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

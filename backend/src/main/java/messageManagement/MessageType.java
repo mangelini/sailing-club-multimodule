@@ -3,9 +3,11 @@ package messageManagement;
 import messageManagement.employee.*;
 import messageManagement.member.*;
 
+/**
+ * List of all possible request types
+ */
 public enum MessageType {
-  LOGIN_EMPLOYEE(new LoginEmployeeCommand()), ADD_EMPLOYEE(new AddEmployeeCommand()),
-  GET_EMPLOYEE(new GetEmployeeCommand()), LOGIN_MEMBER(new LoginMemberCommand()),
+  LOGIN_EMPLOYEE(new LoginEmployeeCommand()), ADD_EMPLOYEE(new AddEmployeeCommand()), LOGIN_MEMBER(new LoginMemberCommand()),
   ADD_MEMBER(new AddMemberCommand()), CONNECTION_ESTABLISHED(new ConnectionEstablishedCommand()),
   ADD_BOAT(new AddBoatCommand()), REMOVE_BOAT(new RemoveBoatCommand()), GET_ALL_BOATS(new GetAllBoatsCommand()),
   PAY_STORAGE_FEE(new PayStorageFeesCommand()), GET_EMPLOYEE_STORAGE_FEES_TO_PAY(new GetEmployeeStorageFeesToPay()),

@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to NotifyStorageFee entity of database
+ */
 public class RaceDAO {
     /**
      * Add new race record to db

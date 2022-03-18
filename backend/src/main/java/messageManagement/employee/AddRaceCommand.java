@@ -7,6 +7,9 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command to add a new race by an employee
+ */
 public class AddRaceCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

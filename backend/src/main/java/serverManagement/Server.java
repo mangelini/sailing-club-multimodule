@@ -9,6 +9,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Entry point of backend application
+ */
 public class Server {
     private static final Integer SPORT = 4444;
     private static final Integer COREPOOL = 5; // number of threads to keep even in idle

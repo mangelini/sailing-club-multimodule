@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Model class for NotifyMembershipFee entity in database
+ */
 public class NotifyMembershipFee {
     private Integer ID;
     private Member member;

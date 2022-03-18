@@ -11,6 +11,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of the boats subscribed to the selected race
+ */
 public class ViewParticipantsCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {

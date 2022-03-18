@@ -2,18 +2,16 @@ package com.sailingclub.frontend;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Helper class with code reused throughout the entire frontend application
+ */
 public class Helpers {
     public static Scene staticScene;
     private static ObjectInputStream is;

@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to StorageFee entity of database
+ */
 public class StorageFeeDAO {
   /**
    * Adds a new Storage Fee with PaymentType record to db

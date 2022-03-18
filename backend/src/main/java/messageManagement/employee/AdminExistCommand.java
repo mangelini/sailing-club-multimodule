@@ -6,6 +6,9 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command that checks if an admin already exist inside database
+ */
 public class AdminExistCommand implements Command {
     @Override
     public Reply execute(Message message) {

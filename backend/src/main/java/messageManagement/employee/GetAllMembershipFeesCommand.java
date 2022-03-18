@@ -9,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns all membership fees present in database
+ */
 public class GetAllMembershipFeesCommand implements Command {
     @Override
     public Reply execute(Message message) {

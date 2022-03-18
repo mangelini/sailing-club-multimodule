@@ -3,6 +3,9 @@ package entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Model class for Boat entity in database
+ */
 public class Boat implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

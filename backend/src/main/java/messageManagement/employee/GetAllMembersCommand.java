@@ -9,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all members present in database
+ */
 public class GetAllMembersCommand implements Command {
     @Override
     public Reply execute(Message message) {

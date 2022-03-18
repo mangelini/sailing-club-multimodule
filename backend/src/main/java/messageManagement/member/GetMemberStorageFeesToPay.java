@@ -13,6 +13,10 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of boats that have been notified by an employee
+ * to renew the storage fee
+ */
 public class GetMemberStorageFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {

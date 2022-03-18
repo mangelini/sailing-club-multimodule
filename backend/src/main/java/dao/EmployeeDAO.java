@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to Employee entity of database
+ */
 public class EmployeeDAO {
   /**
    * Creates a new employee record in the Employee DB Table

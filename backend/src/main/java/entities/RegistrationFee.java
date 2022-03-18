@@ -1,8 +1,10 @@
 package entities;
 
-
 import java.sql.Timestamp;
 
+/**
+ * Model class for RegistrationFee entity in database
+ */
 public class RegistrationFee extends Fee {
     private final Boat boat;
     private final Race race;
@@ -11,6 +13,9 @@ public class RegistrationFee extends Fee {
      * Constructor for the Registration Fee Entity
      * @param boat Boat registered to the race
      * @param race Race of the Registration Fee record
+     * @param fee Actual fee of Registration Fee
+     * @param date Date of registration
+     * @param paymentType Whether the fee was paid with credit card or bank transfer
      */
     public RegistrationFee(Boat boat, Race race, Double fee, Timestamp date, String paymentType){
         this.boat = boat;

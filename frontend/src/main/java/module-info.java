@@ -1,4 +1,4 @@
-module com.sailingclub.frontend {
+module frontend {
     requires javafx.controls;
     requires javafx.fxml;
     requires backend;

@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * This class handles all the queries and interaction to Member entity of database
+ */
 public class MemberDAO {
   /**
    * Creates a new member record in the Member DB Table

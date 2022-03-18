@@ -2,6 +2,9 @@ package entities;
 
 import java.sql.Timestamp;
 
+/**
+ * Model class for MembershipFee entity in database
+ */
 public class MembershipFee extends Fee {
     private final Member member;
 
@@ -10,6 +13,7 @@ public class MembershipFee extends Fee {
      * @param member Member of the club
      * @param date Date of the payment
      * @param fee Fee that was paid
+     * @param paymentType Whether the fee was paid with credit card or bank transfer
      */
     public MembershipFee(Member member, Timestamp date, Double fee, String paymentType){
         this.member = member;

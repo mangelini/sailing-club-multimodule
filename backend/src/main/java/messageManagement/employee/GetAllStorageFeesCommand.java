@@ -9,6 +9,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns all storage fees expired and not expired present in database
+ */
 public class GetAllStorageFeesCommand implements Command {
     @Override
     public Reply execute(Message message) {

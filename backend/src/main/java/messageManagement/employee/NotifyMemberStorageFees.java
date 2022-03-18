@@ -3,12 +3,15 @@ package messageManagement.employee;
 import dao.NotifyStorageFeeDAO;
 import entities.Boat;
 import entities.NotifyStorageFee;
-import entities.StorageFee;
 import messageManagement.Command;
 import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
+/**
+ * Command that adds a record to NotifyStorageFee table of the boat which has
+ * its storage fee expired
+ */
 public class NotifyMemberStorageFees implements Command {
     @Override
     public synchronized Reply execute(Message message) {

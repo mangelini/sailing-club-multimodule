@@ -14,9 +14,12 @@ import messageManagement.ReplyType;
 
 import java.io.IOException;
 
+/**
+ * JavaFX application entry point
+ */
 public class App extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         // this makes available the scene object in every class
         // making it a sort of "global state"
         Helpers.staticScene = new Scene(new Pane());

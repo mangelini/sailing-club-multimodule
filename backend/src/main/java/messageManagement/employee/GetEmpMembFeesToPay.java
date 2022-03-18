@@ -8,9 +8,11 @@ import messageManagement.Message;
 import messageManagement.Reply;
 import messageManagement.ReplyType;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of members that needs to renew their membership fee
+ */
 public class GetEmpMembFeesToPay implements Command {
     @Override
     public synchronized Reply execute(Message message) {

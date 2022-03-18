@@ -4,7 +4,9 @@ import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
 
-
+/**
+ * This class handles connection and interactions between DAOs and database
+ */
 public class DBUtil {
     private static String JDBC_DRIVER;
 
@@ -47,7 +49,6 @@ public class DBUtil {
 
     /**
      * Remove the connection to the database
-     * @throws SQLException
      */
     public static void dbDisconnect() throws SQLException {
         try {
@@ -109,8 +110,6 @@ public class DBUtil {
     /**
      * This method will be used for Update/Insert/Delete operations
      * @param sqlStmt Execute the given statement
-     * @throws SQLException
-     * @throws ClassNotFoundException
      */
     public synchronized static int dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         //Declare statement as null

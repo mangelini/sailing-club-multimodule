@@ -10,6 +10,9 @@ import messageManagement.ReplyType;
 
 import java.util.ArrayList;
 
+/**
+ * Command that returns a list of all boats owned by a member passed by client side
+ */
 public class GetAllBoatsCommand implements Command {
     @Override
     public synchronized Reply execute(Message message) {
