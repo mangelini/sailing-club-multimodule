@@ -22,7 +22,7 @@ The application is divided in two modules:
 - `backend`: contains the server logic
 - `frontend`: contains the JavaFX application
 
-Each module uses the folder structure and conventions suggested by Maven, 
+Each module uses the folder structure and conventions suggested by Maven,
 while also having dependencies such as JavaFX and MySQL managed by it.
 
 ### DAO Pattern
@@ -34,7 +34,7 @@ if a change in the persistence layer is needed, only the DAO layer will be chang
 
 ### Client-Server communication
 
-Clients and server communicate via two classes exposed to the frontend 
+Clients and server communicate via two classes exposed to the frontend
 using Java 8 module features:
 
 - `Message`: used to send a request from client
@@ -55,14 +55,33 @@ readable code and to have for each request a particular class.
 > :warning: **The following scripts will erase a database named sailing-club if it already exists in the host machine**
 - Execute the `createProductionDB.sql` script situated in
   `/sailing-club-multimodule/backend/scripts/createProductionDB.sql` to create the database
-- Install Maven dependencies in your IDE of choice
+  - Install Maven dependencies in your IDE of choice
 
-  ### In Intellij
-  - go to `Run -> Edit Configurations`
-  - add two configurations for `Server.java` and `Client.java` with 
-  `Add new Configuration`
-  - for `Client.java` `Modify Options -> Enable multiple instances` to be 
-  able to run multiple clients at the same time
+    ### In Intellij
+      - go to `Run -> Edit Configurations`
+      - add two configurations for `Server.java` and `Client.java` with
+        `Add new Configuration`
+      - for `Client.java` `Modify Options -> Enable multiple instances` to be
+        able to run multiple clients at the same time
+
+      ### Eclipse
+        
+    On top menu -> `Run` -> `Run Configuration`
+
+      #### Server
+    - click on `Java Application`
+    - click `Add new configuration`
+    - rename it `Server`
+    - in `project` -> click `browse` -> choose `backend`
+    - in `main class` -> click `search` -> choose `serverManagement.Server`
+    
+    #### Client
+    - click on `Java Apllication`
+    - click `Add new configuration`
+    - rename it `Client`
+    - in `project` -> click `browse` -> choose `frontend`
+    - in `main class` -> click `search` -> choose `com.sailingclub.frontend.Client`
+    - in `Argument` menu -> `VM arguments` -> add `--module-path "\path\to\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml`
 
 ## How to run the application
 There are two entry points to run the application:
