@@ -1,13 +1,13 @@
 # Sailing Club Project
 
+![](src/main/resources/img/app-image.png)
+
 This is a client-server application written in Java using module features introduced in Java 8.
 It also uses Maven for project management.
 
-Javadoc is available at `/sailing-club-multimodule/src/main
-/resources/javadoc/index.html`.
+Javadoc is available at `/sailing-club-multimodule/src/main/resources/javadoc/index.html`.
 
-Tests of base classes are available at `/sailing-club-multimodule
-/backend/src/test/java/entities/`.
+Tests of base classes are available at `/sailing-club-multimodule/backend/src/test/java/entities/`.
 
 ### Table of Contents
 
@@ -62,7 +62,7 @@ readable code and to have for each request a particular class.
   - add two configurations for `Server.java` and `Client.java` with 
   `Add new Configuration`
   - for `Client.java` `Modify Options -> Enable multiple instances` to be 
-  able to run multiple client at the same time
+  able to run multiple clients at the same time
 
 ## How to run the application
 There are two entry points to run the application:
