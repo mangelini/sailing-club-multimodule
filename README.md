@@ -66,6 +66,14 @@ readable code and to have for each request a particular class.
 
       ### Eclipse
         
+    #### Import project
+    
+    - on top menu -> `File` -> `Import`
+    - click `Maven` -> `Existing Maven projects`
+    - click `Browse`
+    - choose the correct path in your system for `sailing-club-multimodule` project
+
+    #### Run configuration
     On top menu -> `Run` -> `Run Configuration`
 
       #### Server
@@ -76,12 +84,11 @@ readable code and to have for each request a particular class.
     - in `main class` -> click `search` -> choose `serverManagement.Server`
     
     #### Client
-    - click on `Java Apllication`
+    - click on `Java Application`
     - click `Add new configuration`
     - rename it `Client`
     - in `project` -> click `browse` -> choose `frontend`
     - in `main class` -> click `search` -> choose `com.sailingclub.frontend.Client`
-    - in `Argument` menu -> `VM arguments` -> add `--module-path "\path\to\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml`
 
 ## How to run the application
 There are two entry points to run the application:
