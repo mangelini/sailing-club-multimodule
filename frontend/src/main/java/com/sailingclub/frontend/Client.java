@@ -1,3 +1,8 @@
+/*
+Matteo Angelini 307904
+Valerio Garozzo 308141
+ */
+
 package com.sailingclub.frontend;
 
 import messageManagement.Message;

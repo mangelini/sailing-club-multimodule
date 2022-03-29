@@ -15,6 +15,7 @@ Tests of base classes are available at `/sailing-club-multimodule/backend/src/te
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
 - [How to run the application](#how-to-run-the-application)
+- [How to use the application](#how-to-use-the-application)
 
 ## Project Structure
 
@@ -49,8 +50,6 @@ readable code and to have for each request a particular class.
 - This application uses MySQL as the DBMS which is not provided from the project, and
   thus should be already installed in the host machine
 - Eclipse or IntelliJ should have been already installed with the latest JDK
-- JavaFX should be already installed and setup in the host environment
-
 ## Setup
 > :warning: **The following scripts will erase a database named sailing-club if it already exists in the host machine**
 - Execute the `createProductionDB.sql` script situated in
@@ -100,3 +99,15 @@ There are two entry points to run the application:
 
 1. Execute `Server.java`
 2. Execute `Client.java`, this class can be started multiple times concurrently
+
+## How to use the application
+
+The first time that a client is launched, a new Admin registration page will be showed.
+The admin is the only user that can create and manage employees.
+
+In the HomePage the user can choose to authenticate as a Member, Employee or Admin.
+
+A Member can add or delete boats, manage fee payments and participate to races.
+
+An Employee can manage member accounts and their boats, check payments record,
+and notify members of their expired fees. Membership and Storage fees expires in 30 seconds.
