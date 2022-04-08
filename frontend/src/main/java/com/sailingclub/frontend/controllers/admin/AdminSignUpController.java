@@ -19,14 +19,12 @@ public class AdminSignUpController {
     private TextField username;
     @FXML private PasswordField password1;
     @FXML private PasswordField password2;
-    @FXML private Button backButton;
 
     /**
      * Initialize FXML components,
      */
     @FXML
     public void initialize(){
-        this.backButton.setStyle("-fx-background-radius: 5em; ");
     }
 
     public void onSignUpClick(){
