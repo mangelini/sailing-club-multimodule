@@ -52,11 +52,4 @@ public class AdminSignUpController {
             }
         }
     }
-
-    /**
-     * Goes back to the previous page
-     */
-    public void onGoBackClick() throws IOException {
-        new AuthHomePage().render();
-    }
 }

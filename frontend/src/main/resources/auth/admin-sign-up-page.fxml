@@ -26,11 +26,6 @@
         <PasswordField fx:id="password1" layoutX="194.0" layoutY="153.0" promptText="Enter Password" />
         <PasswordField fx:id="password2" layoutX="194.0" layoutY="193.0" promptText="Re Enter Password" />
         <Button layoutX="332.0" layoutY="394.0" mnemonicParsing="false" onAction="#onSignUpClick" prefHeight="44.0" prefWidth="137.0" text="SIGN UP" />
-        <Button fx:id="backButton" layoutX="52.0" layoutY="408.0" mnemonicParsing="false" onAction="#onGoBackClick" prefHeight="45.0" prefWidth="52.0" text="&lt;">
-            <font>
-                <Font name="System Bold" size="18.0" />
-            </font>
-        </Button>
       <Label layoutX="78.0" layoutY="195.0" text="Password">
          <font>
             <Font size="14.0" />
